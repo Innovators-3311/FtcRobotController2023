@@ -21,7 +21,6 @@ public class MechanicalDriveBase
 
     final double  COUNTS_PER_INCH = (8192 * 1) / (2 * 3.1415); // 1,303.835747254496
     private double heading = 0;
-    IMUControl imuControl;
 
     /**
      * Constructor for MechanicalDriveBase from the hardware map
@@ -151,9 +150,9 @@ public class MechanicalDriveBase
     }
 
       /**======================================== Autonomous Code ===============================================**/
-      //LF encoder for left side
-      //RF encoder for right side
-      //LB for turning and strafing
+      //lf encoder for left side
+      //rf encoder for right side
+      //rb for turning and strafing
       //Bore encoders ticks per rotation 8192
 
       /*
@@ -187,69 +186,106 @@ public class MechanicalDriveBase
     //                               How far do you want  which way do you  How fast do
     //                               to drive in inches    want to drive   you want to go
     //                                  positives only     true is right    positive only
-    public void strafeWithEncoders(double distance, boolean direction, double speed)
+    public void strafeWithEncoders(double distance, boolean direction, double speed, IMUControl imuControl, Telemetry telemetry)
     {
+        double strafeError;
         heading = imuControl.getAngle();
+        rb.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rb.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         if (direction)
         {
-            distance += Math.abs(lb.getCurrentPosition());
-            driveMotors(0,1,0, speed);
-            while (Math.abs(lb.getCurrentPosition()) < distance)
+            distance *= -1;
+            while (rb.getCurrentPosition() > distance)
             {
-                strafeCorrectionRight();
+                strafeError = (heading - imuControl.getAngle()) * 0.02;
+                strafe(1, strafeError, true, speed);
+                telemetry.addData("Correction", strafeError +"\nEncoder: " + rb.getCurrentPosition());
+                driveBaseTelemetry(telemetry);
+                telemetry.update();
             }
             driveMotors(0,0,0,0);
         }
         else
         {
-            distance -= Math.abs(lb.getCurrentPosition());
-            driveMotors(0,-1,0, speed);
-            while (Math.abs(lb.getCurrentPosition()) > distance)
+            while (rb.getCurrentPosition() < distance)
             {
-                strafeCorrectionLeft();
+                strafeError = (heading - imuControl.getAngle()) * 0.02;
+                strafe(1, strafeError, false, speed);
+                telemetry.addData("Correction", strafeError +"\nEncoder: " + rb.getCurrentPosition());
+                driveBaseTelemetry(telemetry);
+                telemetry.update();
             }
             driveMotors(0,0,0,0);
         }
     }
 
-    private void strafeCorrectionRight()
+
+    /**
+     * Drive the motors according to drive, turn, strafe inputs.
+     *
+     * @param strafe strafe (left or right = -1 to 1)
+     * @param speed scale factor that is applied to all motor powers (0 to 1)
+     */
+    private void strafe(double strafe, double error, boolean direction, double speed)
     {
-        if (imuControl.getAngle() < heading)
+        //TODO values in direction may be wrong (alligators? negatives?)
+        if (error > 0 && direction)
         {
-            while (imuControl.getAngle() < heading)
-            {
-                lf.setPower(lf.getPower() + 0.1);
-                rf.setPower(rf.getPower() - 0.1);
-            }
+            leftPowerFront = strafe;
+            rightPowerFront = -strafe;
+            leftPowerBack = -(strafe - error);
+            rightPowerBack = (strafe - error);
         }
-        else if (imuControl.getAngle() > heading)
+        else if (error < 0 && direction)
         {
-            while (imuControl.getAngle() > heading)
-            {
-                lb.setPower(lf.getPower() - 0.1);
-                rb.setPower(rf.getPower() + 0.1);
-            }
+            leftPowerFront = (strafe + error);
+            rightPowerFront = -(strafe + error);
+            leftPowerBack = -strafe;
+            rightPowerBack = strafe;
         }
+        else if (error > 0 && !direction)
+        {
+            leftPowerFront = -strafe;
+            rightPowerFront = strafe;
+            leftPowerBack = (strafe - error);
+            rightPowerBack = -(strafe - error);
+        }
+        else if (error < 0 && !direction)
+        {
+            leftPowerFront = -(strafe + error);
+            rightPowerFront = (strafe + error);
+            leftPowerBack = strafe;
+            rightPowerBack = -strafe;
+        }
+        else if (direction)
+        {
+            leftPowerFront  = strafe;
+            rightPowerFront = -strafe;
+            leftPowerBack   = -strafe;
+            rightPowerBack  = strafe;
+        }
+        else
+        {
+            leftPowerFront  = -strafe;
+            rightPowerFront = strafe;
+            leftPowerBack   = strafe;
+            rightPowerBack  = -strafe;
+        }
+
+
+        // This code is awful.
+        double maxAbsVal = maxAbsVal(leftPowerFront, leftPowerBack,
+                rightPowerFront, rightPowerBack);
+
+        maxAbsVal = Math.max(1.0, maxAbsVal);
+
+        lf.setPower(leftPowerFront/maxAbsVal * speed);
+        rf.setPower(rightPowerFront/maxAbsVal * speed);
+        lb.setPower(leftPowerBack/maxAbsVal * speed);
+        rb.setPower(rightPowerBack/maxAbsVal * speed);
+
     }
 
-    private void strafeCorrectionLeft()
-    {
-        if (imuControl.getAngle() < heading)
-        {
-            while (imuControl.getAngle() < heading)
-            {
-                lf.setPower(lf.getPower() - 0.1);
-                rf.setPower(rf.getPower() + 0.1);
-            }
-        }
-        else if (imuControl.getAngle() > heading)
-        {
-            while (imuControl.getAngle() > heading)
-            {
-                lb.setPower(lf.getPower() + 0.1);
-                rb.setPower(rf.getPower() - 0.1);
-            }
-        }
-    }
+
 }

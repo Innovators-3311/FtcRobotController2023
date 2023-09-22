@@ -23,10 +23,10 @@ public class EncoderTestMaster extends LinearOpMode
 
         while (opModeIsActive())
         {
-            mechanicalDriveBase.strafeWithEncoders(COUNTS_PER_INCH * 12, true, 0.5);
+            mechanicalDriveBase.strafeWithEncoders(COUNTS_PER_INCH * 24, true, 0.5, imuControl, telemetry);
             sleep(2000);
-            mechanicalDriveBase.strafeWithEncoders(COUNTS_PER_INCH * 12, true, 0.5);
-
+            mechanicalDriveBase.strafeWithEncoders(COUNTS_PER_INCH * 24, false, 0.5, imuControl, telemetry);
+            sleep(2000);
         }
     }
 }
