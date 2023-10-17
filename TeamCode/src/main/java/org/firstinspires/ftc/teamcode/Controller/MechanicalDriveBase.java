@@ -1,8 +1,12 @@
 package org.firstinspires.ftc.teamcode.Controller;
 
+import androidx.annotation.NonNull;
+
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.util.Range;
+
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.IMU.IMUControl;
 
@@ -198,7 +202,7 @@ public class MechanicalDriveBase
     {
         imuControl.resetAngle();
         double forwardError;
-        double strafeError;
+        double turnError;
         double forward = lf.getCurrentPosition();
         heading = imuControl.getAngle();
         rb.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -210,9 +214,11 @@ public class MechanicalDriveBase
             while (rb.getCurrentPosition() > distance)
             {
                 forwardError = (forward - lf.getCurrentPosition()) * 0.00001;
-                strafeError = (heading - imuControl.getAngle()) * 0.025;
-                strafe(1, strafeError, forwardError, true, speed);
-                telemetry.addData("Strafe Correction", strafeError + "\nEncoder: " + rb.getCurrentPosition());
+                turnError = (heading - imuControl.getAngle()) * 0.025;
+                Range.clip(forwardError, -0.2,0.2);
+                Range.clip(turnError, -0.25, 0.25);
+                strafe(1, turnError, forwardError, true, speed);
+                telemetry.addData("Turn Correction", turnError + "\nEncoder: " + rb.getCurrentPosition());
                 telemetry.addData("Forward Correction", forwardError + "\nEncoder: " + lf.getCurrentPosition());
                 driveBaseTelemetry(telemetry);
                 telemetry.update();
@@ -224,8 +230,11 @@ public class MechanicalDriveBase
             while (rb.getCurrentPosition() < distance)
             {
                 forwardError = (forward - lf.getCurrentPosition()) * 0.00001;
-                strafeError = (heading + imuControl.getAngle()) * 0.025;
-                strafe(1, strafeError, forwardError, false, speed);
+                turnError = (heading + imuControl.getAngle()) * 0.025;
+                Range.clip(forwardError, -0.2,0.2);
+                Range.clip(turnError, -0.25, 0.25);
+                strafe(1, turnError, forwardError, false, speed);
+                telemetry.addData("Turn Correction", turnError + "\nEncoder: " + rb.getCurrentPosition());
                 telemetry.addData("Forward Correction", forwardError + "\nEncoder: " + lf.getCurrentPosition());
                 driveBaseTelemetry(telemetry);
                 telemetry.update();
@@ -242,7 +251,7 @@ public class MechanicalDriveBase
         try {Thread.sleep(500);}
         catch (InterruptedException e) {e.printStackTrace();}
 
-        resetForward(forward);
+        resetForward(forward / 10);
         driveMotors(0, 0, 0, 0);
     }
 
@@ -255,7 +264,6 @@ public class MechanicalDriveBase
      */
     private void strafe(double strafe, double strafeError, double forwardError, boolean direction, double speed)
     {
-        //TODO values in direction may be wrong (alligators? negatives?)
         if (strafeError > 0 && direction)
         {
             leftPowerFront = strafe;
@@ -304,20 +312,14 @@ public class MechanicalDriveBase
         leftPowerBack += forwardError;
         rightPowerBack += forwardError;
 
-
-        // This code is awful.
-        double maxAbsVal = maxAbsVal(leftPowerFront, leftPowerBack, rightPowerFront, rightPowerBack);
-
-        maxAbsVal = Math.max(1.0, maxAbsVal);
-
-        lf.setPower(leftPowerFront / maxAbsVal * speed);
-        rf.setPower(rightPowerFront / maxAbsVal * speed);
-        lb.setPower(leftPowerBack / maxAbsVal * speed);
-        rb.setPower(rightPowerBack / maxAbsVal * speed);
+        lf.setPower(leftPowerFront * speed);
+        rf.setPower(rightPowerFront * speed);
+        lb.setPower(leftPowerBack * speed);
+        rb.setPower(rightPowerBack * speed);
 
     }
 
-    private void resetHeading(double start, IMUControl imuControl)
+    private void resetHeading(double start, @NonNull IMUControl imuControl)
     {
         if (imuControl.getAngle() > start)
         {
@@ -337,18 +339,18 @@ public class MechanicalDriveBase
 
     private void resetForward(double start)
     {
-        if (lf.getCurrentPosition() > start)
+        if (lf.getCurrentPosition()/10 > start)
         {
-            while (lf.getCurrentPosition() > start)
+            while (lf.getCurrentPosition()/10 > start)
             {
-                driveMotors(-1, 0, 0, 0.3);
+                driveMotors(-1, 0, 0, 0.25);
             }
         }
-        else if (lf.getCurrentPosition() < start)
+        else if (lf.getCurrentPosition()/10 < start)
         {
-            while (lf.getCurrentPosition() < start)
+            while (lf.getCurrentPosition()/10 < start)
             {
-                driveMotors(1, 0, 0, 0.3);
+                driveMotors(1, 0, 0, 0.25);
             }
         }
 
