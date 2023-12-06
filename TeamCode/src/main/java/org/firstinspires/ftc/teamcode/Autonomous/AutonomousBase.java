@@ -23,7 +23,9 @@ public class AutonomousBase extends LinearOpMode {
 
     ImuHardware imuControl;
 
-    /** Drive control */
+    /**
+     * Drive control
+     */
     MecanumSynchronousDriver driver;
     AprilTagMaster aprilTagMaster;
     InitAprilTags initAprilTags;
@@ -31,53 +33,43 @@ public class AutonomousBase extends LinearOpMode {
 
     SpikeLineEnum zone = SpikeLineEnum.UNKNOWN;
 
-    public enum SpikeLineEnum
-    {
+    public enum SpikeLineEnum {
         LEFT_SPIKE,
         CENTER_SPIKE,
         RIGHT_SPIKE,
         UNKNOWN
     }
 
-    public AutonomousBase() {
 
-    }
-
-    protected void initMembers()
-    {
-        try
-        {
+    protected void initMembers() {
+        try {
             driver = new MecanumSynchronousDriver(this.hardwareMap, this);
             webcam = new WebCamHardware(this);
             imuControl = new ImuHardware(this);
             initAprilTags = new InitAprilTags();
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     @Override
-    public void runOpMode() throws InterruptedException
-    {
+    public void runOpMode() throws InterruptedException {
         initMembers();
 
         webcam.initTfod();
 
         Recognition rec = null;
-        while ((rec = webcam.findObject()) == null)
-        {
+        while ((rec = webcam.findObject()) == null) {
             telemetry.addData("- Camera", "Looking for object");
             telemetry.update();
         }
 
-        double x = (rec.getLeft() + rec.getRight()) / 2 ;
-        double y = (rec.getTop()  + rec.getBottom()) / 2 ;
+        double x = (rec.getLeft() + rec.getRight()) / 2;
+        double y = (rec.getTop() + rec.getBottom()) / 2;
 
         zone = webcam.findTarget(x);
 
-        telemetry.addData(""," ");
+        telemetry.addData("", " ");
         telemetry.addData("Image", "%s (%.0f %% Conf.)", rec.getLabel(), rec.getConfidence() * 100);
         telemetry.addData("- Position", "%.0f / %.0f", x, y);
         telemetry.addData("- Size", "%.0f x %.0f", rec.getWidth(), rec.getHeight());
@@ -85,7 +77,7 @@ public class AutonomousBase extends LinearOpMode {
 
         waitForStart();
 
-        telemetry.addData(""," ");
+        telemetry.addData("", " ");
         telemetry.addData("Image", "%s (%.0f %% Conf.)", rec.getLabel(), rec.getConfidence() * 100);
         telemetry.addData("- Position", "%.0f / %.0f", x, y);
         telemetry.addData("- Size", "%.0f x %.0f", rec.getWidth(), rec.getHeight());
@@ -111,10 +103,8 @@ public class AutonomousBase extends LinearOpMode {
     }
 
 
-
     //This is code for controlling what happens if obj
-    public void planPurple(SpikeLineEnum zone, int isBlue) throws IOException, InterruptedException
-    {
+    public void planPurple(SpikeLineEnum zone, int isBlue) throws IOException, InterruptedException {
         /***
          This is the starting code for if the object is on the left/center/right.
          PlanAlpha or planBeta to follow.
@@ -123,13 +113,12 @@ public class AutonomousBase extends LinearOpMode {
         //...then calls one of the if statements
 
         //If target is in the center...
-        if(zone == SpikeLineEnum.CENTER_SPIKE)
-        {
+        if (zone == SpikeLineEnum.CENTER_SPIKE) {
 
             //Go forward to determine whether object is left/center/right
             driver.forward(27, 1, 0.6);
             //Go forward and place pixel
-            
+
             //Go backward into position
             driver.forward(22, -1, 0.6);
 
@@ -137,8 +126,7 @@ public class AutonomousBase extends LinearOpMode {
 
 
         //If target is on the left...
-        else if(zone == SpikeLineEnum.LEFT_SPIKE)
-        {
+        else if (zone == SpikeLineEnum.LEFT_SPIKE) {
             //Go forward just enough to turn
             driver.forward(17, 1, 0.6);
 
@@ -157,22 +145,19 @@ public class AutonomousBase extends LinearOpMode {
 
 
             //Adjust (right)
-            driver.rotate2(-45*isBlue, imuControl);
+            driver.rotate2(-45 * isBlue, imuControl);
 
             sleep(DELAY);
             //Go backward into position
             driver.forward(17, -1, 0.6);
 
-        }
-
-        else if(zone == SpikeLineEnum.RIGHT_SPIKE)
-        {
+        } else if (zone == SpikeLineEnum.RIGHT_SPIKE) {
             //Go forward just enough to turn
             driver.forward(17, 1, 0.6);
 
             sleep(DELAY);
 
-            driver.rotate2(-45*isBlue, imuControl);
+            driver.rotate2(-45 * isBlue, imuControl);
 
             sleep(1000);
 
@@ -187,7 +172,7 @@ public class AutonomousBase extends LinearOpMode {
             sleep(1000);
 
             //Adjust (left)
-            driver.rotate2(45*isBlue, imuControl);
+            driver.rotate2(45 * isBlue, imuControl);
 
             //Go back
             driver.forward(17, -1, 0.6);
@@ -198,67 +183,30 @@ public class AutonomousBase extends LinearOpMode {
 
     }
 
-    public void parkRobot(SpikeLineEnum zone, int isBlue) throws IOException, InterruptedException
-    {
+    public void parkRobot(SpikeLineEnum zone, int isBlue) throws IOException, InterruptedException {
 
         double defaultSpeed = 0.6;
         int defaultWaitTime = 5;
 
         //TODO maybe: Add variables for adding/subtracting for more reusable code
         driver.forward(2, -1, defaultSpeed, 5);
-        if(zone == SpikeLineEnum.RIGHT_SPIKE)
-        {
 
-            if(isBlue == 1) driver.strafe(27, -isBlue, defaultSpeed, imuControl);
-            else if (isBlue == -1) driver.strafe(32, isBlue, defaultSpeed, imuControl, 5);
-
-        }
-        else if(zone == SpikeLineEnum.CENTER_SPIKE) {
-            //if(isBlue == 1)
-                if(blue ==1) driver.strafe(25, -isBlue, defaultSpeed, imuControl);
-                else if (isBlue == -1){
-                    driver.strafe(24, -isBlue, defaultSpeed, imuControl);
-                    driver.rotate2(5, imuControl, 3);
-                }
-        }
-        else if (zone == SpikeLineEnum.LEFT_SPIKE)
-        {
-
-            if(isBlue == 1) driver.strafe(16, -isBlue, defaultSpeed, imuControl, defaultWaitTime);
-            else if(isBlue == -1) driver.strafe(28, -isBlue, defaultSpeed, imuControl, defaultWaitTime);
-
-        }
-
-        if(zone == SpikeLineEnum.CENTER_SPIKE)
-        {
-            if(isBlue == 1) {
-                // driver.forward(8, 1, defaultSpeed, defaultWaitTime);
-                 driver.forward(11, 1, defaultSpeed, defaultWaitTime);
-            }
-            else if (isBlue == -1)
-            {
-               // driver.forward(8, 1, defaultSpeed, defaultWaitTime);
-                 driver.forward(12, 1, defaultSpeed, defaultWaitTime);
-            }
+        if(zone == SpikeLineEnum.CENTER_SPIKE){
+            //Center
+            if(isBlue == blue) driver.strafe(12, isBlue, defaultSpeed, imuControl, defaultWaitTime);
+            else if(isBlue == red) driver.strafe(12, -isBlue, defaultSpeed, imuControl, defaultWaitTime);
 
         } else if(zone == SpikeLineEnum.LEFT_SPIKE){
-
-            if(isBlue == 1){
-                // driver.forward(8, 1, defaultSpeed, defaultWaitTime);
-                 driver.forward(10, 1, defaultSpeed, defaultWaitTime);
-            }
-            else if(isBlue == -1){
-                // driver.forward(8, 1, defaultSpeed, defaultWaitTime);
-                 driver.forward(11, 1, defaultSpeed, defaultWaitTime);
-            }
-
+            //Left
+            if(isBlue == blue) driver.strafe(7, isBlue, defaultSpeed, imuControl, defaultWaitTime);
+            else if(isBlue == red) driver.strafe(20, -isBlue, defaultSpeed, imuControl, defaultWaitTime);
         } else if(zone == SpikeLineEnum.RIGHT_SPIKE){
+            //Right
+            if(isBlue == blue) driver.strafe(20, isBlue, defaultSpeed, imuControl, defaultWaitTime);
+            else if(isBlue == red) driver.strafe(7, -isBlue, defaultSpeed, imuControl, defaultWaitTime);
 
-            if(isBlue == 1) driver.forward(10, 1, defaultSpeed, defaultWaitTime);
+        }
 
-        }else driver.forward(8, 1, defaultSpeed, defaultWaitTime);
 
     }
-
 }
-

@@ -113,13 +113,8 @@ public class PlanGamma extends AutonomousBase {
 
         sleep(DELAY);
 
-
-
-        ///driver.forward(7, 1, 0.5);
-        //sleep(DELAY);
-
         sleep(DELAY);
-        driver.forward(23, 1, 0.5);
+        driver.forward(26, 1, 0.5);
 
     }
 
@@ -131,8 +126,6 @@ public class PlanGamma extends AutonomousBase {
         //driver.forward(4, 1, 0.5);
 
         sleep(DELAY);
-
-
 
         //Go backward into position
         driver.forward(3, -1, 0.6);
