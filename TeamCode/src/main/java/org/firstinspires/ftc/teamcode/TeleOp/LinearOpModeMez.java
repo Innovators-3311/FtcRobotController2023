@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.TeleOp;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -9,112 +10,82 @@ import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.teamcode.AprilTags.AprilTagMaster;
 import org.firstinspires.ftc.teamcode.AprilTags.DriveToTag;
 import org.firstinspires.ftc.teamcode.AprilTags.InitAprilTags;
+import org.firstinspires.ftc.teamcode.Autonomous.AutonomousBase;
 import org.firstinspires.ftc.teamcode.Controller.MecanumSynchronousDriver;
 import org.firstinspires.ftc.teamcode.Controller.MechanicalDriveBase;
 import org.firstinspires.ftc.teamcode.IMU.IMUControl;
 import org.firstinspires.ftc.teamcode.util.ImuHardware;
+import org.firstinspires.ftc.teamcode.util.Logging;
 import org.firstinspires.ftc.teamcode.util.WebCamHardware;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 import java.io.IOException;
 import java.lang.annotation.ElementType;
 
 @Autonomous(name = "Mez test", group = "Mez")
-public class LinearOpModeMez extends LinearOpMode
+//@Disabled
+public class LinearOpModeMez extends AutonomousBase
 {
 
-    /** Drive control */
-    MecanumSynchronousDriver driver;
+
 //    IMUControl imuControl;
     private final double ticksPerInch = (8192 * 1) / (2 * 3.1415); // == 1303
     private final double ticksPerDegree = (ticksPerInch * 50.24) / 360;
 
-    ImuHardware imuControl;
-    WebCamHardware webcam;
-    WebcamName webCamName;
+
 
     @Override
     public void runOpMode() throws InterruptedException
     {
 
-        try
-        {
-            driver = new MecanumSynchronousDriver(this.hardwareMap, this);
-            webcam = new WebCamHardware(this);
-            imuControl = new ImuHardware(this);
-        }
-        catch (IOException e)
-        {
+        try {
+            Logging.setup();
+            Logging.log("Starting Logging for PlanGamma2");
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
-/*
-        webcam.initTfod();
-
-
-        Recognition rec = null;
-        while ((rec = webcam.findObject()) == null)
-        {
-            telemetry.addData("- Camera", "Looking for object");
-            telemetry.update();
-        }
-
-        double x = (rec.getLeft() + rec.getRight()) / 2 ;
-        double y = (rec.getTop()  + rec.getBottom()) / 2 ;
-
-        if(x > 50 && x < 150) telemetry.addData("Left", x);
-        else if(x > 160 && x < 450) telemetry.addData("Center", x);
-        else if(x > 460 && x < 600) telemetry.addData("Right", x);
-        else telemetry.addData("OBJECT NOT DETECTED. ADJUST VALUES", "");
-
-        telemetry.addData(""," ");
-        telemetry.addData("Image", "%s (%.0f %% Conf.)", rec.getLabel(), rec.getConfidence() * 100);
-        telemetry.addData("- Position", "%.0f / %.0f", x, y);
-        telemetry.addData("- Size", "%.0f x %.0f", rec.getWidth(), rec.getHeight());
-        telemetry.update();
-
-*/
+        super.runOpMode();
 
         waitForStart();
         start();
 
-        try
-        {
-            driver.strafe(48, 1, 0.6, imuControl);
-            sleep(3000);
-            driver.strafe(48, -1, 0.6, imuControl);
-            sleep(3000);
-
-            driveStraightTest();
-            sleep(10000);
-
-            driver.rotate2(-30, imuControl);
-            sleep(1000);
-
-            driver.rotate2(-30, imuControl);
-            sleep(1000);
-
-            driver.rotate2(-30, imuControl);
-            sleep(1000);
-
-            driver.rotate2(-45, imuControl);
-            sleep(1000);
-
-            driver.rotate2(-45, imuControl);
-            sleep(1000);
-
-            driver.rotate2(-90, imuControl);
-            sleep(1000);
-
-            driver.rotate2(-90, imuControl);
-            sleep(1000);
+//        driver.forward(3 * 1, 1, 0.4);
+//        sleep(3000);
+//        driver.forward(3 * 1, -1, 0.4);
+//        sleep(3000);
+//        try
+ //       {
+        //driver.strafe();
 
 
+//            driver.rotate2(-30, imuControl);
+//            sleep(1000);
+//
+//            driver.rotate2(-30, imuControl);
+//            sleep(1000);
+//
+//            driver.rotate2(-30, imuControl);
+//            sleep(1000);
+//
+//            driver.rotate2(-45, imuControl);
+//            sleep(1000);
 
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
+//            driver.rotate2(-45, imuControl);
+//            sleep(1000);
+//
+//            driver.rotate2(-90, imuControl);
+//            sleep(1000);
+//
+//            driver.rotate2(-90, imuControl);
+//            sleep(1000);
+
+
+
+//        }
+//        catch (IOException e)
+//        {
+//            e.printStackTrace();
+//        }
 
 
 
@@ -127,11 +98,28 @@ public class LinearOpModeMez extends LinearOpMode
 
         while (opModeIsActive())
         {
+
+            //testDeadWheels();
+
+            strafeTest();
+
+            //driveStraightTest();
+
+//            try
+//            {
+//                rotateTest();
+//            }
+//            catch (IOException e)
+//            {
+//                e.printStackTrace();
+//            }
+
+
 //            driver.rotate(1, 1, imuControl);
 //            driver.rotate(90,1, imuControl);
 //            driver.rotate(90,1, imuControl);
 
-            sleep(2000);
+//            sleep(2000);
 //            webcam.telemetryTfod();
 //            telemetry.addData("encoder", "left: " + driver.lf.getCurrentPosition() + " right: " + driver.rf.getCurrentPosition());
 //            telemetry.update();
@@ -140,10 +128,29 @@ public class LinearOpModeMez extends LinearOpMode
         }
     }
 
+    public void testDeadWheels()
+    {
+        int lfTicks, rfTicks, rbTicks = 0;
+        lfTicks = driver.lf.getCurrentPosition();
+        rfTicks = driver.rf.getCurrentPosition();
+        rbTicks = driver.rb.getCurrentPosition();
+
+        telemetry.addData("testDeadWheels", "lf = " + lfTicks + "\nrf = " +  rfTicks + "rb = " + rbTicks);
+        telemetry.update();
+    }
+
+    public void strafeTest()
+    {
+        driver.strafe(24*2, 1, 0.8, imuControl);
+        sleep(3000);
+        driver.strafe(24*2, -1, 0.8, imuControl);
+        sleep(3000);
+    }
 
     public void driveStraightTest()
     {
-        driver.forward(24 * 4, 1, .6);
+
+        driver.forward(24, 1, .6);
         sleep(3000);
         driver.forward(24 * 4, -1, .6);
         sleep(8000);
@@ -234,21 +241,21 @@ public class LinearOpModeMez extends LinearOpMode
     public void aroundyTest()
     {
         double speed = 0.7;
-        driver.forward(12 * 4,1,speed);
-        sleep(100);
-        driver.turn(90, -1, .5);
-        sleep(100);
-        driver.forward(12 * 1.5,1,speed);
-        sleep(100);
-        driver.turn(90, -1, .5);
-        sleep(100);
-        driver.forward(12 * 4,1,speed);
-        sleep(100);
-        driver.turn(90, -1, .5);
-        sleep(100);
-        driver.forward(12 * 1.5,1,speed);
-        sleep(100);
-        driver.turn(90, -1, .5);
+//        driver.forward(12 * 4,1,speed);
+//        sleep(100);
+//        driver.turn(90, -1, .5);
+//        sleep(100);
+//        driver.forward(12 * 1.5,1,speed);
+//        sleep(100);
+//        driver.turn(90, -1, .5);
+//        sleep(100);
+//        driver.forward(12 * 4,1,speed);
+//        sleep(100);
+//        driver.turn(90, -1, .5);
+//        sleep(100);
+//        driver.forward(12 * 1.5,1,speed);
+//        sleep(100);
+//        driver.turn(90, -1, .5);
     }
 
 
