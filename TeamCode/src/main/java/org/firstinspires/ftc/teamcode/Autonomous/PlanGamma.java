@@ -46,11 +46,11 @@ public class PlanGamma extends AutonomousBase
         transferleft.autonomousControl(true);
 
 
-        sleep(3000);
+        sleep(DELAY+DELAY);
         driveToTag.drive(5, zone.ordinal() + 1 + wallTarget, 0, 0);
-        sleep(500);
+        sleep(DELAY);
         driver.forward(3,1,.5,3);
-        sleep(500);
+        sleep(DELAY);
         transferRight.autonomousControl(false);
         transferleft.autonomousControl(false);
 
@@ -175,15 +175,11 @@ public class PlanGamma extends AutonomousBase
     public void parkRobot(SpikeLineEnum zone, int isBlue) throws IOException
     {
 
-        //Should be in planGamma, since it's the only one that uses this
         double defaultSpeed = 0.6;
         int defaultWaitTime = 5;
 
         sleep(DELAY);
-        //TODO if necessary: Set each driver.forward command for each instance (instead of shared)
         driver.forward(10, -1, defaultSpeed);
-
-
         if(zone == SpikeLineEnum.CENTER_SPIKE)
         {
             //Center
@@ -222,7 +218,7 @@ public class PlanGamma extends AutonomousBase
             }
 
         }
-
+        //park
         driver.forward(14, 1, defaultSpeed);
     }
 

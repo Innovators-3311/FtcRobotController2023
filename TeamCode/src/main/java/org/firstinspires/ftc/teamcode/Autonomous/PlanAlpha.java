@@ -81,7 +81,6 @@ public class PlanAlpha extends AutonomousBase
         }
     }
 
-
     //This should be in the planAlpha class, since it's the only one that uses it
     public void planPurple(SpikeLineEnum zone, int isBlue) throws IOException, InterruptedException
     {

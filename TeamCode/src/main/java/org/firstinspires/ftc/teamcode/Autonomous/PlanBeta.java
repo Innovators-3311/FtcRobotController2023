@@ -35,19 +35,13 @@ public class PlanBeta extends AutonomousBase{
      */
     public void planBeta(SpikeLineEnum zone, int isBlue) throws IOException, InterruptedException {
 
-        int DELAY = 500;
-
         if (zone == SpikeLineEnum.CENTER_SPIKE)
         {
             //Go forward and place pixel
             driver.forward(26, 1, 0.6);
 
-            sleep(DELAY);
-
             //Go back so that robot lets go of pixel
             driver.forward(4, -1, 0.5);
-
-            sleep(DELAY);
 
             //Strafe to left
             driver.strafe(10, isBlue, 0.6, imuControl);
@@ -87,7 +81,6 @@ public class PlanBeta extends AutonomousBase{
 
         if (zone == SpikeLineEnum.RIGHT_SPIKE)
         {
-
             //Go forward
             driver.forward(17, 1, 0.6);
            
@@ -121,7 +114,7 @@ public class PlanBeta extends AutonomousBase{
     public void goThroughTrussAndFinish(boolean center, boolean left, boolean right, int isBlue) throws IOException, InterruptedException {
         int goThroughTrussDistance;
 
-        sleep(3000);
+        sleep(DELAY);
 
         //Turn left
         driver.rotate2(-90 * isBlue, imuControl);
