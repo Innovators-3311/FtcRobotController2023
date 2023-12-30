@@ -23,7 +23,7 @@ public class PlanBeta extends AutonomousBase{
         int wallTarget = 0;
         if (isBlue == -1)
         {
-            wallTarget = 3; //originally 3
+            wallTarget = 3;
         }
           
         driveToTag.drive(7, zone.ordinal() + 1 + wallTarget, 11, 0);
@@ -51,8 +51,6 @@ public class PlanBeta extends AutonomousBase{
 
             //Strafe to left
             driver.strafe(10, isBlue, 0.6, imuControl);
-
-            sleep(DELAY);
 
             //Continue to go into position
             driver.forward(29, 1, 0.6);
@@ -111,8 +109,10 @@ public class PlanBeta extends AutonomousBase{
             //Go to the middle
             driver.forward(25.5, 1, 0.8);
 
+            //Bring intake down
             intakeChild.encoderControl(-1000,.6);
 
+            //Plan Beta-specific code
             goThroughTrussAndFinish(false, false, true, isBlue);
 
         }
@@ -123,18 +123,19 @@ public class PlanBeta extends AutonomousBase{
 
         sleep(3000);
 
+        //Turn left
         driver.rotate2(-90 * isBlue, imuControl);
 
-
-        //This goes to the other side
-        if (left) {
+        //Changes depending where pixel was
+        if (left){
             goThroughTrussDistance = 60;
-        } else if (center) {
+        } else if (center){
             goThroughTrussDistance = 80;
-        } else {
+        } else{
             goThroughTrussDistance = 75;
         }
 
+        //Drives through truss
         driver.forward(goThroughTrussDistance, 1, 0.7);
 
         int strafeValue;
@@ -148,6 +149,7 @@ public class PlanBeta extends AutonomousBase{
             strafeValue = 30;
         }
 
+        //Strafe
         driver.strafe(strafeValue, -isBlue, 0.5, imuControl);
     }
 

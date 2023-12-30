@@ -879,8 +879,6 @@ public class MecanumSynchronousDriver<imuControl> extends MechanicalDriveBase
        mOpMode.telemetry.addData("Yaw (Z)", "%.2f Deg. (Heading)", imuControl.getHeading());
        mOpMode.telemetry.update();
 
-
-
     }
 
 }
