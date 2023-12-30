@@ -1,14 +1,10 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DigitalChannel;
-import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.teamcode.AprilTags.AprilTagMaster;
 import org.firstinspires.ftc.teamcode.AprilTags.DriveToTag;
-import org.firstinspires.ftc.teamcode.AprilTags.InitAprilTags;
 import org.firstinspires.ftc.teamcode.ColorSwitch.ColorSwitch;
 import org.firstinspires.ftc.teamcode.Controller.MecanumSynchronousDriver;
 import org.firstinspires.ftc.teamcode.Controller.MechanicalDriveBase;
@@ -20,7 +16,6 @@ import org.firstinspires.ftc.teamcode.TeleOpFunctions.TransferRight;
 import org.firstinspires.ftc.teamcode.util.ImuHardware;
 import org.firstinspires.ftc.teamcode.util.Logging;
 import org.firstinspires.ftc.teamcode.util.WebCamDoubleVision;
-import org.firstinspires.ftc.teamcode.util.WebCamHardware;
 
 import java.io.IOException;
 

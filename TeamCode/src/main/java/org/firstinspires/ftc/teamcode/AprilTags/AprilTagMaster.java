@@ -35,7 +35,7 @@ public class AprilTagMaster
     private AprilTagProcessor aprilTag;              // Used for managing the AprilTag detection process.
     private AprilTagDetection desiredTag = null;     // Used to hold the data for a detected AprilTag
     private MechanicalDriveBase mechanicalDriveBase;
-    WebcamName webcamName;
+
     private double rangeError = 0 ;
     private double headingError = 0;
     private double yawError = 0;
@@ -151,77 +151,6 @@ public class AprilTagMaster
 
     }   // end method telemetryAprilTag()
 
-    public double getX()
-    {
-        List<AprilTagDetection> currentDetections = aprilTag.getDetections();
-        AprilTagDetection detection = currentDetections.get(0);
-        return detection.ftcPose.x;
-    }
-
-    public double getY()
-    {
-        List<AprilTagDetection> currentDetections = aprilTag.getDetections();
-        AprilTagDetection detection = currentDetections.get(0);
-        return detection.ftcPose.x;
-    }
-
-    // Shouldn't need Z
-
-    public double getPitch()
-    {
-        List<AprilTagDetection> currentDetections = aprilTag.getDetections();
-        AprilTagDetection detection = currentDetections.get(0);
-        return detection.ftcPose.pitch;
-    }
-
-    public double getRoll()
-    {
-        List<AprilTagDetection> currentDetections = aprilTag.getDetections();
-        AprilTagDetection detection = currentDetections.get(0);
-        return detection.ftcPose.roll;
-    }
-
-    public double getYaw()
-    {
-        List<AprilTagDetection> currentDetections = aprilTag.getDetections();
-        AprilTagDetection detection = currentDetections.get(0);
-        return detection.ftcPose.yaw;
-    }
-
-    public double getBearing()
-    {
-        List<AprilTagDetection> currentDetections = aprilTag.getDetections();
-        AprilTagDetection detection = currentDetections.get(0);
-        return detection.ftcPose.bearing;
-    }
-
-    public double getRange()
-    {
-        List<AprilTagDetection> currentDetections = aprilTag.getDetections();
-        AprilTagDetection detection = currentDetections.get(0);
-        return detection.ftcPose.range;
-    }
-
-    public double getElevation()
-    {
-        List<AprilTagDetection> currentDetections = aprilTag.getDetections();
-        AprilTagDetection detection = currentDetections.get(0);
-        return detection.ftcPose.elevation;
-    }
-
-    public int getDetectionID()
-    {
-        List<AprilTagDetection> currentDetections = aprilTag.getDetections();
-        for (AprilTagDetection detection : currentDetections)
-        {
-            if (detection.metadata != null)
-            {
-                return detection.id;
-            }
-        }
-        return -1;
-    }
-
     public boolean aprilTagDetected()
     {
         List<AprilTagDetection> currentDetections = aprilTag.getDetections();
@@ -235,10 +164,6 @@ public class AprilTagMaster
         return false;
     }
 
-    public void closeAprilTags()
-    {
-//        visionPortal.close();
-    }
 
     /**
      * Initialize the AprilTag processor.
