@@ -26,19 +26,15 @@ public class MecanumSynchronousDriver<imuControl> extends MechanicalDriveBase
     * NOTE: value may need fine tuning.
     */
    private final double ticksPerInch = (8192 * 1) / (2 * 3.1415); // == 1303
-//                    Circumference of the robot when turning == encoder dist from center (radius) * 2 * pi
-//                                        ^^^
-//   private final double ticksPerDegree = (ticksPerInch * 64.09) / 360; // 16,000
- //  private final double ticksPerDegree = (ticksPerInch * 56.0) / 360; // 16,000
-   //private final double ticksPerDegree = (ticksPerInch * 54.6) / 360; // 16,000
-//private final double ticksPerDegree = (ticksPerInch * 55.0) / 360;
-   //private final double ticksPerDegree = (ticksPerInch * 54.0) / 360;  // 195.57536208817444
-//private final double ticksPerDegree = 202.75;//190;  //FOR BATT 12.3 VOLTS
+
+
+//  Circumference of the robot when turning == encoder dist from center (radius) * 2 * pi
+//  private final double ticksPerDegree = 202.75;//190;  //FOR BATT 12.3 VOLTS
    private final double ticksPerDegree = 199;  // 12.63 V
-//68,466 for 360
-//34,233 for 180
-//17,116 for 90
-// 8,558 for 45
+//  68,466 for 360
+//  34,233 for 180
+//  17,116 for 90
+//  8,558 for 45
 
    /**
     * Logging method used to write data to file.
@@ -67,7 +63,6 @@ public class MecanumSynchronousDriver<imuControl> extends MechanicalDriveBase
 
    PIDController pidRotateOd;
 
-   double rotation;
 
    //Time out timer to kep the robot from getting stuck
    ElapsedTime time;
@@ -127,7 +122,6 @@ public class MecanumSynchronousDriver<imuControl> extends MechanicalDriveBase
         pidDrive.setOutputRange(0, speed);
         pidDrive.setInputRange(0, 500);
         pidDrive.setTolerance(1);
-//       pidDrive.setContinuous();
         pidDrive.enable();
 
         // Set up parameters for strafe correction.
@@ -186,8 +180,6 @@ public class MecanumSynchronousDriver<imuControl> extends MechanicalDriveBase
             }
             this.driveMotors(speed, (correction * forward) + 0.01, -strafeCorrection, 1); // run with PID
 
-//               this.driveMotors(speed, 0, 0, 1);
-
             mOpMode.telemetry.addData("Encoder", "left: " + lf.getCurrentPosition() + " right: " + rf.getCurrentPosition() + " strafe: " + rb.getCurrentPosition());
             mOpMode.telemetry.update();
 
@@ -197,18 +189,7 @@ public class MecanumSynchronousDriver<imuControl> extends MechanicalDriveBase
             {
                 break;
             }
-//               if (forward == 1)
-//                {
-//                    if (currPosTicks > leftFrontPos)
-//                        break;
-//                }
-//                else
-//                {
-//                    if (currPosTicks < leftFrontPos)
-//                        break;
-//                }
         }
-
 
         this.driveMotors(0, 0, 0, 0);
 
@@ -233,7 +214,6 @@ public class MecanumSynchronousDriver<imuControl> extends MechanicalDriveBase
         pidDrive.setOutputRange(0, speed);
         pidDrive.setInputRange(0, 500);
         pidDrive.setTolerance(1);
-//       pidDrive.setContinuous();
         pidDrive.enable();
 
         // Set up parameters for strafe correction.
@@ -292,29 +272,16 @@ public class MecanumSynchronousDriver<imuControl> extends MechanicalDriveBase
                 }
                 this.driveMotors(speed, (correction * forward) + 0.01, -strafeCorrection, 1); // run with PID
 
-//               this.driveMotors(speed, 0, 0, 1);
-
                 mOpMode.telemetry.addData("Encoder", "left: " + lf.getCurrentPosition() + " right: " + rf.getCurrentPosition() + " strafe: " + rb.getCurrentPosition());
-               mOpMode.telemetry.update();
+                mOpMode.telemetry.update();
 
-               Logging.log("currPosTicks = %d, leftFrontPos = %d" , currPosTicks, leftFrontPos);
+                Logging.log("currPosTicks = %d, leftFrontPos = %d" , currPosTicks, leftFrontPos);
 
-               if (Math.abs(currPosTicks) > Math.abs(leftFrontPos))
-               {
-                  break;
-               }
-//               if (forward == 1)
-//                {
-//                    if (currPosTicks > leftFrontPos)
-//                        break;
-//                }
-//                else
-//                {
-//                    if (currPosTicks < leftFrontPos)
-//                        break;
-//                }
+                if (Math.abs(currPosTicks) > Math.abs(leftFrontPos))
+                {
+                   break;
+                }
             }
-
 
         this.driveMotors(0, 0, 0, 0);
 
@@ -353,18 +320,10 @@ public class MecanumSynchronousDriver<imuControl> extends MechanicalDriveBase
         pidDrive.setInputRange(0, 5000);
         pidDrive.enable();
 
-        // Set up parameters for strafe correction.
-//        pidStrafe.reset();
-//        pidStrafe.setSetpoint(0);
-//        pidStrafe.setOutputRange(0, .15);
-//        pidStrafe.setInputRange(-5000, 5000);
-//        pidStrafe.enable();
-
         pidRotateImu.reset();
         pidRotateImu.setSetpoint(targetAngle);
         pidRotateImu.setInputRange(0, 30);
         pidRotateImu.setOutputRange(0, 0.2);
-        //pidRotateOd.setTolerance(.15);
         pidRotateImu.enable();
 
         speed *= right;
@@ -439,18 +398,10 @@ public class MecanumSynchronousDriver<imuControl> extends MechanicalDriveBase
         pidDrive.setInputRange(0, 5000);
         pidDrive.enable();
 
-        // Set up parameters for strafe correction.
-//        pidStrafe.reset();
-//        pidStrafe.setSetpoint(0);
-//        pidStrafe.setOutputRange(0, .15);
-//        pidStrafe.setInputRange(-5000, 5000);
-//        pidStrafe.enable();
-
         pidRotateImu.reset();
         pidRotateImu.setSetpoint(targetAngle);
         pidRotateImu.setInputRange(0, 30);
         pidRotateImu.setOutputRange(0, 0.2);
-        //pidRotateOd.setTolerance(.15);
         pidRotateImu.enable();
 
         speed *= right;
@@ -485,81 +436,12 @@ public class MecanumSynchronousDriver<imuControl> extends MechanicalDriveBase
 
             double headingError = pidRotateImu.performPID(angle);
 
-           //this.driveMotors(0, (-headingError), speed, 1); // run with PID
             this.driveMotors(-forwardCorrection, (-headingError), speed, 1); // run with PID
-//            Logging.log("heading: %f angle: %f headingError: %f", targetAngle,angle, headingError);
             Logging.log("forwardCorrection = %f, speed = %f ", -forwardCorrection, speed);
             mOpMode.telemetry.addData("Encoder", "left: " + lf.getCurrentPosition() + " right: " + rf.getCurrentPosition() + " strafe: " + rb.getCurrentPosition());
             mOpMode.telemetry.update();
         }
         this.driveMotors(0, 0, 0, 0);
-    }
-
-
-    public void rotateOd(int degrees, double power) throws InterruptedException
-    {
-       Logging.log("#rotateOd degrees = %d  power = %f", degrees, power);
-
-       int startPos = this.rb.getCurrentPosition();
-       double targetPos = degrees * ticksPerDegree;
-       pidRotateOd.reset();
-       pidRotateOd.setSetpoint(targetPos);
-       pidRotateOd.setInputRange(0, targetPos*2);
-       pidRotateOd.setOutputRange(.15, power);
-       pidRotateOd.setTolerance(.15);
-       pidRotateOd.enable();
-
-       // Proportional factor can be found by dividing the max desired pid output by
-       // the setpoint or target. Here 30% power is divided by 90 degrees (.30 / 90)
-       // to get a P factor of .003. This works for the robot we testing this code with.
-       // Your robot may vary but this way finding P works well in most situations.
-       double p = Math.abs(power/targetPos);
-
-       // Integrative factor can be approximated by diving P by 100. Then you have to tune
-       // this value until the robot turns, slows down and stops accurately and also does
-       // not take too long to "home" in on the setpoint. Started with 100 but robot did not
-       // slow and overshot the turn. Increasing I slowed the end of the turn and completed
-       // the turn in a timely manner
-       double i = p / 200.0;
-
-       //Set PID parameters based on power and ticks to travel.
-//       pidRotateOd.setPID(p, i, 0);
-
-       mOpMode.telemetry.addData("rotateOd1", "startPos:  %d   targetPos: %f ", startPos,targetPos);
-       mOpMode.telemetry.update();
-
-       Logging.log("#rotateOd startPos:  %d   targetPos: %f ", startPos,targetPos);
-
-       int onTargetCount = 0;
-
-       do
-       {
-          power = pidRotateOd.performPID(this.rb.getCurrentPosition() - startPos); // power will be + on left turn.
-          this.driveMotors(0, power, 0, 1);
-
-          //mOpMode.telemetry.addData("rotateOd2", "startPos:  %d   targetPos: %f ", startPos,targetPos);
-          //mOpMode.telemetry.addData("rotateOd2", "power: %f currPos:  %d", power, this.rb.getCurrentPosition() - startPos);
-          //mOpMode.telemetry.update();
-
-          Logging.log("#rotateOd targetPos: %f power: %f currPos: %d degrees: %f",targetPos, power, this.rb.getCurrentPosition() - startPos, (this.rb.getCurrentPosition() - startPos)/ticksPerDegree);
-
-          if (pidRotateOd.onTarget())
-          {
-             onTargetCount++;
-             Logging.log("#onTargetCount: %d",onTargetCount);
-
-          }
-
-       } while (mOpMode.opModeIsActive() && (onTargetCount < 8));
-
-       //Kill motors
-       this.driveMotors(0, 0, 0, 0);
-
-       mOpMode.telemetry.addData("rotateOd3", "startPos:  %d   targetPos: %f ", startPos,targetPos);
-       mOpMode.telemetry.addData("rotateOd3", "currPos:  %d  degrees: %f", this.rb.getCurrentPosition() - startPos, (this.rb.getCurrentPosition() - startPos)/ticksPerDegree);
-       mOpMode.telemetry.update();
-
-       Logging.log("#rotateOd complete  currPos:  %d  degrees: %f",  this.rb.getCurrentPosition() - startPos, (this.rb.getCurrentPosition() - startPos)/ticksPerDegree);
     }
 
     public enum DirectionType
@@ -568,10 +450,8 @@ public class MecanumSynchronousDriver<imuControl> extends MechanicalDriveBase
        RIGHT
     }
 
-
     public void rotate(double degrees, ImuHardware imuControl) throws InterruptedException, IOException
     {
-       //double degrees = 30.0;
        double power = 0.0;
        int directionInt = 1;
        int counter = 0;
@@ -662,22 +542,7 @@ public class MecanumSynchronousDriver<imuControl> extends MechanicalDriveBase
          directionInt = -1;
       }
 
-//      if (degrees == 30)
-//      {
-//         pidRotateImu = new PIDController(.04, .0001, .067);   // 30 degrees
-//      }
-//      else if (degrees == 45)
-//      {
-//         pidRotateImu = new PIDController(.04, .0001, .067);   // 45 degrees
-//      }
-//      else if (degrees == 90)
-//      {
-//         pidRotateImu = new PIDController(.04, .0001, .11);   // 90 degrees
-//      }
-//      else
-      {
-         pidRotateImu = new PIDController(.035, .0002, .067);   // ?? degrees
-      }
+     pidRotateImu = new PIDController(.035, .0002, .067);
 
       pidRotateImu.reset();
       pidRotateImu.setSetpoint(degrees);
@@ -741,22 +606,7 @@ public class MecanumSynchronousDriver<imuControl> extends MechanicalDriveBase
             directionInt = -1;
         }
 
-//      if (degrees == 30)
-//      {
-//         pidRotateImu = new PIDController(.04, .0001, .067);   // 30 degrees
-//      }
-//      else if (degrees == 45)
-//      {
-//         pidRotateImu = new PIDController(.04, .0001, .067);   // 45 degrees
-//      }
-//      else if (degrees == 90)
-//      {
-//         pidRotateImu = new PIDController(.04, .0001, .11);   // 90 degrees
-//      }
-//      else
-        {
-            pidRotateImu = new PIDController(.035, .0002, .067);   // ?? degrees
-        }
+        pidRotateImu = new PIDController(.035, .0002, .067);   // ?? degrees
 
         pidRotateImu.reset();
         pidRotateImu.setSetpoint(degrees);
@@ -878,8 +728,6 @@ public class MecanumSynchronousDriver<imuControl> extends MechanicalDriveBase
        Logging.log("completed rotate of angle %f", degrees);
        mOpMode.telemetry.addData("Yaw (Z)", "%.2f Deg. (Heading)", imuControl.getHeading());
        mOpMode.telemetry.update();
-
-
 
     }
 
