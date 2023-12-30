@@ -17,11 +17,9 @@ public class MechanicalDriveBase
     public double rightPowerFront = 0;
     public double rightPowerBack  = 0;
     public double leftPowerBack   = 0;
+
     public double speed = 0;
 
-    final double  COUNTS_PER_INCH = (8192 * 1) / (2 * 3.1415); // 1,303.835747254496
-    private double heading = 0;
-    IMUControl imuControl;
 
     /**
      * Constructor for MechanicalDriveBase from the hardware map

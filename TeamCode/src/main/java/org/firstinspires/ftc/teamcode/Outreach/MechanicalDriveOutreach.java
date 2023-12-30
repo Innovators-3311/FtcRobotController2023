@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-public class MechanicalDriveOutreach
+public class  MechanicalDriveOutreach
 {
     private static final DcMotor.RunMode runMode = DcMotor.RunMode.RUN_WITHOUT_ENCODER;
 
@@ -106,16 +106,6 @@ public class MechanicalDriveOutreach
         rf.setPower(rightPowerFront/maxAbsVal * speedFactor);
         lb.setPower(leftPowerBack/maxAbsVal * speedFactor);
         rb.setPower(rightPowerBack/maxAbsVal * speedFactor);
-    }
-
-    /**
-     * Returns the absolute maximum power on any drive motor.
-     *
-     * @return max abs power [0,1]
-     */
-    public double maxMotorPower()
-    {
-        return maxAbsVal(lf.getPower(), rf.getPower(), lb.getPower(), rb.getPower());
     }
 
     /**

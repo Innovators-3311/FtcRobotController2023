@@ -14,11 +14,11 @@ public class MechanicalDriveBaseGoBILDA
     public DcMotor lb;
     public DcMotor rb;
     public DcMotor rf;
-    public double leftPowerFront  = 0;
+    public double leftPowerFront = 0;
     public double rightPowerFront = 0;
-    public double rightPowerBack  = 0;
-    public double leftPowerBack   = 0;
-    public double speedFactor     = 0;
+    public double rightPowerBack = 0;
+    public double leftPowerBack = 0;
+    public double speedFactor = 0;
 
     /**
      * Constructor for MechanicalDriveBase from the hardware map
@@ -110,7 +110,8 @@ public class MechanicalDriveBaseGoBILDA
      *
      * @return max abs power [0,1]
      */
-    public double maxMotorPower(){
+    public double maxMotorPower()
+    {
         return maxAbsVal(lf.getPower(), rf.getPower(), lb.getPower(), rb.getPower());
     }
 
