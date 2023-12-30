@@ -29,10 +29,7 @@
 
 package org.firstinspires.ftc.teamcode.util;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-
 import org.firstinspires.ftc.robotcore.external.hardware.camera.BuiltinCameraDirection;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
@@ -41,9 +38,7 @@ import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 import org.firstinspires.ftc.vision.tfod.TfodProcessor;
-
 import java.util.List;
-
 
 /*
  * This OpMode illustrates the basics of using both AprilTag recognition and TensorFlow
@@ -52,8 +47,7 @@ import java.util.List;
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list.
  */
-//@TeleOp(name = "Concept: Double Vision", group = "Concept")
-//@Disabled
+
 public class WebCamDoubleVision
 {
     private static final boolean USE_WEBCAM = true;  // true for webcam, false for phone camera
@@ -61,15 +55,12 @@ public class WebCamDoubleVision
     ///////////////////////////////////////////////////////////////////////////////////////////////
     //TFOF data values
 
-    //private static final String TFOD_MODEL_FILE = "/sdcard/FIRST/tflitemodels/red_rev1.tflite";
-    //private static final String TFOD_MODEL_FILE = "/sdcard/FIRST/tflitemodels/Red_10-27.tflite";
     private static final String TFOD_MODEL_FILE = "/sdcard/FIRST/tflitemodels/RedBlue11_25.tflite";
 
     private static final String[] LABELS =
     {
        "Trash Panda"
     };
-
 
     /**
      * The variable to store our instance of the AprilTag processor.
@@ -100,12 +91,9 @@ public class WebCamDoubleVision
 
     public void checkVision()
     {
-//        if (opModeInInit())
-        {
-            mOpMode.telemetry.addData("DS preview on/off","3 dots, Camera Stream");
-            mOpMode.telemetry.addLine();
-            mOpMode.telemetry.addLine("----------------------------------------");
-        }
+        mOpMode.telemetry.addData("DS preview on/off","3 dots, Camera Stream");
+        mOpMode.telemetry.addLine();
+        mOpMode.telemetry.addLine("----------------------------------------");
 
         if (myVisionPortal.getProcessorEnabled(aprilTag)) {
             // User instructions: Dpad left or Dpad right.
@@ -127,17 +115,6 @@ public class WebCamDoubleVision
 
         // Push telemetry to the Driver Station.
         mOpMode.telemetry.update();
-
-//        if (gamepad1.dpad_left) {
-//            myVisionPortal.setProcessorEnabled(aprilTag, false);
-//        } else if (gamepad1.dpad_right) {
-//            myVisionPortal.setProcessorEnabled(aprilTag, true);
-//        }
-//        if (gamepad1.dpad_down) {
-//            myVisionPortal.setProcessorEnabled(tfod, false);
-//        } else if (gamepad1.dpad_up) {
-//            myVisionPortal.setProcessorEnabled(tfod, true);
-//        }
 
     }
 
@@ -178,7 +155,6 @@ public class WebCamDoubleVision
 
         tfod.setMinResultConfidence(0.7f);
         tfod.setClippingMargins(0, 100, 0, 100);
-        //tfod.setZoom(1.2);
 
         // -----------------------------------------------------------------------------------------
         // Camera Configuration
@@ -243,7 +219,6 @@ public class WebCamDoubleVision
             mOpMode.telemetry.addData(""," ");
             mOpMode.telemetry.addData("Image", "%s (%.0f %% Conf.)", recognition.getLabel(), recognition.getConfidence() * 100);
             mOpMode.telemetry.addData("- Position", "%.0f / %.0f", x, y);
-            //mOpMode.telemetry.addData("- Size", "%.0f x %.0f", recognition.getWidth(), recognition.getHeight());
         }   // end for() loop
 
     }   // end method telemetryTfod()
@@ -261,7 +236,6 @@ public class WebCamDoubleVision
     public Recognition findObject()
     {
         Recognition bestRecognition = null;
-        Recognition currentRecognition = null;
 
         List<Recognition> currentRecognitions = tfod.getRecognitions();
         mOpMode.telemetry.addData("# Objects Detected", currentRecognitions.size());
@@ -282,10 +256,6 @@ public class WebCamDoubleVision
                 {
                     bestRecognition = recognition;
                 }
-                else
-                {
-
-                }
             }
         }
 
@@ -293,11 +263,7 @@ public class WebCamDoubleVision
         {
             mOpMode.telemetry.addData("", " ");
             mOpMode.telemetry.addData("Image", "%s (%.0f %% Conf.)", bestRecognition.getLabel(), bestRecognition.getConfidence() * 100);
-//            x = ;
-//            y = (bestRecognition.getTop() + bestRecognition.getBottom()) / 2;
             mOpMode.telemetry.addData("- Position", "%.0f / %.0f", (bestRecognition.getLeft() + bestRecognition.getRight()) / 2);
-            //mOpMode.telemetry.addData("- Size", "%.0f x %.0f", bestRecognition.getWidth(), bestRecognition.getHeight());
-
 
             return bestRecognition;
         }
@@ -305,9 +271,7 @@ public class WebCamDoubleVision
         {
             return null;
         }
-
     }
-
 
     /**
      * @param x The X coordinate of the detected object.
