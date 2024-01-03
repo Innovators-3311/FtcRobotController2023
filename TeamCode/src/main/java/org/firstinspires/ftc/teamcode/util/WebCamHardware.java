@@ -21,7 +21,7 @@ public class WebCamHardware
    AprilTagProcessor aprilTag; // Used for managing the AprilTag detection process.
 
    private static final String[] LABELS =
-           {
+   {
          "Trash Panda"
    };
 
