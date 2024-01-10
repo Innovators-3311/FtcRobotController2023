@@ -90,10 +90,10 @@ public class AutonomousBase extends LinearOpMode
 
         isBlue = colorSwitch.getTeam();
 
-        telemetry.addData("isBlue: ", "%d ", isBlue);
+//        telemetry.addData("isBlue: ", "%d ", isBlue);
         telemetry.update();
         sleep(DELAY+DELAY+DELAY+DELAY); //2000 millis
-        Logging.log("isBlue: " + isBlue);
+//        Logging.log("isBlue: " + isBlue);
         waitForStart();
 
         //once we start, we should no longer need Tfod.  Should have IDed target by now.

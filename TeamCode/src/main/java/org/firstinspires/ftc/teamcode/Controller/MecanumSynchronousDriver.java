@@ -85,7 +85,6 @@ public class MecanumSynchronousDriver<imuControl> extends MechanicalDriveBase
        opMode.telemetry.update();
 
        //The input can be a large value, therefore the values of Kp needs to be small to compensate.
-       //
        // Set PID proportional value to produce non-zero correction value when robot veers off
        // straight line. P value controls how sensitive the correction is.
        pidDrive = new PIDController(0.01, 0, 0.001);

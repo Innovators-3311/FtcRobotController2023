@@ -12,15 +12,15 @@ public class PlanGamma extends AutonomousBase
     @Override
     public void runOpMode() throws InterruptedException
     {
-        try
-        {
-            Logging.setup();
-            Logging.log("Starting Logging for Plan Gamma");
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
+//        try
+//        {
+////            Logging.setup();
+////            Logging.log("Starting Logging for Plan Gamma");
+//        }
+//        catch (IOException e)
+//        {
+//            e.printStackTrace();
+//        }
 
         super.runOpMode();
 
@@ -44,7 +44,6 @@ public class PlanGamma extends AutonomousBase
         transferleft.autonomousControl(false);
         transferRight.autonomousControl(true);
         transferleft.autonomousControl(true);
-
 
         sleep(DELAY+DELAY);
         driveToTag.drive(5, zone.ordinal() + 1 + wallTarget, 0, 0);
@@ -73,13 +72,13 @@ public class PlanGamma extends AutonomousBase
         //If target is in the center...
         if(zone == SpikeLineEnum.CENTER_SPIKE)
         {
-            Logging.log("Spike Line is CENTER_SPIKE");
+//            Logging.log("Spike Line is CENTER_SPIKE");
             centerRoute(isBlue);
         }
         //If target is on the left...
         else if(zone == SpikeLineEnum.LEFT_SPIKE)
         {
-            Logging.log("Spike Line is LEFT_SPIKE");
+//            Logging.log("Spike Line is LEFT_SPIKE");
             if (isBlue == 1)
             {
                 stageRoute(isBlue);
@@ -91,7 +90,7 @@ public class PlanGamma extends AutonomousBase
         }
         else if (zone == SpikeLineEnum.RIGHT_SPIKE)
         {
-            Logging.log("Spike Line is RIGHT_SPIKE");
+//            Logging.log("Spike Line is RIGHT_SPIKE");
             if(isBlue == 1)
             {
                 wingRoute(isBlue);
