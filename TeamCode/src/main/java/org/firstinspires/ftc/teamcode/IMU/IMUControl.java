@@ -16,9 +16,6 @@ import org.firstinspires.ftc.teamcode.Controller.MechanicalDriveBase;
 import org.firstinspires.ftc.teamcode.util.PIDController;
 import java.util.Locale;
 
-
-
-/** removed distance sensor part of code now for rotate mainly - Sam**/
 public class IMUControl
 {
     private final double ticksPerInch = (8192 * 1) / (2 * 3.1415); // == 1303
@@ -163,37 +160,6 @@ public class IMUControl
         return String.format(Locale.getDefault(), "%.1f", AngleUnit.DEGREES.normalize(degrees));
     }
 
-    // called when init button is  pressed.
-//    public void Run(HardwareMap hardwareMap, Telemetry telemetry) throws InterruptedException
-//    {
-//        IMUControl(hardwareMap, telemetry);
-//
-//        // wait for start button
-//
-//        telemetry.addData("Mode", "running");
-//        telemetry.update();
-//
-//        sleep(1000);
-//
-//        //TODO: Do we do this just once?  Can the same settings be used for strafe?
-//        // Set up parameters for driving in a straight line.
-//        pidDrive.setSetpoint(0);
-//        pidDrive.setOutputRange(-power, power);
-//        pidDrive.setInputRange(-90, 90);
-//        pidDrive.enable();
-//
-///*        //TODO: Same settings as drive????
-//        pidStrafe.setSetpoint(0);
-//        pidStrafe.setOutputRange(-power, power);
-//        pidStrafe.setInputRange(-90, 90);
-//        pidStrafe.enable(); */
-//
-//        //Drive forward 18 inches
-//        driveStraight(18 * ticksPerInch, 1, 0.1, telemetry);
-//        rotate(180, 0.3);
-//        sleep(1500);
-//    }
-
     //Set target then multiply by one with negative if you want to go backwards no negative input
     private void driveStraight(double target, int forward, double speed, Telemetry telemetry)
     {
@@ -301,7 +267,6 @@ public class IMUControl
             {
                 power = pidRotate.performPID(getAngle()); // power will be - on right turn.
                 mechanicalDriveBase.driveMotors(0, power, 0, 1);
-
             }
             while (!pidRotate.onTarget());
 

@@ -61,7 +61,6 @@ public class Logging
     public static boolean enabled = true;
 
     private static FileHandler 		fileTxt;
-    //static private SimpleFormatter	formatterTxt;
     private static LogFormatter		logFormatter;
     private static boolean          isSetup;
 
@@ -98,12 +97,6 @@ public class Logging
         Logger rootLogger = Logger.getLogger("");
 
         Handler[] handlers = rootLogger.getHandlers();
-
-//            if (handlers[0] instanceof ConsoleHandler)
-//            {
-//                rootLogger.removeHandler(handlers[0]);
-//                return;
-//            }
 
         logFormatter = new LogFormatter();
 
@@ -265,9 +258,7 @@ public class Logging
         logDevices(map.dcMotor);
         logDevices(map.servoController);
         logDevices(map.servo);
-//        logDevices(map.deviceInterfaceModule);
         logDevices(map.analogInput);
-//        logDevices(map.analogOutput);
         logDevices(map.digitalChannel);
         logDevices(map.pwmOutput);
         logDevices(map.accelerationSensor);
@@ -281,7 +272,6 @@ public class Logging
         logDevices(map.opticalDistanceSensor);
         logDevices(map.touchSensor);
         logDevices(map.ultrasonicSensor);
-//        logDevices(map.legacyModule);
     }
 
     @SuppressWarnings("unchecked")

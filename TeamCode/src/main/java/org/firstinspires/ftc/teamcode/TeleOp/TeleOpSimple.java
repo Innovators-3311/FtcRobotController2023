@@ -1,9 +1,14 @@
-package org.firstinspires.ftc.teamcode.TeleOpFunctions;
+package org.firstinspires.ftc.teamcode.TeleOp;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.Controller.MechanicalDriveBase;
+import org.firstinspires.ftc.teamcode.TeleOpFunctions.HeightChild;
+import org.firstinspires.ftc.teamcode.TeleOpFunctions.IntakeChild;
+import org.firstinspires.ftc.teamcode.TeleOpFunctions.LinerSlideChild;
+import org.firstinspires.ftc.teamcode.TeleOpFunctions.TransferLeft;
+import org.firstinspires.ftc.teamcode.TeleOpFunctions.TransferRight;
 
 @TeleOp(name = "Simple TeleOp", group = "TeleOp")
 public class TeleOpSimple extends OpMode

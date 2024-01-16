@@ -58,8 +58,6 @@ public class MotorControl
             telemetry.addData("Exception:", "%s not found in Hardware Map",motorName);
             telemetry.update();
 
-            //sleep(1000);
-
         }
 
     }

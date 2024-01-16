@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.util;
 
-
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -33,11 +32,6 @@ public class ImuHardware
       init();
    }
 
-   public IMU getImu()
-   {
-      return imu;
-   }
-
    void init()
    {
       // Retrieve and initialize the IMU.
@@ -67,8 +61,6 @@ public class ImuHardware
       imu.initialize(new IMU.Parameters(orientationOnRobot));
 
    }
-
-
 
    public void resetAngle()
    {

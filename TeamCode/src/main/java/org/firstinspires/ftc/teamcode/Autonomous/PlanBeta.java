@@ -25,7 +25,7 @@ public class PlanBeta extends AutonomousBase
         int wallTarget = 0;
         if (isBlue == -1)
         {
-            wallTarget = 3; //originally 3
+            wallTarget = 3;
         }
 
         transferRight.autonomousControl(false);
@@ -234,7 +234,6 @@ public class PlanBeta extends AutonomousBase
 
         //Continue to go into position
         driver.forward(29, 1, 0.6);
-
     }
 
     public void goThroughTrussAndFinish(boolean center, boolean left, boolean right, int isBlue) throws IOException, InterruptedException
@@ -243,6 +242,8 @@ public class PlanBeta extends AutonomousBase
 
         Thread.sleep(100);
 
+
+        //Turn left
         driver.rotate2(-90 * isBlue, imuControl);
 
         Thread.sleep(100);
@@ -266,8 +267,10 @@ public class PlanBeta extends AutonomousBase
             {
                 goThroughTrussDistance = 75;
             }
+
         }
 
+        //Drives through truss
         driver.forward(goThroughTrussDistance, 1, 0.7);
          
 

@@ -9,22 +9,18 @@ import java.io.IOException;
 public class PlanGamma extends AutonomousBase
 {
 
-//    int isBlue = red;
-//
-//    int DELAY = 500;
-
     @Override
     public void runOpMode() throws InterruptedException
     {
-        try
-        {
-            Logging.setup();
-            Logging.log("Starting Logging for Plan Gamma");
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
+//        try
+//        {
+////            Logging.setup();
+////            Logging.log("Starting Logging for Plan Gamma");
+//        }
+//        catch (IOException e)
+//        {
+//            e.printStackTrace();
+//        }
 
         super.runOpMode();
 
@@ -44,12 +40,12 @@ public class PlanGamma extends AutonomousBase
             wallTarget = 3;
         }
 
-
         transferRight.autonomousControl(false);
         transferleft.autonomousControl(false);
         transferRight.autonomousControl(true);
         transferleft.autonomousControl(true);
         linerSlideChild.encoderControl(-50, 0.5);
+
 
         sleep(2000);
         //driveToTag.drive(7, zone.ordinal() + 1 + wallTarget, 11, 0);
@@ -57,11 +53,12 @@ public class PlanGamma extends AutonomousBase
 //        sleep(500);
 //        driver.forward(3,1,.5,3);
 //        sleep(500);
+
         transferRight.autonomousControl(false);
         transferleft.autonomousControl(false);
 
 
-        sleep(1000);
+        sleep(DELAY+DELAY); //1000
         //Park robot
         try {
             parkRobot(zone, isBlue);
@@ -79,13 +76,13 @@ public class PlanGamma extends AutonomousBase
         //If target is in the center...
         if(zone == SpikeLineEnum.CENTER_SPIKE)
         {
-            Logging.log("Spike Line is CENTER_SPIKE");
+//            Logging.log("Spike Line is CENTER_SPIKE");
             centerRoute(isBlue);
         }
         //If target is on the left...
         else if(zone == SpikeLineEnum.LEFT_SPIKE)
         {
-            Logging.log("Spike Line is LEFT_SPIKE");
+//            Logging.log("Spike Line is LEFT_SPIKE");
             if (isBlue == 1)
             {
                 stageRoute(isBlue);
@@ -97,7 +94,7 @@ public class PlanGamma extends AutonomousBase
         }
         else if (zone == SpikeLineEnum.RIGHT_SPIKE)
         {
-            Logging.log("Spike Line is RIGHT_SPIKE");
+//            Logging.log("Spike Line is RIGHT_SPIKE");
             if(isBlue == 1)
             {
                 wingRoute(isBlue);
@@ -177,6 +174,57 @@ public class PlanGamma extends AutonomousBase
 //dday        driver.strafe(10, isBlue, 0.5, imuControl);
         driver.strafe(13, isBlue, 0.5, imuControl);
 
+    }
+
+
+    public void parkRobot(SpikeLineEnum zone, int isBlue) throws IOException
+    {
+
+        double defaultSpeed = 0.6;
+        int defaultWaitTime = 5;
+
+        sleep(DELAY);
+        driver.forward(10, -1, defaultSpeed);
+        if(zone == SpikeLineEnum.CENTER_SPIKE)
+        {
+            //Center
+            if(isBlue == 1)
+            {
+                driver.strafe(23, -1, defaultSpeed,imuControl);
+            }
+            else if(isBlue == -1)
+            {
+                driver.strafe(20, -isBlue, defaultSpeed, imuControl, defaultWaitTime);
+            }
+
+        }
+        else if(zone == SpikeLineEnum.LEFT_SPIKE)
+        {
+            //Left
+            if(isBlue == 1)
+            {
+                driver.strafe(23, -1, defaultSpeed, imuControl, defaultWaitTime);
+            }
+            else if(isBlue == -1)
+            {
+                driver.strafe(20, -isBlue, defaultSpeed, imuControl, defaultWaitTime);
+            }
+        }
+        else if(zone == SpikeLineEnum.RIGHT_SPIKE)
+        {
+            //Right
+            if(isBlue == 1)
+            {
+                driver.strafe(20, -1, defaultSpeed, imuControl, defaultWaitTime);
+            }
+            else if (isBlue == -1)
+            {
+                driver.strafe(15, 1, defaultSpeed, imuControl, defaultWaitTime);
+            }
+
+        }
+        //park
+        driver.forward(14, 1, defaultSpeed);
     }
 
 }
