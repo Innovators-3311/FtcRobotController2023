@@ -23,7 +23,7 @@ public class LinerSlideChild extends MotorControl
 
     private void analogControl()
     {
-        super.analogControl(0.5, gamepad2.right_stick_y,true);
+        super.analogControl(0.75, gamepad2.right_stick_y,true);
     }
 
     private void encoderDrive()
@@ -46,7 +46,7 @@ public class LinerSlideChild extends MotorControl
 
     private void analogControlSimple()
     {
-        super.analogControl(0.7, gamepad2.right_stick_y, false);
+        super.analogControl(0.75, gamepad2.right_stick_y, false);
     }
 
 
