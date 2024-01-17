@@ -40,7 +40,6 @@ public class AutonomousBase extends LinearOpMode
     protected MecanumSynchronousDriver driver;
     protected DriveToTag driveToTag;
 
-
     protected LinerSlideChild linerSlideChild;
     protected TransferRight transferRight;
     protected TransferLeft transferleft;
@@ -134,8 +133,6 @@ public class AutonomousBase extends LinearOpMode
             zone = webcamDouble.findTarget(x);
         }
     }
-
-
 
 }
 

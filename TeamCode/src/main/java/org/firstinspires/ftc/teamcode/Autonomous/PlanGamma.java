@@ -188,16 +188,12 @@ public class PlanGamma extends AutonomousBase
             //Center
             if(isBlue == 1)
             {
-                //driver.strafe(20, -isBlue, defaultSpeed, imuControl, defaultWaitTime);
                 driver.strafe(30, -1, defaultSpeed,imuControl, defaultWaitTime);
-
-                //driver.forward(5, 1, defaultSpeed);
             }
             else if(isBlue == -1)
             {
                 driver.strafe(30, -isBlue, defaultSpeed, imuControl, defaultWaitTime);
 
-                //driver.forward(5, 1, defaultSpeed);
             }
 
         }
@@ -208,7 +204,6 @@ public class PlanGamma extends AutonomousBase
             {
                 driver.strafe(23, -1, defaultSpeed, imuControl, defaultWaitTime);
 
-                //driver.forward(5, 1, defaultSpeed);
             }
             else if(isBlue == -1)
             {
@@ -221,8 +216,6 @@ public class PlanGamma extends AutonomousBase
             if(isBlue == 1)
             {
                 driver.strafe(30, -1, defaultSpeed, imuControl, defaultWaitTime);
-
-
             }
             else if (isBlue == -1)
             {

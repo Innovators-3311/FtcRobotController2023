@@ -118,7 +118,6 @@ public class PlanAlpha extends AutonomousBase
             driver.forward(5, -1, 0.6);
             sleep(DELAY);
 
-
             //Adjust (right)
             driver.rotate2(-45*isBlue, imuControl);
 
@@ -160,7 +159,5 @@ public class PlanAlpha extends AutonomousBase
         sleep(DELAY);
 
     }
-
-
 
 }
