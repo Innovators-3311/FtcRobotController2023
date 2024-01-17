@@ -31,7 +31,7 @@ public class HeightChild extends MotorControl
 
     private void analogControl()
     {
-        if (!gamepad2.back && touchSensor.isPressed())
+        if (!gamepad2.back && (touchSensor.isPressed() && gamepad2.left_stick_y < 0))
         {
             super.analogControl(1, gamepad2.left_stick_y, false, lowerBound, upperBound);
         }
