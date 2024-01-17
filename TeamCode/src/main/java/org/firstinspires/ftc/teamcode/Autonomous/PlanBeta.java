@@ -88,7 +88,7 @@ public class PlanBeta extends AutonomousBase
             }
         }
 
-        goThroughTrussAndFinish(false, false, true, isBlue);
+        goThroughTrussAndFinish(false, false, isBlue);
 
 
 
@@ -214,14 +214,11 @@ public class PlanBeta extends AutonomousBase
         //Adjust (left)
         driver.rotate2(45 * isBlue, imuControl);
 
-        //Strafe out of the way
-//        driver.strafe(5, isBlue, 0.5, imuControl);
-
         //Go to the middle
         driver.forward(25.5, 1, 0.8);
     }
 
-    public void centerRoute(int isBlue) throws IOException, InterruptedException
+    public void centerRoute(int isBlue)
     {
         //Go forward and place pixel
         driver.forward(26, 1, 0.6);
@@ -237,7 +234,7 @@ public class PlanBeta extends AutonomousBase
 
     }
 
-    public void goThroughTrussAndFinish(boolean center, boolean left, boolean right, int isBlue) throws IOException, InterruptedException
+    public void goThroughTrussAndFinish(boolean center, boolean left, int isBlue) throws IOException, InterruptedException
     {
         int goThroughTrussDistance;
 

@@ -81,9 +81,86 @@ public class PlanAlpha extends AutonomousBase
 
         }
 
+    }
 
+
+    public void planPurple(SpikeLineEnum zone, int isBlue) throws IOException, InterruptedException
+    {
+
+        if(zone == SpikeLineEnum.CENTER_SPIKE)
+        {
+            //Go forward to determine whether object is left/center/right
+            driver.forward(27, 1, 0.6);
+            //Go forward and place pixel
+
+            //Go backward into position
+            driver.forward(22, -1, 0.6);
+
+        }
+
+
+        //If target is on the left...
+        else if(zone == SpikeLineEnum.LEFT_SPIKE)
+        {
+            //Go forward just enough to turn
+            driver.forward(17, 1, 0.6);
+
+            sleep(DELAY);
+
+            driver.rotate2(45 * isBlue, imuControl);
+
+            //Push pixel into place
+            driver.forward(5, 1, 0.6);
+
+            sleep(DELAY);
+
+            //Go backward after placing pixel
+            driver.forward(5, -1, 0.6);
+            sleep(DELAY);
+
+
+            //Adjust (right)
+            driver.rotate2(-45*isBlue, imuControl);
+
+            sleep(DELAY);
+            //Go backward into position
+            driver.forward(17, -1, 0.6);
+
+        }
+
+        else if(zone == SpikeLineEnum.RIGHT_SPIKE)
+        {
+            //Go forward just enough to turn
+            driver.forward(17, 1, 0.6);
+
+            sleep(DELAY);
+
+            driver.rotate2(-45*isBlue, imuControl);
+
+            sleep(DELAY);
+
+            //Push pixel into place
+            driver.forward(6, 1, 0.6);
+
+            sleep(DELAY);
+
+            //Go backward after placing pixel
+            driver.forward(6, -1, 0.6);
+
+            sleep(DELAY);
+
+            //Adjust (left)
+            driver.rotate2(45 * isBlue, imuControl);
+
+            //Go back
+            driver.forward(17, -1, 0.6);
+        }
+
+        //Wait for next command...
+        sleep(DELAY);
 
     }
+
 
 
 }
