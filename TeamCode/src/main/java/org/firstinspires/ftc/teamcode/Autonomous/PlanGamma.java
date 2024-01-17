@@ -9,10 +9,6 @@ import java.io.IOException;
 public class PlanGamma extends AutonomousBase
 {
 
-//    int isBlue = red;
-//
-//    int DELAY = 500;
-
     @Override
     public void runOpMode() throws InterruptedException
     {
@@ -54,9 +50,6 @@ public class PlanGamma extends AutonomousBase
         sleep(2000);
         //driveToTag.drive(7, zone.ordinal() + 1 + wallTarget, 11, 0);
         driveToTag.drive(3, zone.ordinal() + 1 + wallTarget, 5, 1);
-//        sleep(500);
-//        driver.forward(3,1,.5,3);
-//        sleep(500);
         transferRight.autonomousControl(false);
         transferleft.autonomousControl(false);
 
@@ -174,9 +167,69 @@ public class PlanGamma extends AutonomousBase
         driver.forward(23, 1, 0.5);
 
         //Strafe in front of AprilTag 4 (or 1) so that camera detects it
-//dday        driver.strafe(10, isBlue, 0.5, imuControl);
+
         driver.strafe(13, isBlue, 0.5, imuControl);
 
+    }
+    public void parkRobot(SpikeLineEnum zone, int isBlue) throws IOException, InterruptedException
+    {
+
+        double defaultSpeed = 0.6;
+        int defaultWaitTime = 5;
+        //Added following variables just because
+        int red = -1;
+        int blue = 1;
+        int left = -1;
+        int right = 1;
+        int forward = 1;
+        int backward = -1;
+
+
+        //Go backward for space
+        driver.forward(5, backward, defaultSpeed);
+
+        if(zone == SpikeLineEnum.CENTER_SPIKE)
+        {
+            //Center
+            if(isBlue == blue)
+            {
+                driver.strafe(30, left, defaultSpeed,imuControl, defaultWaitTime);
+            }
+            else if(isBlue == red)
+            {
+                driver.strafe(30, -isBlue, defaultSpeed, imuControl, defaultWaitTime);
+
+            }
+
+        }
+        else if(zone == SpikeLineEnum.LEFT_SPIKE)
+        {
+            //Left
+            if(isBlue == blue)
+            {
+                driver.strafe(23, left, defaultSpeed, imuControl, defaultWaitTime);
+
+            }
+            else if(isBlue == red)
+            {
+                driver.strafe(35, -isBlue, defaultSpeed, imuControl, defaultWaitTime);
+            }
+        }
+        else if(zone == SpikeLineEnum.RIGHT_SPIKE)
+        {
+            //Right
+            if(isBlue == blue)
+            {
+                driver.strafe(30, left, defaultSpeed, imuControl, defaultWaitTime);
+            }
+            else if (isBlue == red)
+            {
+                driver.strafe(15, right, defaultSpeed, imuControl, defaultWaitTime);
+            }
+
+        }
+
+        driver.forward(14, forward, defaultSpeed);
     }
 
 }

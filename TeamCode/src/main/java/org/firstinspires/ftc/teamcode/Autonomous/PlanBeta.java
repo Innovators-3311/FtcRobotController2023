@@ -46,7 +46,7 @@ public class PlanBeta extends AutonomousBase
         transferRight.autonomousControl(false);
         transferleft.autonomousControl(false);
 
-        sleep(1000);
+        sleep(DELAY);
     }
 
     /**
@@ -86,8 +86,7 @@ public class PlanBeta extends AutonomousBase
             }
         }
 
-        goThroughTrussAndFinish(false, false, true, isBlue);
-
+        goThroughTrussAndFinish(false, false, isBlue);
 
 
 //  TODO Do not delete.  FAll back to this for red only
@@ -174,7 +173,7 @@ public class PlanBeta extends AutonomousBase
     public void wingRoute(int isBlue) throws IOException, InterruptedException
     {
         //Go forward just enough to turn
-        driver.forward(19, 1, 0.6);
+        driver.forward(17, 1, 0.6);
 
         //Turn left to face pixel
         driver.rotate2(45 * isBlue, imuControl);
@@ -187,9 +186,6 @@ public class PlanBeta extends AutonomousBase
 
         //Adjust (right)
         driver.rotate2(-45 * isBlue, imuControl);
-
-        //Strafe barely so that robot doesn't run over pixel
-        //driver.strafe(0.3, -isBlue, 0.4, imuControl);
 
         //Drive forward (meant to go through the middle of the truss)
         driver.forward(26, 1, 0.7);
@@ -212,14 +208,11 @@ public class PlanBeta extends AutonomousBase
         //Adjust (left)
         driver.rotate2(45 * isBlue, imuControl);
 
-        //Strafe out of the way
-//        driver.strafe(5, isBlue, 0.5, imuControl);
-
         //Go to the middle
         driver.forward(25.5, 1, 0.8);
     }
 
-    public void centerRoute(int isBlue) throws IOException, InterruptedException
+    public void centerRoute(int isBlue)
     {
         //Go forward and place pixel
         driver.forward(26, 1, 0.6);
@@ -235,7 +228,7 @@ public class PlanBeta extends AutonomousBase
 
     }
 
-    public void goThroughTrussAndFinish(boolean center, boolean left, boolean right, int isBlue) throws IOException, InterruptedException
+    public void goThroughTrussAndFinish(boolean center, boolean left, int isBlue) throws IOException, InterruptedException
     {
         int goThroughTrussDistance;
 
