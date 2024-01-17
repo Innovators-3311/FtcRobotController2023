@@ -39,16 +39,14 @@ public class PlanBeta extends AutonomousBase
 
         driveToTag.drive(4, zone.ordinal() + 1 + wallTarget, 6, 1);
 
-
-
         heightChild.encoderControl(0,0.7);
         linerSlideChild.encoderControl(0, 0.5);
 
-        sleep(2000);
+        sleep(1000);
         transferRight.autonomousControl(false);
         transferleft.autonomousControl(false);
 
-        sleep(2000);
+        sleep(1000);
     }
 
     /**
@@ -176,7 +174,7 @@ public class PlanBeta extends AutonomousBase
     public void wingRoute(int isBlue) throws IOException, InterruptedException
     {
         //Go forward just enough to turn
-        driver.forward(17, 1, 0.6);
+        driver.forward(19, 1, 0.6);
 
         //Turn left to face pixel
         driver.rotate2(45 * isBlue, imuControl);
@@ -200,7 +198,7 @@ public class PlanBeta extends AutonomousBase
     public void stageRoute(int isBlue) throws IOException, InterruptedException
     {
         //Go forward
-        driver.forward(17, 1, 0.6);
+        driver.forward(19, 1, 0.6);
 
         //Turn (right) to place pixel
         driver.rotate2(-45 * isBlue, imuControl);

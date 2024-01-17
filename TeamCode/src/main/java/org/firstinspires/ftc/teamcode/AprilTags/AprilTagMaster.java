@@ -114,6 +114,12 @@ public class AprilTagMaster
 
             telemetry.addData("Auto", "Drive %5.2f, Strafe %5.2f, Turn %5.2f ", drive, strafe, turn);
         }
+        else
+        {
+            drive = 0;
+            turn = 0;
+            strafe = 0;
+        }
 
 //        telemetry.update();
 
