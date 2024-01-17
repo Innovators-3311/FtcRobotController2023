@@ -39,8 +39,6 @@ public class PlanBeta extends AutonomousBase
 
         driveToTag.drive(4, zone.ordinal() + 1 + wallTarget, 6, 1);
 
-
-
         heightChild.encoderControl(0,0.7);
         linerSlideChild.encoderControl(0, 0.5);
 
@@ -48,7 +46,7 @@ public class PlanBeta extends AutonomousBase
         transferRight.autonomousControl(false);
         transferleft.autonomousControl(false);
 
-        sleep(2000);
+        sleep(DELAY);
     }
 
     /**
@@ -89,7 +87,6 @@ public class PlanBeta extends AutonomousBase
         }
 
         goThroughTrussAndFinish(false, false, isBlue);
-
 
     }
 
@@ -183,7 +180,6 @@ public class PlanBeta extends AutonomousBase
         }
 
         driver.forward(goThroughTrussDistance, 1, 0.7);
-         
 
         //Strafe to position
         if (isBlue == 1)

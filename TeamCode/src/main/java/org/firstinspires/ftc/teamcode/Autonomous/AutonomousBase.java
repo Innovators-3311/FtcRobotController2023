@@ -33,7 +33,6 @@ public class AutonomousBase extends LinearOpMode
 
     Recognition rec = null;
 
-
     protected ImuHardware imuControl;
 
     /** Drive control */
@@ -109,7 +108,7 @@ public class AutonomousBase extends LinearOpMode
 
         waitForStart();
 
-        if (zone == SpikeLineEnum.UNKNOWN )
+        if (zone == SpikeLineEnum.UNKNOWN)
         {
             Logging.log("No team prop was detected.  Your code sucks.");
             zone = SpikeLineEnum.CENTER_SPIKE;

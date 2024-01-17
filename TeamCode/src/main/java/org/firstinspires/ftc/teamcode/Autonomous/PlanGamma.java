@@ -176,21 +176,26 @@ public class PlanGamma extends AutonomousBase
 
         double defaultSpeed = 0.6;
         int defaultWaitTime = 5;
+        //Added following variables just because
+        int red = -1;
+        int blue = 1;
+        int left = -1;
+        int right = 1;
+        int forward = 1;
+        int backward = -1;
 
-        //sleep(DELAY);
-        //TODO maybe: Add variables for adding/subtracting for more reusable code
-        //TODO if necessary: Set each driver.forward command for each instance (instead of shared)
-        driver.forward(5, -1, defaultSpeed);
 
+        //Go backward for space
+        driver.forward(5, backward, defaultSpeed);
 
         if(zone == SpikeLineEnum.CENTER_SPIKE)
         {
             //Center
-            if(isBlue == 1)
+            if(isBlue == blue)
             {
-                driver.strafe(30, -1, defaultSpeed,imuControl, defaultWaitTime);
+                driver.strafe(30, left, defaultSpeed,imuControl, defaultWaitTime);
             }
-            else if(isBlue == -1)
+            else if(isBlue == red)
             {
                 driver.strafe(30, -isBlue, defaultSpeed, imuControl, defaultWaitTime);
 
@@ -200,12 +205,12 @@ public class PlanGamma extends AutonomousBase
         else if(zone == SpikeLineEnum.LEFT_SPIKE)
         {
             //Left
-            if(isBlue == 1)
+            if(isBlue == blue)
             {
-                driver.strafe(23, -1, defaultSpeed, imuControl, defaultWaitTime);
+                driver.strafe(23, left, defaultSpeed, imuControl, defaultWaitTime);
 
             }
-            else if(isBlue == -1)
+            else if(isBlue == red)
             {
                 driver.strafe(35, -isBlue, defaultSpeed, imuControl, defaultWaitTime);
             }
@@ -213,18 +218,18 @@ public class PlanGamma extends AutonomousBase
         else if(zone == SpikeLineEnum.RIGHT_SPIKE)
         {
             //Right
-            if(isBlue == 1)
+            if(isBlue == blue)
             {
-                driver.strafe(30, -1, defaultSpeed, imuControl, defaultWaitTime);
+                driver.strafe(30, left, defaultSpeed, imuControl, defaultWaitTime);
             }
-            else if (isBlue == -1)
+            else if (isBlue == red)
             {
-                driver.strafe(15, 1, defaultSpeed, imuControl, defaultWaitTime);
+                driver.strafe(15, right, defaultSpeed, imuControl, defaultWaitTime);
             }
 
         }
 
-        driver.forward(14, 1, defaultSpeed);
+        driver.forward(14, forward, defaultSpeed);
     }
 
 }
