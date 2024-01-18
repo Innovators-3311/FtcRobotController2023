@@ -6,7 +6,7 @@ import org.firstinspires.ftc.teamcode.util.Logging;
 
 import java.io.IOException;
 
-@Autonomous(name = "Plan Beta", group = "Group3311")
+@Autonomous(name = "Plan Beta", group = "auto")
 public class PlanBeta extends AutonomousBase
 {
 

@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import java.io.IOException;
 
-@Autonomous(name = "Plan Alpha", group = "Group3311")
+@Autonomous(name = "Plan Alpha", group = "auto")
 
 //Formerly BlueStageRight
 //Formerly BlueStage

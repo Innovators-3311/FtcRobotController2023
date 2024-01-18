@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.util.Logging;
 
 import java.io.IOException;
-@Autonomous(name = "Plan Gamma", group = "Group3311")
+@Autonomous(name = "Plan Gamma", group = "auto")
 public class PlanGamma extends AutonomousBase
 {
 
@@ -45,7 +45,7 @@ public class PlanGamma extends AutonomousBase
         transferleft.autonomousControl(false);
         transferRight.autonomousControl(true);
         transferleft.autonomousControl(true);
-        linerSlideChild.encoderControl(-50, 0.5);
+        linerSlideChild.encoderControl(-150, 0.5);
 
         sleep(2000);
         //driveToTag.drive(7, zone.ordinal() + 1 + wallTarget, 11, 0);

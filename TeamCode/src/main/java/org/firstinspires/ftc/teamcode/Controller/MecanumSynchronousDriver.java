@@ -481,18 +481,18 @@ public class MecanumSynchronousDriver<imuControl> extends MechanicalDriveBase
             // Use PID with imu input to drive in a straight line.
             // pos is right turn, neg is left turn
             double forwardCorrection = pidDrive.performPID(yDifference);
-            mOpMode.telemetry.addData("correction ", "correction: " + forwardCorrection + " wheelDif: " + yDifference);
-            Logging.log("correction: " + forwardCorrection + " yDifference: " + yDifference);
+//            mOpMode.telemetry.addData("correction ", "correction: " + forwardCorrection + " wheelDif: " + yDifference);
+//            Logging.log("correction: " + forwardCorrection + " yDifference: " + yDifference);
 
             double strafeCorrection = pidStrafe.performPID(strafeDifference);
-            mOpMode.telemetry.addData("strafeCorrection ", "correction: " + strafeCorrection + " strafeDifference: " + strafeDifference);
+//            mOpMode.telemetry.addData("strafeCorrection ", "correction: " + strafeCorrection + " strafeDifference: " + strafeDifference);
 
             double headingError = pidRotateImu.performPID(angle);
 
            //this.driveMotors(0, (-headingError), speed, 1); // run with PID
             this.driveMotors(-forwardCorrection, (-headingError), speed, 1); // run with PID
 //            Logging.log("heading: %f angle: %f headingError: %f", targetAngle,angle, headingError);
-            Logging.log("forwardCorrection = %f, speed = %f ", -forwardCorrection, speed);
+//            Logging.log("forwardCorrection = %f, speed = %f ", -forwardCorrection, speed);
 //            mOpMode.telemetry.addData("Encoder", "left: " + lf.getCurrentPosition() + " right: " + rf.getCurrentPosition() + " strafe: " + rb.getCurrentPosition());
 //            mOpMode.telemetry.update();
         }
