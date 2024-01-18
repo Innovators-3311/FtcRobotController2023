@@ -68,7 +68,7 @@ public class DriveToTag
         else if (gamepad.left_trigger > 0.5 || gamepad.left_bumper)
         {
             telemetry.addData("Homing", "");
-            aprilTagMaster.findTag(6, 0, target, telemetry);
+            aprilTagMaster.findTag(7, 0, target, telemetry);
         }
         telemetry.addData("Current Target", target);
     }

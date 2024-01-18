@@ -97,6 +97,76 @@ public class MotorControl
      *
      * @param speedLimit Put's restriction on how fast the motor can spin
      * @param input which gamepad float value that will mak this spin
+     * @param limit1 Made with limit switches in mind
+     * @param limit2 Made with limit switches in mind
+     */
+    protected void analogControl(double speedLimit, double input, boolean advanceBreak, boolean limit1, boolean limit2)
+    {
+        double motorPower = input;
+        motorPower = Range.clip(motorPower, -speedLimit, speedLimit);
+
+        if (Math.abs(motorPower) > 0)
+        {
+            if (limit1 && motorPower > 0) {telemetry.addData("Upper bound break", "");motorBreak();}
+            else if (limit2 && motorPower < 0) {telemetry.addData("Lower bound break", "");motorBreak();}
+            else
+            {
+                motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                motor.setPower(motorPower);
+            }
+        }
+        else if (advanceBreak && motor.getMode() == DcMotor.RunMode.RUN_WITHOUT_ENCODER)
+        {
+            motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            motor.setTargetPosition(motor.getCurrentPosition());
+            motor.setPower(0.3);
+            motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
+        else if (advanceBreak && motor.getMode() == DcMotor.RunMode.RUN_TO_POSITION) {}
+        else {motorBreak();}
+
+    }
+
+    /**
+     * Analog control method with bounds
+     *
+     * @param speedLimit Put's restriction on how fast the motor can spin
+     * @param input which gamepad float value that will mak this spin
+     * @param limit1 Made with limit switches in mind
+     * @param limit2 Made with limit switches in mind
+     */
+    protected void analogControl(double speedLimit, double input, boolean advanceBreak, boolean limit1, double limit2)
+    {
+        double motorPower = input;
+        motorPower = Range.clip(motorPower, -speedLimit, speedLimit);
+
+        if (Math.abs(motorPower) > 0)
+        {
+            if (limit1 && motorPower > 0) {telemetry.addData("Upper bound break", "");motorBreak();}
+            else if (100 + Math.abs(motor.getCurrentPosition()) < 100 + Math.abs(limit2) && motorPower < 0) {telemetry.addData("Lower bound break", "");motorBreak();}
+            else
+            {
+                motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+                motor.setPower(motorPower);
+            }
+        }
+        else if (advanceBreak && motor.getMode() == DcMotor.RunMode.RUN_WITHOUT_ENCODER)
+        {
+            motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            motor.setTargetPosition(motor.getCurrentPosition());
+            motor.setPower(0.3);
+            motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        }
+        else if (advanceBreak && motor.getMode() == DcMotor.RunMode.RUN_TO_POSITION) {}
+        else {motorBreak();}
+
+    }
+
+    /**
+     * Analog control method with bounds
+     *
+     * @param speedLimit Put's restriction on how fast the motor can spin
+     * @param input which gamepad float value that will mak this spin
      * @param lowerBound Motor will not spin past this bound at negative power (must have encoder to use this feature)
      * @param upperBound Motor will not spin past this bound at positive power(must have encoder to use this feature)
      */

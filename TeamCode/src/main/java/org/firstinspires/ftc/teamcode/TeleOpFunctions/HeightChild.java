@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.TeleOpFunctions;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Controller.MotorControl;
 
 public class HeightChild extends MotorControl
@@ -11,13 +12,15 @@ public class HeightChild extends MotorControl
     private final int lowerBound = -1500;
     private final int upperBound = -2550;
 
-    TouchSensor touchSensor;
+    TouchSensor touch;
+    Telemetry telemetry;
 
     //Constructor calls parent constructor using hardcoded input
     public HeightChild(OpMode opmode)
     {
         super("height", false, true, opmode);
-        touchSensor = opmode.hardwareMap.get(TouchSensor.class, "touchSensor");
+        touch = opmode.hardwareMap.touchSensor.get("touchSensor");
+        telemetry = opmode.telemetry;
     }
 
     //Calls all methods and then is called itself in the OpMode loop
@@ -31,10 +34,13 @@ public class HeightChild extends MotorControl
 
     private void analogControl()
     {
-        if (!gamepad2.back && (touchSensor.isPressed() && gamepad2.left_stick_y < 0))
+        if (!gamepad2.back)
         {
-            super.analogControl(1, gamepad2.left_stick_y, false, lowerBound, upperBound);
+            super.analogControl(1, gamepad2.left_stick_y, false, touch.isPressed(), lowerBound);
+            telemetry.addData("Touch sensor", touch.isPressed());
+            telemetry.addData("Touch sensor", touch.getValue());
         }
+
     }
 
     private void resetDrive()
