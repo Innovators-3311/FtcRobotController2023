@@ -19,7 +19,7 @@ public class HeightChild extends MotorControl
     public HeightChild(OpMode opmode)
     {
         super("height", false, true, opmode);
-        touch = opmode.hardwareMap.touchSensor.get("touchSensor");
+        touch = opmode.hardwareMap.get(TouchSensor.class, "touchSensor");
         telemetry = opmode.telemetry;
     }
 
