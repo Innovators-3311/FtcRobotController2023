@@ -256,6 +256,8 @@ public class MotorControl
         motor.setPower(speed);
     }
 
+
+
     /**
      * for motors that just need to spin call break to stop
      * @param speed speed you want the motor to spin

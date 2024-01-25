@@ -59,6 +59,8 @@ public class PlanBeta extends AutonomousBase
         {
             Logging.log("Spike Line is CENTER_SPIKE");
             centerRoute(isBlue);
+
+            goThroughTrussAndFinish(true, false, isBlue);
         }
         //If target is on the left...
         else if(zone == SpikeLineEnum.LEFT_SPIKE)
@@ -72,6 +74,8 @@ public class PlanBeta extends AutonomousBase
             {
                 wingRoute(isBlue);
             }
+
+            goThroughTrussAndFinish(false, true, isBlue);
         }
         else if (zone == SpikeLineEnum.RIGHT_SPIKE)
         {
@@ -84,9 +88,11 @@ public class PlanBeta extends AutonomousBase
             {
                 stageRoute(isBlue);
             }
+
+            goThroughTrussAndFinish(false, false, isBlue);
         }
 
-        goThroughTrussAndFinish(false, false, isBlue);
+
 
 
 //  TODO Do not delete.  FAll back to this for red only
@@ -188,7 +194,7 @@ public class PlanBeta extends AutonomousBase
         driver.rotate2(-45 * isBlue, imuControl);
 
         //Drive forward (meant to go through the middle of the truss)
-        driver.forward(26, 1, 0.7);
+        driver.forward(27, 1, 0.7);  // 26
     }
 
     public void stageRoute(int isBlue) throws IOException, InterruptedException
@@ -244,18 +250,20 @@ public class PlanBeta extends AutonomousBase
         if(left)
         {
             goThroughTrussDistance = 60;
-        } else if(center)
+        }
+        else if(center)
         {
             goThroughTrussDistance = 80;
-        } else
+        }
+        else
         {
             if (isBlue == 1)
             {
-                goThroughTrussDistance = 75;
+                goThroughTrussDistance = 70;
             }
             else
             {
-                goThroughTrussDistance = 75;
+                goThroughTrussDistance = 70; //75;
             }
         }
 
@@ -267,30 +275,30 @@ public class PlanBeta extends AutonomousBase
         {
             if (zone == SpikeLineEnum.LEFT_SPIKE)
             {
-                driver.strafe(24, -isBlue, 0.5, imuControl);
-            }
-            else if (zone == SpikeLineEnum.CENTER_SPIKE)
-            {
                 driver.strafe(30, -isBlue, 0.5, imuControl);
             }
-            else if (zone == SpikeLineEnum.RIGHT_SPIKE)
-            {
-                driver.strafe(20, -isBlue, 0.5, imuControl);
-            }
-        }
-        else
-        {
-            if (zone == SpikeLineEnum.LEFT_SPIKE)
-            {
-                driver.strafe(16, -isBlue, 0.5, imuControl);
-            }
             else if (zone == SpikeLineEnum.CENTER_SPIKE)
+            {
+                driver.strafe(24, -isBlue, 0.5, imuControl);
+            }
+            else if (zone == SpikeLineEnum.RIGHT_SPIKE)
             {
                 driver.strafe(18, -isBlue, 0.5, imuControl);
             }
-            else if (zone == SpikeLineEnum.RIGHT_SPIKE)
+        }
+        else  //is red
+        {
+            if (zone == SpikeLineEnum.LEFT_SPIKE)
+            {
+                driver.strafe(18, -isBlue, 0.5, imuControl);
+            }
+            else if (zone == SpikeLineEnum.CENTER_SPIKE)
             {
                 driver.strafe(24, -isBlue, 0.5, imuControl);
+            }
+            else if (zone == SpikeLineEnum.RIGHT_SPIKE)
+            {
+                driver.strafe(30, -isBlue, 0.5, imuControl);  //was 24
             }
         }
 
