@@ -30,9 +30,19 @@ public class PlanAlpha extends AutonomousBase
             wallTarget = 3; //originally 3
         }
 
+        transferRight.autonomousControl(false);
+        transferleft.autonomousControl(false);
+        transferRight.autonomousControl(true);
+        transferleft.autonomousControl(true);
+
         sleep(1000);
         driveToTag.drive(7, zone.ordinal() + 1 + wallTarget, 5, 1);
         heightChild.encoderControl(0, 0.7);
+
+        sleep(DELAY);
+        transferRight.autonomousControl(false);
+        transferleft.autonomousControl(false);
+
 
     }
 
@@ -44,13 +54,15 @@ public class PlanAlpha extends AutonomousBase
     {
         planPurple(zone, isBlue);
 
+        this.heightChild.encoderControl(-1000, 0.6);
+
         if(zone == SpikeLineEnum.CENTER_SPIKE){
 
             //Turn left to go through truss
             driver.rotate2(-90*isBlue, imuControl);
 
             //Go through truss
-            this.heightChild.encoderControl(-1000, 0.6);
+
             driver.forward(70, 1, 0.8);
 
             //Strafe to let AprilTag take over
