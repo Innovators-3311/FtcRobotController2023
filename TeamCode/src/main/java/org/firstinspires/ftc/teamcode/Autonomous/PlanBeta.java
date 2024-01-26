@@ -166,7 +166,7 @@ public class PlanBeta extends AutonomousBase
 
         Thread.sleep(100);
 
-        this.heightChild.encoderControl(1000,.7);
+        this.heightChild.encoderControl(1000,0.7);
 
         //This goes to the other side
         if(left)

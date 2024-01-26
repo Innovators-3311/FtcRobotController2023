@@ -50,7 +50,10 @@ public class PlanAlpha extends AutonomousBase
             driver.rotate2(-90*isBlue, imuControl);
 
             //Go through truss
-            this.heightChild.encoderControl(-1000, 0.6);
+            this.heightChild.encoderControl(2000, 0.6);
+
+            sleep(3000);
+
             driver.forward(70, 1, 0.8);
 
             //Strafe to let AprilTag take over
@@ -62,6 +65,10 @@ public class PlanAlpha extends AutonomousBase
          //Turn to truss
         driver.rotate2(-90 * isBlue, imuControl);
 
+        this.heightChild.encoderControl(2000, 0.7);
+
+        sleep(3000);
+
         //Go through truss
         driver.forward(70, 1, 0.6);
 
@@ -72,6 +79,9 @@ public class PlanAlpha extends AutonomousBase
 
             //Turn left to go through truss
             driver.rotate2(-90*isBlue, imuControl);
+
+            this.heightChild.encoderControl(2000, 0.6);
+            sleep(3000);
 
             //Go through truss
             driver.forward(70, 1, 0.8);

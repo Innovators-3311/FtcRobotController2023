@@ -12,6 +12,8 @@ public class PlanZeta extends AutonomousBase
     public void runOpMode() throws InterruptedException
     {
 
+        waitForStart();
+
         //If target is in the center...
         if(zone == SpikeLineEnum.CENTER_SPIKE)
         {
