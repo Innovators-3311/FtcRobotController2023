@@ -32,6 +32,7 @@ public class PlanAlpha extends AutonomousBase
 
         sleep(1000);
         driveToTag.drive(7, zone.ordinal() + 1 + wallTarget, 5, 1);
+        heightChild.encoderControl(0, 0.7);
 
     }
 
@@ -49,6 +50,7 @@ public class PlanAlpha extends AutonomousBase
             driver.rotate2(-90*isBlue, imuControl);
 
             //Go through truss
+            this.heightChild.encoderControl(-1000, 0.6);
             driver.forward(70, 1, 0.8);
 
             //Strafe to let AprilTag take over
