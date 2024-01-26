@@ -169,14 +169,7 @@ public class PlanBeta extends AutonomousBase
             goThroughTrussDistance = 80;
         } else
         {
-            if (isBlue == 1)
-            {
-                goThroughTrussDistance = 75;
-            }
-            else
-            {
-                goThroughTrussDistance = 75;
-            }
+            goThroughTrussDistance = 75;
         }
 
         driver.forward(goThroughTrussDistance, 1, 0.7);
