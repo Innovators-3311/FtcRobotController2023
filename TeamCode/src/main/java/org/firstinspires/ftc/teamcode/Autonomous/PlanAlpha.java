@@ -30,9 +30,19 @@ public class PlanAlpha extends AutonomousBase
             wallTarget = 3; //originally 3
         }
 
+        transferRight.autonomousControl(false);
+        transferleft.autonomousControl(false);
+        transferRight.autonomousControl(true);
+        transferleft.autonomousControl(true);
+
         sleep(1000);
         driveToTag.drive(7, zone.ordinal() + 1 + wallTarget, 5, 1);
         heightChild.encoderControl(0, 0.7);
+
+        sleep(DELAY);
+        transferRight.autonomousControl(false);
+        transferleft.autonomousControl(false);
+
 
     }
 
@@ -99,14 +109,17 @@ public class PlanAlpha extends AutonomousBase
     public void planPurple(SpikeLineEnum zone, int isBlue) throws IOException, InterruptedException
     {
 
+        int forward = 1;
+        int backward = -1;
+
         if(zone == SpikeLineEnum.CENTER_SPIKE)
         {
             //Go forward to determine whether object is left/center/right
-            driver.forward(27, 1, 0.6);
+            driver.forward(27, forward, 0.6);
             //Go forward and place pixel
 
             //Go backward into position
-            driver.forward(22, -1, 0.6);
+            driver.forward(22, backward, 0.6);
 
         }
 
@@ -115,19 +128,19 @@ public class PlanAlpha extends AutonomousBase
         else if(zone == SpikeLineEnum.LEFT_SPIKE)
         {
             //Go forward just enough to turn
-            driver.forward(17, 1, 0.6);
+            driver.forward(17, forward, 0.6);
 
             sleep(DELAY);
 
             driver.rotate2(45 * isBlue, imuControl);
 
             //Push pixel into place
-            driver.forward(5, 1, 0.6);
+            driver.forward(5, forward, 0.6);
 
             sleep(DELAY);
 
             //Go backward after placing pixel
-            driver.forward(5, -1, 0.6);
+            driver.forward(5, backward, 0.6);
             sleep(DELAY);
 
             //Adjust (right)
@@ -135,14 +148,14 @@ public class PlanAlpha extends AutonomousBase
 
             sleep(DELAY);
             //Go backward into position
-            driver.forward(17, -1, 0.6);
+            driver.forward(17, backward, 0.6);
 
         }
 
         else if(zone == SpikeLineEnum.RIGHT_SPIKE)
         {
             //Go forward just enough to turn
-            driver.forward(17, 1, 0.6);
+            driver.forward(17, forward, 0.6);
 
             sleep(DELAY);
 
@@ -151,12 +164,12 @@ public class PlanAlpha extends AutonomousBase
             sleep(DELAY);
 
             //Push pixel into place
-            driver.forward(6, 1, 0.6);
+            driver.forward(6, forward, 0.6);
 
             sleep(DELAY);
 
             //Go backward after placing pixel
-            driver.forward(6, -1, 0.6);
+            driver.forward(6, backward, 0.6);
 
             sleep(DELAY);
 
