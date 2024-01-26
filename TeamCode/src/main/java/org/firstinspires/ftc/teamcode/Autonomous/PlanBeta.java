@@ -175,7 +175,7 @@ public class PlanBeta extends AutonomousBase
         }
         else if(center)
         {
-            goThroughTrussDistance = 80;
+            goThroughTrussDistance = 95;
         }
         else
         {
