@@ -4,10 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.Range;
-
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.util.Logging;
+
 
 public class ServoControl
 {
@@ -42,7 +40,6 @@ public class ServoControl
         }
         catch (IllegalArgumentException e)
         {
-            Logging.log("%s not found in Hardware Map",servoName);
             telemetry.addData("Exception:", "%s not found in Hardware Map",servoName);
             telemetry.update();
         }
