@@ -6,6 +6,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.BuiltinCameraDirection;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.Controller.MechanicalDriveBase;
+import org.firstinspires.ftc.teamcode.util.Logging;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
@@ -113,6 +114,9 @@ public class AprilTagMaster
             strafe = Range.clip(yawError * STRAFE_GAIN, -MAX_AUTO_STRAFE, MAX_AUTO_STRAFE);
 
             telemetry.addData("Auto", "Drive %5.2f, Strafe %5.2f, Turn %5.2f ", drive, strafe, turn);
+
+            Logging.log("DiveToTag: range %5.2f, heading %5.2f, yawError %5.2f", rangeError, headingError, yawError);
+            Logging.log("DiveToTag: Drive %5.2f, Strafe %5.2f, Turn %5.2f", drive, strafe, turn);
         }
         else
         {

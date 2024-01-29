@@ -187,7 +187,8 @@ public class WebCamDoubleVision
             .build();
 
         tfod.setMinResultConfidence(0.7f);
-        tfod.setClippingMargins(0, 100, 0, 100);
+        //tfod.setClippingMargins(0, 100, 0, 100);
+        tfod.setClippingMargins(0, 100, 0, 0);
         //tfod.setZoom(1.2);
 
         // -----------------------------------------------------------------------------------------
