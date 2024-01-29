@@ -45,11 +45,11 @@ public class PlanGamma extends AutonomousBase
         transferleft.autonomousControl(false);
         transferRight.autonomousControl(true);
         transferleft.autonomousControl(true);
-        linerSlideChild.encoderControl(-500, 0.5);
+        linerSlideChild.encoderControl(-200, 0.5);
 
         sleep(2000);
         //driveToTag.drive(7, zone.ordinal() + 1 + wallTarget, 11, 0);
-        driveToTag.drive(3, zone.ordinal() + 1 + wallTarget, 5, 1);
+        driveToTag.drive(3, zone.ordinal() + 1 + wallTarget, 7, 1);
         transferRight.autonomousControl(false);
         transferleft.autonomousControl(false);
 
@@ -192,7 +192,7 @@ public class PlanGamma extends AutonomousBase
             //Center
             if(isBlue == blue)
             {
-                driver.strafe(30, left, defaultSpeed,imuControl, defaultWaitTime);
+                driver.strafe(26, left, defaultSpeed,imuControl, defaultWaitTime);
             }
             else if(isBlue == red)
             {
