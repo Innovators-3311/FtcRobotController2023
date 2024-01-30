@@ -36,15 +36,13 @@ public class PlanAlpha extends AutonomousBase
         transferleft.autonomousControl(true);
 
         sleep(1000);
-        linerSlideChild.encoderControl(-500, 0.5);
+        linerSlideChild.encoderControl(-250, 0.5);
 
 
-        driveToTag.drive(7, zone.ordinal() + 1 + wallTarget, 6, 1);
+        driveToTag.drive(7, zone.ordinal() + 1 + wallTarget, 6, -1);
         heightChild.encoderControl(0, 0.7);
 
 
-
-        sleep(DELAY);
         transferRight.autonomousControl(false);
         transferleft.autonomousControl(false);
 

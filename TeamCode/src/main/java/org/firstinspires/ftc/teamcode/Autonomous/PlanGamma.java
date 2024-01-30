@@ -45,11 +45,13 @@ public class PlanGamma extends AutonomousBase
         transferleft.autonomousControl(false);
         transferRight.autonomousControl(true);
         transferleft.autonomousControl(true);
-        linerSlideChild.encoderControl(-200, 0.5);
+
+        linerSlideChild.encoderControl(-250, 0.5);
 
         sleep(2000);
         //driveToTag.drive(7, zone.ordinal() + 1 + wallTarget, 11, 0);
-        driveToTag.drive(3, zone.ordinal() + 1 + wallTarget, 7, 1);
+        driveToTag.drive(3, zone.ordinal() + 1 + wallTarget, 6, isBlue == 1 ? 2 : -1);
+
         transferRight.autonomousControl(false);
         transferleft.autonomousControl(false);
 
@@ -140,10 +142,10 @@ public class PlanGamma extends AutonomousBase
         driver.forward(19,1,0.6);
 
         //Strafe so that camera detects AprilTag 5 (or 2)
-        driver.strafe(5, isBlue,1, imuControl);
+        driver.strafe(4, isBlue,1, imuControl);
 
         //Go forward so that camera detects AprilTag
-        driver.forward(5, 1, 0.3);
+        driver.forward(3, 1, 0.3);
 
     }
 
@@ -196,7 +198,7 @@ public class PlanGamma extends AutonomousBase
             }
             else if(isBlue == red)
             {
-                driver.strafe(30, -isBlue, defaultSpeed, imuControl, defaultWaitTime);
+                driver.strafe(26, -isBlue, defaultSpeed, imuControl, defaultWaitTime);
 
             }
 
@@ -206,12 +208,12 @@ public class PlanGamma extends AutonomousBase
             //Left
             if(isBlue == blue)
             {
-                driver.strafe(23, left, defaultSpeed, imuControl, defaultWaitTime);
+                driver.strafe(19, left, defaultSpeed, imuControl, defaultWaitTime);
 
             }
             else if(isBlue == red)
             {
-                driver.strafe(35, -isBlue, defaultSpeed, imuControl, defaultWaitTime);
+                driver.strafe(32.5, -isBlue, defaultSpeed, imuControl, defaultWaitTime);
             }
         }
         else if(zone == SpikeLineEnum.RIGHT_SPIKE)
@@ -223,7 +225,7 @@ public class PlanGamma extends AutonomousBase
             }
             else if (isBlue == red)
             {
-                driver.strafe(15, right, defaultSpeed, imuControl, defaultWaitTime);
+                driver.strafe(19, right, defaultSpeed, imuControl, defaultWaitTime);
             }
 
         }

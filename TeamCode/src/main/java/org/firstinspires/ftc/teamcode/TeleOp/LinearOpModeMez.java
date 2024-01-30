@@ -110,15 +110,12 @@ public class LinearOpModeMez extends AutonomousBase
 
         sleep(1000);
 
-        linerSlideChild.encoderControl(-500, 0.5);
+        linerSlideChild.encoderControl(-250, 0.5);
 
-        driveToTag.drive(4, 2, 7, 1);
+        driveToTag.drive(6, 2, 6, -1);
 
         heightChild.encoderControl(0,0.7);
         linerSlideChild.encoderControl(0, 0.5);
-
-
-        sleep(1000);
         transferRight.autonomousControl(false);
         transferleft.autonomousControl(false);
 

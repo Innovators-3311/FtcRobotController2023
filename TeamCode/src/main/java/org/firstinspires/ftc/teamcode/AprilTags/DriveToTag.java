@@ -4,8 +4,11 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.Autonomous.AutonomousBase;
-import org.firstinspires.ftc.teamcode.Controller.MechanicalDriveBase;
+import org.firstinspires.ftc.teamcode.util.Logging;
+import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
+
+import java.util.logging.Logger;
+
 
 //Further tuning in AprilTagMaster.java to come, I sure of it
 public class DriveToTag
@@ -46,10 +49,25 @@ public class DriveToTag
             telemetry.addData("AprilTag detected", "AprilTag");
             while (elapsedTime.seconds() < time)
             {
+
                 telemetry.addData("Time = ",elapsedTime.seconds() + " seconds");
-                aprilTagMaster.findTag(range, yaw, target, telemetry);
+                AprilTagDetection detection = aprilTagMaster.findTag(range, yaw, target, telemetry);
+                if (detection != null)
+                {
+                    if (detection.ftcPose.range <= range)
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    Logging.log("Tag lost!!");
+                }
             }
         }
+
+        Logging.log("Exiting DriveToTag");
+
     }
 
     public void targetLocator(Gamepad gamepad)

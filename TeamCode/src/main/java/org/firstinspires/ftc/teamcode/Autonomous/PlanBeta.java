@@ -35,15 +35,13 @@ public class PlanBeta extends AutonomousBase
 
         sleep(1000);
 
-        linerSlideChild.encoderControl(-500, 0.5);
+        linerSlideChild.encoderControl(-350, 0.5);
 
-        driveToTag.drive(4, zone.ordinal() + 1 + wallTarget, 6, 1);
+        driveToTag.drive(4, zone.ordinal() + 1 + wallTarget, 6, -1);
 
         heightChild.encoderControl(0,0.7);
         linerSlideChild.encoderControl(0, 0.5);
 
-
-        sleep(1000);
         transferRight.autonomousControl(false);
         transferleft.autonomousControl(false);
 
@@ -197,30 +195,30 @@ public class PlanBeta extends AutonomousBase
         {
             if (zone == SpikeLineEnum.LEFT_SPIKE)
             {
-                driver.strafe(30, -isBlue, 0.5, imuControl);
+                driver.strafe(26, -isBlue, 0.5, imuControl);
             }
             else if (zone == SpikeLineEnum.CENTER_SPIKE)
             {
-                driver.strafe(24, -isBlue, 0.5, imuControl);
+                driver.strafe(23, -isBlue, 0.5, imuControl);
             }
             else if (zone == SpikeLineEnum.RIGHT_SPIKE)
             {
-                driver.strafe(18, -isBlue, 0.5, imuControl);
+                driver.strafe(22, -isBlue, 0.5, imuControl);
             }
         }
         else  //is red
         {
             if (zone == SpikeLineEnum.LEFT_SPIKE)
             {
-                driver.strafe(18, -isBlue, 0.5, imuControl);
+                driver.strafe(22, -isBlue, 0.5, imuControl);
             }
             else if (zone == SpikeLineEnum.CENTER_SPIKE)
             {
-                driver.strafe(24, -isBlue, 0.5, imuControl);
+                driver.strafe(23, -isBlue, 0.5, imuControl);
             }
             else if (zone == SpikeLineEnum.RIGHT_SPIKE)
             {
-                driver.strafe(30, -isBlue, 0.5, imuControl);  //was 24
+                driver.strafe(26, -isBlue, 0.5, imuControl);  //was 24
             }
         }
 
