@@ -33,6 +33,7 @@ public class DriveToTag
     /**
      * @param time The amount of time you want the robot to drive to tag
      * @param target The aprilTag you want to drive to
+     * @param yaw - is right + is left
      * **/
     public void drive(int time, int target, double range, double yaw)
     {
@@ -54,8 +55,10 @@ public class DriveToTag
                 AprilTagDetection detection = aprilTagMaster.findTag(range, yaw, target, telemetry);
                 if (detection != null)
                 {
+                    Logging.log("ftcPose.range = %f  range = %f",detection.ftcPose.range, range );
                     if (detection.ftcPose.range <= range)
                     {
+                        Logging.log("exiting drive to tag");
                         break;
                     }
                 }

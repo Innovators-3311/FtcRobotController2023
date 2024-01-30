@@ -62,7 +62,7 @@ public class AprilTagMaster
 
     public AprilTagDetection findTag(double range, double yaw, int target, Telemetry telemetry)
     {
-        desiredDistance = range + 1;
+        desiredDistance = range;
         strafeDif = yaw;
         boolean targetFound = false;    // Set to true when an AprilTag target is detected
         double drive = 0;        // Desired forward power/speed (-1 to +1)
