@@ -33,17 +33,18 @@ public class PlanBeta extends AutonomousBase
         transferRight.autonomousControl(true);
         transferleft.autonomousControl(true);
 
-        sleep(1000);
-
-        linerSlideChild.encoderControl(-500, 0.5);
-
-        driveToTag.drive(4, zone.ordinal() + 1 + wallTarget, 6, 1);
+        sleep(DELAY);
 
         heightChild.encoderControl(0,0.7);
-        linerSlideChild.encoderControl(0, 0.5);
-
 
         sleep(1000);
+
+        linerSlideChild.encoderControl(-350, 0.5);
+
+        driveToTag.drive(4, zone.ordinal() + 1 + wallTarget, 7, isBlue == 1 ? 0 : -1);
+
+        linerSlideChild.encoderControl(0, 0.5);
+
         transferRight.autonomousControl(false);
         transferleft.autonomousControl(false);
 
@@ -55,6 +56,7 @@ public class PlanBeta extends AutonomousBase
      */
     public void planBeta(SpikeLineEnum zone, int isBlue) throws IOException, InterruptedException
     {
+        sleep(8000);
         //If target is in the center...
         if(zone == SpikeLineEnum.CENTER_SPIKE)
         {
@@ -90,6 +92,7 @@ public class PlanBeta extends AutonomousBase
                 stageRoute(isBlue);
             }
 
+
             goThroughTrussAndFinish(false, false, isBlue);
         }
 
@@ -110,7 +113,7 @@ public class PlanBeta extends AutonomousBase
         driver.forward(4, 1, 0.6);
 
         //Go backward after placing pixel
-        driver.forward(5, -1, 0.6);
+        driver.forward(4, -1, 0.6);
 
         //Adjust (right)
         driver.rotate2(-45 * isBlue, imuControl);
@@ -158,6 +161,7 @@ public class PlanBeta extends AutonomousBase
 
     public void goThroughTrussAndFinish(boolean center, boolean left, int isBlue) throws IOException, InterruptedException
     {
+
         int goThroughTrussDistance;
 
         Thread.sleep(100);
@@ -166,7 +170,7 @@ public class PlanBeta extends AutonomousBase
 
         Thread.sleep(100);
 
-        this.heightChild.encoderControl(1000,.7);
+        this.heightChild.encoderControl(1000,0.7);
 
         //This goes to the other side
         if(left)
@@ -201,26 +205,26 @@ public class PlanBeta extends AutonomousBase
             }
             else if (zone == SpikeLineEnum.CENTER_SPIKE)
             {
-                driver.strafe(24, -isBlue, 0.5, imuControl);
+                driver.strafe(27, -isBlue, 0.5, imuControl);
             }
             else if (zone == SpikeLineEnum.RIGHT_SPIKE)
             {
-                driver.strafe(18, -isBlue, 0.5, imuControl);
+                driver.strafe(20, -isBlue, 0.5, imuControl);
             }
         }
         else  //is red
         {
             if (zone == SpikeLineEnum.LEFT_SPIKE)
             {
-                driver.strafe(18, -isBlue, 0.5, imuControl);
+                driver.strafe(22, -isBlue, 0.5, imuControl);
             }
             else if (zone == SpikeLineEnum.CENTER_SPIKE)
             {
-                driver.strafe(24, -isBlue, 0.5, imuControl);
+                driver.strafe(23, -isBlue, 0.5, imuControl);
             }
             else if (zone == SpikeLineEnum.RIGHT_SPIKE)
             {
-                driver.strafe(30, -isBlue, 0.5, imuControl);  //was 24
+                driver.strafe(26, -isBlue, 0.5, imuControl);  //was 24
             }
         }
 

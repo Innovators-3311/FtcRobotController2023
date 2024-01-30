@@ -5,12 +5,14 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.util.Logging;
 import java.io.IOException;
 
-@Autonomous(name = "plan Zeta", group = "auto")
-public class PlanZeta extends AutonomousBase
+@Autonomous(name = "plan Delta", group = "auto")
+public class PlanDelta extends AutonomousBase
 {
     @Override
     public void runOpMode() throws InterruptedException
     {
+
+        super.runOpMode();
 
         //If target is in the center...
         if(zone == SpikeLineEnum.CENTER_SPIKE)

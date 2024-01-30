@@ -9,6 +9,9 @@ import org.firstinspires.ftc.teamcode.Controller.MotorControl;
 public class HeightChild extends MotorControl
 {
 
+    // + for down during auto
+    // - for down in TeleOp
+
     private final int lowerBound = -1500;
     private final int upperBound = -2550;
 

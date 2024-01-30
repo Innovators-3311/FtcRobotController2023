@@ -16,8 +16,8 @@ public class LinearOpModeMez extends AutonomousBase
     private final double ticksPerInch = (8192 * 1) / (2 * 3.1415); // == 1303
     private final double ticksPerDegree = (ticksPerInch * 50.24) / 360;
 
-    HeightChild heightChild;
-    LinerSlideChild linerSlideChild;
+//    HeightChild heightChild;
+//    LinerSlideChild linerSlideChild;
 
     @Override
     public void runOpMode() throws InterruptedException
@@ -62,7 +62,7 @@ public class LinearOpModeMez extends AutonomousBase
 
 //        start();
 
-
+        driveToTagTest();
 
 
 
@@ -74,7 +74,10 @@ public class LinearOpModeMez extends AutonomousBase
 //            heightChild.encoderControl(-10,.3);
 //            sleep(3000);
 
-            strafeTest();
+
+
+
+            //strafeTest();
 
         }
     }
@@ -96,6 +99,26 @@ public class LinearOpModeMez extends AutonomousBase
         sleep(3000);
         driver.strafe(24*2, -1, 0.8, imuControl);
         sleep(3000);
+    }
+
+    public void driveToTagTest()
+    {
+        transferRight.autonomousControl(false);
+        transferleft.autonomousControl(false);
+        transferRight.autonomousControl(true);
+        transferleft.autonomousControl(true);
+
+        sleep(1000);
+
+        linerSlideChild.encoderControl(-250, 0.5);
+
+        driveToTag.drive(6, 2, 7, isBlue == 1 ? 0 : -1);
+
+        heightChild.encoderControl(0,0.7);
+        linerSlideChild.encoderControl(0, 0.5);
+        transferRight.autonomousControl(false);
+        transferleft.autonomousControl(false);
+
     }
 
     public void driveStraightTest()

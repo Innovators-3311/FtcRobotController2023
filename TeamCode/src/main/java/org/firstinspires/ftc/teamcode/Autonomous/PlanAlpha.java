@@ -36,10 +36,13 @@ public class PlanAlpha extends AutonomousBase
         transferleft.autonomousControl(true);
 
         sleep(1000);
-        driveToTag.drive(7, zone.ordinal() + 1 + wallTarget, 5, 1);
+        linerSlideChild.encoderControl(-250, 0.5);
+
+
+        driveToTag.drive(7, zone.ordinal() + 1 + wallTarget, 7, isBlue == 1 ? 0 : -1);
         heightChild.encoderControl(0, 0.7);
 
-        sleep(DELAY);
+
         transferRight.autonomousControl(false);
         transferleft.autonomousControl(false);
 
@@ -54,14 +57,15 @@ public class PlanAlpha extends AutonomousBase
     {
         planPurple(zone, isBlue);
 
-        this.heightChild.encoderControl(-1000, 0.6);
-
         if(zone == SpikeLineEnum.CENTER_SPIKE){
 
             //Turn left to go through truss
             driver.rotate2(-90*isBlue, imuControl);
 
             //Go through truss
+            this.heightChild.encoderControl(2000, 0.6);
+
+            sleep(3000);
 
             driver.forward(70, 1, 0.8);
 
@@ -74,6 +78,10 @@ public class PlanAlpha extends AutonomousBase
          //Turn to truss
         driver.rotate2(-90 * isBlue, imuControl);
 
+        this.heightChild.encoderControl(2000, 0.7);
+
+        sleep(3000);
+
         //Go through truss
         driver.forward(70, 1, 0.6);
 
@@ -84,6 +92,9 @@ public class PlanAlpha extends AutonomousBase
 
             //Turn left to go through truss
             driver.rotate2(-90*isBlue, imuControl);
+
+            this.heightChild.encoderControl(2000, 0.6);
+            sleep(3000);
 
             //Go through truss
             driver.forward(70, 1, 0.8);
