@@ -11,7 +11,7 @@ import org.firstinspires.ftc.teamcode.util.Logging;
 
 public class MotorControl
 {
-    private DcMotor motor;
+    protected DcMotor motor;
     private String motorName;
     private boolean hasEncoder;
 
@@ -87,7 +87,7 @@ public class MotorControl
             motor.setPower(0.3);
             motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
-        else if (advanceBreak && motor.getMode() == DcMotor.RunMode.RUN_TO_POSITION) {}
+        else if (motor.getMode() == DcMotor.RunMode.RUN_TO_POSITION) {}
         else {motorBreak();}
 
     }
@@ -122,7 +122,7 @@ public class MotorControl
             motor.setPower(0.3);
             motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
-        else if (advanceBreak && motor.getMode() == DcMotor.RunMode.RUN_TO_POSITION) {}
+        else if (motor.getMode() == DcMotor.RunMode.RUN_TO_POSITION) {}
         else {motorBreak();}
 
     }
@@ -157,7 +157,7 @@ public class MotorControl
             motor.setPower(0.3);
             motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
-        else if (advanceBreak && motor.getMode() == DcMotor.RunMode.RUN_TO_POSITION) {}
+        else if (motor.getMode() == DcMotor.RunMode.RUN_TO_POSITION) {}
         else {motorBreak();}
 
     }
@@ -192,7 +192,7 @@ public class MotorControl
             motor.setPower(0.3);
             motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
-        else if (advanceBreak && motor.getMode() == DcMotor.RunMode.RUN_TO_POSITION) {}
+        else if (motor.getMode() == DcMotor.RunMode.RUN_TO_POSITION) {}
         else {motorBreak();}
 
     }
@@ -255,6 +255,8 @@ public class MotorControl
         motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motor.setPower(speed);
     }
+
+
 
     /**
      * for motors that just need to spin call break to stop

@@ -12,6 +12,8 @@ public class PlanDelta extends AutonomousBase
     public void runOpMode() throws InterruptedException
     {
 
+        super.runOpMode();
+
         //If target is in the center...
         if(zone == SpikeLineEnum.CENTER_SPIKE)
         {

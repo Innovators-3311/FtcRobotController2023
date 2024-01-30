@@ -6,6 +6,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.BuiltinCameraDirection;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.Controller.MechanicalDriveBase;
+import org.firstinspires.ftc.teamcode.util.Logging;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
@@ -20,23 +21,23 @@ public class AprilTagMaster
     //  Set the GAIN constants to control the relationship between the measured position error, and how much power is
     //  applied to the drive motors to correct the error.
     //  Drive = Error * Gain    Make these values smaller for smoother control, or larger for a more aggressive response.
-    final double SPEED_GAIN = 0.07;   //  Forward Speed Control "Gain". eg: Ramp up to 50% power at a 25 inch error.   (0.50 / 25.0)
-    final double STRAFE_GAIN = 0.07;   //  Strafe Speed Control "Gain".  eg: Ramp up to 25% power at a 25 degree Yaw error.   (0.25 / 25.0)
-    final double TURN_GAIN = 0.06;   //  Turn Control "Gain".  eg: Ramp up to 25% power at a 25 degree error. (0.25 / 25.0)
+    final double SPEED_GAIN = 0.05;   //  Forward Speed Control "Gain". eg: Ramp up to 50% power at a 25 inch error.   (0.50 / 25.0)            .07
+    final double STRAFE_GAIN = 0.045;   //  Strafe Speed Control "Gain".  eg: Ramp up to 25% power at a 25 degree Yaw error.   (0.25 / 25.0)     .07
+    final double TURN_GAIN = 0.035;   //  Turn Control "Gain".  eg: Ramp up to 25% power at a 25 degree error. (0.25 / 25.0)                     .06
 
-    final double MAX_AUTO_SPEED = 0.8;   //  Clip the approach speed to this max value (adjust for your robot)
-    final double MAX_AUTO_STRAFE = 0.9;   //  Clip the approach speed to this max value (adjust for your robot)
-    final double MAX_AUTO_TURN = 0.7;   //  Clip the turn speed to this max value (adjust for your robot)
+    final double MAX_AUTO_SPEED = 0.4;   //  Clip the approach speed to this max value (adjust for your robot)   .8
+    final double MAX_AUTO_STRAFE = 0.5;   //  Clip the approach speed to this max value (adjust for your robot)  .9
+    final double MAX_AUTO_TURN = 0.4;   //  Clip the turn speed to this max value (adjust for your robot)        .7
 
     private static final boolean USE_WEBCAM = true;  // Set true to use a webcam, or false for a phone camera
-    private static  int desiredTagID = -1;// Choose the tag you want to approach or set to -1 for ANY tag.
+    private static int desiredTagID = -1;// Choose the tag you want to approach or set to -1 for ANY tag.
 
     private VisionPortal visionPortal;               // Used to manage the video source.
     private AprilTagProcessor aprilTag;              // Used for managing the AprilTag detection process.
     private AprilTagDetection desiredTag = null;     // Used to hold the data for a detected AprilTag
     private MechanicalDriveBase mechanicalDriveBase;
-    WebcamName webcamName;
-    private double rangeError = 0 ;
+    //    WebcamName webcamName;
+    private double rangeError = 0;
     private double headingError = 0;
     private double yawError = 0;
 
@@ -59,26 +60,25 @@ public class AprilTagMaster
         telemetry.update();
     }
 
-    public void findTag(double range, double yaw, int target, Telemetry telemetry)
+    public AprilTagDetection findTag(double range, double yaw, int target, Telemetry telemetry)
     {
-        desiredDistance = range + 1;
+        desiredDistance = range;
         strafeDif = yaw;
         boolean targetFound = false;    // Set to true when an AprilTag target is detected
-        double  drive = 0;        // Desired forward power/speed (-1 to +1)
-        double  strafe = 0;        // Desired strafe power/speed (-1 to +1)
-        double  turn = 0;        // Desired turning power/speed (-1 to +1)
+        double drive = 0;        // Desired forward power/speed (-1 to +1)
+        double strafe = 0;        // Desired strafe power/speed (-1 to +1)
+        double turn = 0;        // Desired turning power/speed (-1 to +1)
         //The aprilTag you want to find
         desiredTagID = target;
 
         targetFound = false;
-        desiredTag  = null;
+        desiredTag = null;
 
         // Step through the list of detected tags and look for a matching tag
         List<AprilTagDetection> currentDetections = aprilTag.getDetections();
         for (AprilTagDetection detection : currentDetections)
         {
-            if ((detection.metadata != null) &&
-                    ((desiredTagID < 0) || (detection.id == desiredTagID)))
+            if ((detection.metadata != null) && ((desiredTagID < 0) || (detection.id == desiredTagID)))
             {
                 targetFound = true;
                 desiredTag = detection;
@@ -89,6 +89,7 @@ public class AprilTagMaster
                 telemetry.addData("Unknown Target", "Tag ID %d is not in TagLibrary\n", detection.id);
             }
         }
+
 
         // Tell the driver what we see, and what to do.
         if (targetFound)
@@ -119,13 +120,24 @@ public class AprilTagMaster
             drive = 0;
             turn = 0;
             strafe = 0;
+            mechanicalDriveBase.brake();
         }
+
+        Logging.log("DiveToTag: range %5.2f, heading %5.2f, yawError %5.2f", rangeError, headingError, yawError);
+        Logging.log("DiveToTag: Drive %5.2f, Strafe %5.2f, Turn %5.2f", drive, strafe, turn);
+
 
 //        telemetry.update();
 
         // Apply desired axes motions to the drivetrain.
         mechanicalDriveBase.driveMotors(drive, -turn, strafe, 1);
+        if (targetFound)
+        {
+            return desiredTag;
+        }
+        return null;
     }
+
 
     private void telemetryAprilTag(Telemetry telemetry)
     {
