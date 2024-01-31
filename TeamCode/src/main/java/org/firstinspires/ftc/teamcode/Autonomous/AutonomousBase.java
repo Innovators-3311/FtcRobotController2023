@@ -24,7 +24,7 @@ public class AutonomousBase extends LinearOpMode
 {
     protected int color;
     public int isBlue = color; //Red is negative!
-    public final int DELAY = 500;
+    public final int DELAY = 250;
 
     public boolean robotIsMoving = true;
 
