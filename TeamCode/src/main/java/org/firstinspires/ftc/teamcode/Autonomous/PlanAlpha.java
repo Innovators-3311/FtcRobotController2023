@@ -39,14 +39,17 @@ public class PlanAlpha extends AutonomousBase
         linerSlideChild.encoderControl(-250, 0.5);
 
 
-        driveToTag.drive(7, zone.ordinal() + 1 + wallTarget, 7, isBlue == 1 ? 0 : -1);
+        driveToTag.drive(4, zone.ordinal() + 1 + wallTarget, 7, isBlue == 1 ? 0 : -1);
+
+
         heightChild.encoderControl(0, 0.7);
 
+        sleep(3000);
 
         transferRight.autonomousControl(false);
         transferleft.autonomousControl(false);
 
-
+        sleep(3000);
     }
 
     /**
@@ -57,15 +60,16 @@ public class PlanAlpha extends AutonomousBase
     {
         planPurple(zone, isBlue);
 
-        if(zone == SpikeLineEnum.CENTER_SPIKE){
+        if(zone == SpikeLineEnum.CENTER_SPIKE)
+        {
 
             //Turn left to go through truss
             driver.rotate2(-90*isBlue, imuControl);
 
             //Go through truss
-            this.heightChild.encoderControl(2000, 0.6);
+            this.heightChild.encoderControl(1800, 0.6);
 
-            sleep(3000);
+            sleep(2000);
 
             driver.forward(70, 1, 0.8);
 
@@ -73,14 +77,15 @@ public class PlanAlpha extends AutonomousBase
             driver.strafe(20, isBlue, 0.5, imuControl);
             
         }
-        else if (zone == SpikeLineEnum.LEFT_SPIKE){
+        else if (zone == SpikeLineEnum.LEFT_SPIKE)
+        {
 
          //Turn to truss
         driver.rotate2(-90 * isBlue, imuControl);
 
-        this.heightChild.encoderControl(2000, 0.7);
+        this.heightChild.encoderControl(1800, 0.7);
 
-        sleep(3000);
+        sleep(2000);
 
         //Go through truss
         driver.forward(70, 1, 0.6);
@@ -88,19 +93,20 @@ public class PlanAlpha extends AutonomousBase
         //Strafe to let AprilTag take over
         driver.strafe(18, isBlue, 0.5, imuControl);
         }
-        else if (zone == SpikeLineEnum.RIGHT_SPIKE){
+        else if (zone == SpikeLineEnum.RIGHT_SPIKE)
+        {
 
             //Turn left to go through truss
             driver.rotate2(-90*isBlue, imuControl);
 
-            this.heightChild.encoderControl(2000, 0.6);
-            sleep(3000);
+            this.heightChild.encoderControl(1800, 0.6);
+            sleep(2000);
 
             //Go through truss
             driver.forward(70, 1, 0.8);
 
             //Strafe to let AprilTag take over
-            if(isBlue == 1) driver.strafe(24, isBlue, 0.5,  imuControl);
+            if(isBlue == 1) driver.strafe(33, isBlue, 0.5,  imuControl);
             else if(isBlue == -1) driver.strafe(23, isBlue, 0.5, imuControl);
 
 
@@ -135,7 +141,7 @@ public class PlanAlpha extends AutonomousBase
 
             sleep(DELAY);
 
-            driver.rotate2(45 * isBlue, imuControl);
+            driver.rotate2(-45, imuControl);
 
             //Push pixel into place
             driver.forward(5, forward, 0.6);
@@ -147,7 +153,7 @@ public class PlanAlpha extends AutonomousBase
             sleep(DELAY);
 
             //Adjust (right)
-            driver.rotate2(-45*isBlue, imuControl);
+            driver.rotate2(45, imuControl);
 
             sleep(DELAY);
             //Go backward into position
@@ -162,7 +168,7 @@ public class PlanAlpha extends AutonomousBase
 
             sleep(DELAY);
 
-            driver.rotate2(-45*isBlue, imuControl);
+            driver.rotate2(45, imuControl);
 
             sleep(DELAY);
 
@@ -177,7 +183,7 @@ public class PlanAlpha extends AutonomousBase
             sleep(DELAY);
 
             //Adjust (left)
-            driver.rotate2(45 * isBlue, imuControl);
+            driver.rotate2(-45, imuControl);
 
             //Go back
             driver.forward(17, -1, 0.6);
