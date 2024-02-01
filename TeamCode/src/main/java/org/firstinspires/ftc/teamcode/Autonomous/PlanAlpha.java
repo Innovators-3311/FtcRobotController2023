@@ -80,18 +80,26 @@ public class PlanAlpha extends AutonomousBase
         else if (zone == SpikeLineEnum.LEFT_SPIKE)
         {
 
-         //Turn to truss
-        driver.rotate2(-90 * isBlue, imuControl);
+            //Turn to truss
+            driver.rotate2(-90 * isBlue, imuControl);
 
-        this.heightChild.encoderControl(1800, 0.7);
+            this.heightChild.encoderControl(1800, 0.7);
 
-        sleep(2000);
+            sleep(2000);
 
-        //Go through truss
-        driver.forward(70, 1, 0.6);
+            //Go through truss
+            driver.forward(70, 1, 0.6);
 
-        //Strafe to let AprilTag take over
-        driver.strafe(18, isBlue, 0.5, imuControl);
+            //Strafe to let AprilTag take over
+            if (isBlue == 1)
+            {
+                driver.strafe(18, isBlue, 0.5, imuControl);
+            }
+            else
+            {
+                driver.strafe(28, isBlue, 0.5, imuControl);
+            }
+
         }
         else if (zone == SpikeLineEnum.RIGHT_SPIKE)
         {
@@ -107,7 +115,7 @@ public class PlanAlpha extends AutonomousBase
 
             //Strafe to let AprilTag take over
             if(isBlue == 1) driver.strafe(33, isBlue, 0.5,  imuControl);
-            else if(isBlue == -1) driver.strafe(23, isBlue, 0.5, imuControl);
+            else if(isBlue == -1) driver.strafe(18, isBlue, 0.5, imuControl);
 
 
         }
