@@ -39,7 +39,7 @@ public class PlanBeta extends AutonomousBase
 
         sleep(1000);
 
-        linerSlideChild.encoderControl(-350, 0.5);
+        linerSlideChild.encoderControl(-500, 0.5);
 
         driveToTag.drive(4, zone.ordinal() + 1 + wallTarget, 7, isBlue == 1 ? 0 : -1);
 
@@ -48,7 +48,7 @@ public class PlanBeta extends AutonomousBase
         transferRight.autonomousControl(false);
         transferleft.autonomousControl(false);
 
-        sleep(DELAY);
+        sleep(2000);
     }
 
     /**
@@ -56,7 +56,7 @@ public class PlanBeta extends AutonomousBase
      */
     public void planBeta(SpikeLineEnum zone, int isBlue) throws IOException, InterruptedException
     {
-        sleep(8000);
+        sleep(7000);
         //If target is in the center...
         if(zone == SpikeLineEnum.CENTER_SPIKE)
         {

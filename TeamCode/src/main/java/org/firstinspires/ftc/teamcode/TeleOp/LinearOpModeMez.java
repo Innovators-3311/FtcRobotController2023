@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.TeleOp;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+
 import org.firstinspires.ftc.teamcode.Autonomous.AutonomousBase;
 import org.firstinspires.ftc.teamcode.TeleOpFunctions.HeightChild;
 import org.firstinspires.ftc.teamcode.TeleOpFunctions.LinerSlideChild;
@@ -8,7 +10,7 @@ import org.firstinspires.ftc.teamcode.util.Logging;
 import java.io.IOException;
 
 @Autonomous(name = "Mez test", group = "Mez")
-//@Disabled
+@Disabled
 public class LinearOpModeMez extends AutonomousBase
 {
 
