@@ -75,6 +75,10 @@ public class MechanicalDriveBase
     //make the robot stop
     public void brake()
     {
+        lf.setPower(0);
+        rf.setPower(0);
+        lb.setPower(0);
+        rb.setPower(0);
         lf.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rf.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         lb.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);

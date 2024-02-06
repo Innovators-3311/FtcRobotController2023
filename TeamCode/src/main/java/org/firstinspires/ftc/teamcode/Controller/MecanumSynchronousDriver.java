@@ -217,6 +217,19 @@ public class MecanumSynchronousDriver<imuControl> extends MechanicalDriveBase
 
     }
 
+
+    /**
+     * Drives the bot forward or backward in a straight line.
+     * @param target distance in inches to travel.
+     * @param forward indicates direction of travel.  -1 is forward 1 is backwards?
+     * @param speed double value indicating the speed from 0 to 1.
+     */
+    public void forward2(double target, int forward, double speed)
+    {
+        forward(target, forward, speed, 30);
+    }
+
+
     /**
      * Drives the bot forward or backward in a straight line.
      * @param target distance in inches to travel.
@@ -418,7 +431,6 @@ public class MecanumSynchronousDriver<imuControl> extends MechanicalDriveBase
      * @param right indicates direction of travel.  1 is right -1 is left
      * @param speed double value indicating the speed from 0 to 1.
      */
-
     public void strafe(double target, int right, double speed, ImuHardware imuControl)
     {
         //Init the starting angle
@@ -481,18 +493,18 @@ public class MecanumSynchronousDriver<imuControl> extends MechanicalDriveBase
             // Use PID with imu input to drive in a straight line.
             // pos is right turn, neg is left turn
             double forwardCorrection = pidDrive.performPID(yDifference);
-            mOpMode.telemetry.addData("correction ", "correction: " + forwardCorrection + " wheelDif: " + yDifference);
-            Logging.log("correction: " + forwardCorrection + " yDifference: " + yDifference);
+//            mOpMode.telemetry.addData("correction ", "correction: " + forwardCorrection + " wheelDif: " + yDifference);
+//            Logging.log("correction: " + forwardCorrection + " yDifference: " + yDifference);
 
             double strafeCorrection = pidStrafe.performPID(strafeDifference);
-            mOpMode.telemetry.addData("strafeCorrection ", "correction: " + strafeCorrection + " strafeDifference: " + strafeDifference);
+//            mOpMode.telemetry.addData("strafeCorrection ", "correction: " + strafeCorrection + " strafeDifference: " + strafeDifference);
 
             double headingError = pidRotateImu.performPID(angle);
 
            //this.driveMotors(0, (-headingError), speed, 1); // run with PID
             this.driveMotors(-forwardCorrection, (-headingError), speed, 1); // run with PID
 //            Logging.log("heading: %f angle: %f headingError: %f", targetAngle,angle, headingError);
-            Logging.log("forwardCorrection = %f, speed = %f ", -forwardCorrection, speed);
+//            Logging.log("forwardCorrection = %f, speed = %f ", -forwardCorrection, speed);
 //            mOpMode.telemetry.addData("Encoder", "left: " + lf.getCurrentPosition() + " right: " + rf.getCurrentPosition() + " strafe: " + rb.getCurrentPosition());
 //            mOpMode.telemetry.update();
         }
@@ -780,7 +792,7 @@ public class MecanumSynchronousDriver<imuControl> extends MechanicalDriveBase
         do
         {
             currAngle = imuControl.getAngle();
-            remainingAngle = degrees - currAngle;     // 90-60 = 30
+//            remainingAngle = degrees - currAngle;     // 90-60 = 30
 
 
             power = pidRotateImu.performPID(Math.abs(currAngle)); // power will be + on left turn.
@@ -810,81 +822,6 @@ public class MecanumSynchronousDriver<imuControl> extends MechanicalDriveBase
     }
 
 
-    public void rotateMez(double degrees, double power, ImuHardware imuControl) throws InterruptedException, IOException
-    {
-       pidRotateImu.reset();
-       pidRotateImu.setSetpoint(degrees);
-       pidRotateImu.setInputRange(0, degrees + degrees / 10);
-       pidRotateImu.setOutputRange(.14, 1);
-       pidRotateImu.setTolerance(.4);
-       pidRotateImu.enable();
 
-       int onTargetCount = 0;
-       int onTargetCountTotal = 0;
-       // restart imu angle tracking.
-       imuControl.resetAngle();
-
-       double currAngle = 0.0;
-       double remainingAngle = 0.0;
-       if (degrees < 0)
-       {
-          // On right turn we have to get off zero first.
-          while (mOpMode.opModeIsActive() && imuControl.getAngle() == 0)
-          {
-             this.driveMotors(0, power, 0, 1);
-             sleep(100);
-
-          }
-       }
-       else
-       {
-          do
-          {
-             currAngle = imuControl.getAngle();
-             remainingAngle = degrees - currAngle;
-
-             power = -1.0;//pidRotateImu.performPID(currAngle); // power will be + on left turn.
-             this.driveMotors(0, -1, 0, 1);
-             Logging.log("%.2f Deg. (Heading)  power: %f  getAngle() %f", imuControl.getHeading(), power, imuControl.getAngle());
-
-          }
-          while (mOpMode.opModeIsActive() && remainingAngle > 30.0);
-
-          Logging.log("remaining angle %f", remainingAngle);
-          pidRotateImu.setOutputRange(.13, 1);
-          do
-          {
-             currAngle = imuControl.getAngle();
-             remainingAngle = degrees - currAngle;     // 90-60 = 30
-             pidRotateImu.setSetpoint(degrees);
-
-             power = pidRotateImu.performPID(currAngle); // power will be + on left turn.
-             this.driveMotors(0, -power, 0, 1);
-             Logging.log("%.2f Deg. (Heading)  power: %f  getAngle() %f", imuControl.getHeading(), power, imuControl.getAngle());
-
-             if (pidRotateImu.onTarget())
-             {
-                pidRotateImu.setOutputRange(.05, 1);
-                onTargetCount++;
-                onTargetCountTotal++;
-                Logging.log("onTargetCount %d", onTargetCount);
-             }
-             else
-             {
-                onTargetCount = 0;
-             }
-
-          }
-          while (mOpMode.opModeIsActive() && onTargetCount < 5 && onTargetCountTotal < 10);
-       }
-       // turn the motors off.
-       this.driveMotors(0, 0, 0, 1);
-       Logging.log("completed rotate of angle %f", degrees);
-       mOpMode.telemetry.addData("Yaw (Z)", "%.2f Deg. (Heading)", imuControl.getHeading());
-       mOpMode.telemetry.update();
-
-
-
-    }
 
 }
