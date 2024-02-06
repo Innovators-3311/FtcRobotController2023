@@ -5,13 +5,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import org.firstinspires.ftc.teamcode.util.Logging;
 
 import java.io.IOException;
-@Autonomous(name = "Plan Gamma", group = "Group3311")
+@Autonomous(name = "Plan Gamma", group = "auto")
 public class PlanGamma extends AutonomousBase
 {
-
-//    int isBlue = red;
-//
-//    int DELAY = 500;
 
     @Override
     public void runOpMode() throws InterruptedException
@@ -49,14 +45,13 @@ public class PlanGamma extends AutonomousBase
         transferleft.autonomousControl(false);
         transferRight.autonomousControl(true);
         transferleft.autonomousControl(true);
-        linerSlideChild.encoderControl(-50, 0.5);
+
+        linerSlideChild.encoderControl(-200, 0.5);
 
         sleep(2000);
         //driveToTag.drive(7, zone.ordinal() + 1 + wallTarget, 11, 0);
-        driveToTag.drive(3, zone.ordinal() + 1 + wallTarget, 5, 1);
-//        sleep(500);
-//        driver.forward(3,1,.5,3);
-//        sleep(500);
+        driveToTag.drive(3, zone.ordinal() + 1 + wallTarget, 7, isBlue == 1 ? 1 : -1);
+
         transferRight.autonomousControl(false);
         transferleft.autonomousControl(false);
 
@@ -144,13 +139,13 @@ public class PlanGamma extends AutonomousBase
         driver.rotate2(-90 * isBlue,imuControl);
 
         //Go to AprilTag
-        driver.forward(19,1,0.6);
+        driver.forward(10,1,0.6);
 
         //Strafe so that camera detects AprilTag 5 (or 2)
         driver.strafe(5, isBlue,1, imuControl);
 
         //Go forward so that camera detects AprilTag
-        driver.forward(5, 1, 0.3);
+        driver.forward(3, 1, 0.3);
 
     }
 
@@ -174,9 +169,68 @@ public class PlanGamma extends AutonomousBase
         driver.forward(23, 1, 0.5);
 
         //Strafe in front of AprilTag 4 (or 1) so that camera detects it
-//dday        driver.strafe(10, isBlue, 0.5, imuControl);
         driver.strafe(13, isBlue, 0.5, imuControl);
 
+    }
+    public void parkRobot(SpikeLineEnum zone, int isBlue) throws IOException, InterruptedException
+    {
+
+        double defaultSpeed = 0.6;
+        int defaultWaitTime = 5;
+        //Added following variables just because
+        int red = -1;
+        int blue = 1;
+        int left = -1;
+        int right = 1;
+        int forward = 1;
+        int backward = -1;
+
+
+        //Go backward for space
+        driver.forward(5, backward, defaultSpeed);
+
+        if(zone == SpikeLineEnum.CENTER_SPIKE)
+        {
+            //Center
+            if(isBlue == blue)
+            {
+                driver.strafe(26, left, defaultSpeed,imuControl, defaultWaitTime);
+            }
+            else if(isBlue == red)
+            {
+                driver.strafe(26, -isBlue, defaultSpeed, imuControl, defaultWaitTime);
+
+            }
+
+        }
+        else if(zone == SpikeLineEnum.LEFT_SPIKE)
+        {
+            //Left
+            if(isBlue == blue)
+            {
+                driver.strafe(19, left, defaultSpeed, imuControl, defaultWaitTime);
+
+            }
+            else if(isBlue == red)
+            {
+                driver.strafe(32.5, -isBlue, defaultSpeed, imuControl, defaultWaitTime);
+            }
+        }
+        else if(zone == SpikeLineEnum.RIGHT_SPIKE)
+        {
+            //Right
+            if(isBlue == blue)
+            {
+                driver.strafe(30, left, defaultSpeed, imuControl, defaultWaitTime);
+            }
+            else if (isBlue == red)
+            {
+                driver.strafe(19, right, defaultSpeed, imuControl, defaultWaitTime);
+            }
+
+        }
+
+        driver.forward(14, forward, defaultSpeed);
     }
 
 }
