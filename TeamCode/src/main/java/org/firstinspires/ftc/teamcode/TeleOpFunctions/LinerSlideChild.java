@@ -15,9 +15,9 @@ public class LinerSlideChild extends MotorControl
     TouchSensor touchSensor;
 
     //Constructor calls parent constructor using hardcoded input
-    public LinerSlideChild(OpMode opMode)
+    public LinerSlideChild(OpMode opMode, ElapsedTime time)
     {
-        super("slide", true, true, opMode, null);
+        super("slide", true, true, opMode, time);
         touchSensor = opMode.hardwareMap.get(TouchSensor.class, "touchLiner");
     }
     //Calls all methods and then is called in the OpMode loop

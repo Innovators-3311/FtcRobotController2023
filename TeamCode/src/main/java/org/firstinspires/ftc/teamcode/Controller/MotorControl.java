@@ -309,6 +309,23 @@ public class MotorControl
         motor.setPower(speed);
     }
 
+    /**
+     * for motors that just need to spin call break to stop
+     * @param speed speed you want the motor to spin
+     */
+    protected void run(double speed, double runLength)
+    {
+        if (time.seconds() == 0)
+        {
+            time.startTime();
+        }
+        double start = time.seconds();
+        if (runLength < start)
+        {
+            motor.setPower(speed);
+        }
+    }
+
 
     /**
      *     Breaking method also sets power to zero
