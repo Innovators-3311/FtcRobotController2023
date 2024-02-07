@@ -39,7 +39,7 @@ public class PlanAlpha extends AutonomousBase
         linerSlideChild.encoderControl(-500, 0.5);
 
 
-        driveToTag.drive(4, zone.ordinal() + 1 + wallTarget, 7, isBlue == 1 ? 0 : -1);
+        driveToTag.drive(4, zone.ordinal() + 1 + wallTarget, 7, aprilTagOffset);
 
 
         heightChild.encoderControl(0, 0.7);

@@ -44,8 +44,9 @@ public class AutonomousBase extends LinearOpMode
     protected TransferLeft transferleft;
     protected HeightChild heightChild;
     protected IntakeChild intakeChild;
-
     protected ColorSwitch colorSwitch;
+
+    protected int aprilTagOffset;
 
     SpikeLineEnum zone = SpikeLineEnum.UNKNOWN;
 
@@ -103,6 +104,7 @@ public class AutonomousBase extends LinearOpMode
         sleep(2000);
         Logging.log("isBlue: " + isBlue);
 
+        aprilTagOffset = aprilTagOffset();
 
         //TODO: move this to the waitForStart
 
@@ -130,6 +132,23 @@ public class AutonomousBase extends LinearOpMode
         {
             double x = (rec.getLeft() + rec.getRight()) / 2;
             zone = webcamDouble.findTarget(x);
+        }
+    }
+
+    protected int aprilTagOffset()
+    {
+        // left
+        if (gamepad1.x)
+        {
+            return 1;
+        } // right
+        else if (gamepad1.b)
+        {
+            return -1;
+        } // default
+        else
+        {
+            return 0;
         }
     }
 
