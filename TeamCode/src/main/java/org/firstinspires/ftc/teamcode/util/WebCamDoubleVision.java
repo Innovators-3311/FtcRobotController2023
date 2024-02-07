@@ -283,6 +283,10 @@ public class WebCamDoubleVision
             double x = (recognition.getLeft() + recognition.getRight()) / 2;
             double y = (recognition.getTop() + recognition.getBottom()) / 2;
 
+            mOpMode.telemetry.addData(""," ");
+            mOpMode.telemetry.addData("Image", "%s (%.0f %% Conf.)", recognition.getLabel(), recognition.getConfidence() * 100);
+            mOpMode.telemetry.addData("- Position", "%.0f / %.0f", x, y);
+
             if (bestRecognition == null)
             {
                 bestRecognition = recognition;
