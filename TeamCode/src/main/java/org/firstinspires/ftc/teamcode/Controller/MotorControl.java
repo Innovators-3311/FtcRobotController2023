@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.util.Logging;
@@ -15,14 +16,18 @@ public class MotorControl
     private String motorName;
     private boolean hasEncoder;
 
+    ElapsedTime time;
+    private int numberOfPosition = 1;
+
     private HardwareMap hardwareMap;
     private Telemetry telemetry;
     protected Gamepad gamepad1;
     protected Gamepad gamepad2;
 
     //Will be used to get the parameters below from the masterclass
-    private MotorControl(OpMode opMode)
+    private MotorControl(OpMode opMode, ElapsedTime time)
     {
+        this.time = time;
         this.hardwareMap = opMode.hardwareMap;
         this.telemetry = opMode.telemetry;
         this.gamepad1 = opMode.gamepad1;
@@ -34,9 +39,9 @@ public class MotorControl
      * @param direction Direction you want the motor to spin: true = FORWARD, false = REVERSE
      * @param hasEncoder Does it have an encoder?
      */
-    protected MotorControl(String motorName, Boolean direction, Boolean hasEncoder, OpMode opMode)
+    protected MotorControl(String motorName, Boolean direction, Boolean hasEncoder, OpMode opMode, ElapsedTime time)
     {
-        this(opMode);
+        this(opMode, time);
 
         this.motorName = motorName;
         this.hasEncoder = hasEncoder;
@@ -127,6 +132,29 @@ public class MotorControl
 
     }
 
+    protected void toggleDrive(boolean argument, int upperPosition, int lowerPosition)
+    {
+        time.startTime();
+        double lastChanged = 0;
+
+        if (argument && numberOfPosition == 1 && (lastChanged + 0.25) < time.seconds())
+        {
+            lastChanged = time.seconds();
+            numberOfPosition = 2;
+            encoderControl(upperPosition, 1);
+        }
+        else if (argument && numberOfPosition == 2 && (lastChanged + 0.25) < time.seconds())
+        {
+            lastChanged = time.seconds();
+            numberOfPosition = 1;
+            encoderControl(lowerPosition, 1);
+        }
+        else
+        {
+            telemetry.addData("ToggleDrive", "Something went wrong in toggleDrive");
+        }
+    }
+
     /**
      * @param speed The speed at which the motor will spin
      * @param argument1 The Gamepad bool input that will make it spin forward
@@ -143,6 +171,20 @@ public class MotorControl
         {
             motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
             run(-speed);
+        }
+        else {motorBreak();}
+    }
+
+    /**
+     * @param speed The speed at which the motor will spin
+     * @param argument1 The Gamepad bool input that will make it spin forward
+     */
+    protected void simpleDrive(double speed, boolean argument1)
+    {
+        if (argument1)
+        {
+            motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            run(speed);
         }
         else {motorBreak();}
     }

@@ -11,7 +11,7 @@ public class LinerSlideChild extends MotorControl
     //Constructor calls parent constructor using hardcoded input
     public LinerSlideChild(OpMode opMode)
     {
-        super("slide", true, true, opMode);
+        super("slide", true, true, opMode, null);
     }
     //Calls all methods and then is called in the OpMode loop
     public void linerSlideDrive()

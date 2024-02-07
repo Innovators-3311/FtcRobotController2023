@@ -12,7 +12,7 @@ public class HeightChild extends MotorControl
     //Constructor calls parent constructor using hardcoded input
     public HeightChild(OpMode opmode)
     {
-        super("height", false, true, opmode);
+        super("height", false, true, opmode, null);
     }
 
     //Calls all methods and then is called itself in the OpMode loop
