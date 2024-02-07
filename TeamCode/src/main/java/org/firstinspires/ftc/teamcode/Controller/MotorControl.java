@@ -320,10 +320,11 @@ public class MotorControl
             time.startTime();
         }
         double start = time.seconds();
-        if (runLength < start)
+        while (runLength < (time.seconds() - start))
         {
             motor.setPower(speed);
         }
+        motor.setPower(0);
     }
 
 
