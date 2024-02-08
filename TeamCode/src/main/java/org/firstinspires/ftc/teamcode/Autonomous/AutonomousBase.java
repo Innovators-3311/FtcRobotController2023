@@ -36,6 +36,7 @@ public class AutonomousBase extends LinearOpMode
     protected ImuHardware imuControl;
 
     /** Drive control */
+    ElapsedTime time;
     protected MecanumSynchronousDriver driver;
     protected DriveToTag driveToTag;
 
@@ -74,7 +75,7 @@ public class AutonomousBase extends LinearOpMode
 
 
             //Following are all intake or outtake items, mostly on the expansion hub.
-            linerSlideChild = new LinerSlideChild(this);
+            linerSlideChild = new LinerSlideChild(this, time);
             sleep(DELAY);
             transferRight = new TransferRight(this);
             sleep(DELAY);
@@ -105,6 +106,7 @@ public class AutonomousBase extends LinearOpMode
         Logging.log("isBlue: " + isBlue);
 
         aprilTagOffset = aprilTagOffset();
+        telemetry.addData("AprilTag offset", aprilTagOffset);
 
         //TODO: move this to the waitForStart
 
