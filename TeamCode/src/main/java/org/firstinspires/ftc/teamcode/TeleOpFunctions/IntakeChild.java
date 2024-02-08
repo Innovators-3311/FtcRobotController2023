@@ -9,7 +9,7 @@ public class IntakeChild extends MotorControl
     //Constructor calls parent constructor using hardcoded input
     public IntakeChild(OpMode opmode)
     {
-        super("intake", false, false, opmode);
+        super("intake", false, false, opmode, null);
     }
 
     //Calls all methods and then is called itself in the OpMode loop

@@ -1,10 +1,10 @@
 package org.firstinspires.ftc.teamcode.TeleOpFunctions;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
 import org.firstinspires.ftc.teamcode.Controller.MotorControl;
 
 public class LinerSlideChild extends MotorControl
@@ -15,7 +15,11 @@ public class LinerSlideChild extends MotorControl
     TouchSensor touchSensor;
 
     //Constructor calls parent constructor using hardcoded input
-    public LinerSlideChild(OpMode opMode) {super("slide", true, true, opMode);touchSensor = opMode.hardwareMap.get(TouchSensor.class, "touchLiner");}
+    public LinerSlideChild(OpMode opMode, ElapsedTime time)
+    {
+        super("slide", true, true, opMode, time);
+        touchSensor = opMode.hardwareMap.get(TouchSensor.class, "touchLiner");
+    }
     //Calls all methods and then is called in the OpMode loop
     public void linerSlideDrive()
     {
