@@ -25,6 +25,11 @@ public class IntakeChild extends MotorControl
     }
 
     @Override
+    public void driveTime(double speed, double runLength) {
+        super.driveTime(speed, runLength);
+    }
+
+    @Override
     protected void telemetry()
     {
         super.telemetry();

@@ -235,12 +235,12 @@ public class MotorControl
         if (argument1)
         {
             motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            run(speed);
+            driveTime(speed);
         }
         else if (argument2)
         {
             motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            run(-speed);
+            driveTime(-speed);
         }
         else {motorBreak();}
     }
@@ -254,7 +254,7 @@ public class MotorControl
         if (argument1)
         {
             motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-            run(speed);
+            driveTime(speed);
         }
         else {motorBreak();}
     }
@@ -304,7 +304,7 @@ public class MotorControl
      * for motors that just need to spin call break to stop
      * @param speed speed you want the motor to spin
      */
-    protected void run(double speed)
+    public void driveTime(double speed)
     {
         motor.setPower(speed);
     }
@@ -313,7 +313,7 @@ public class MotorControl
      * for motors that just need to spin call break to stop
      * @param speed speed you want the motor to spin
      */
-    protected void run(double speed, double runLength)
+    public void driveTime(double speed, double runLength)
     {
         if (time.seconds() == 0)
         {

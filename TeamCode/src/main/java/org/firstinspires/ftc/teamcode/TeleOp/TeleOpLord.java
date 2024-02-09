@@ -34,7 +34,7 @@ public class TeleOpLord extends OpMode
     {
         mechanicalDriveBase = new MechanicalDriveBase(hardwareMap);
         driveToTag = new DriveToTag(hardwareMap, telemetry, new ElapsedTime(), new ElapsedTime(), new AprilTagMaster(mechanicalDriveBase, hardwareMap));
-        linerSlideChild = new LinerSlideChild(this);
+        linerSlideChild = new LinerSlideChild(this, null);
         transferRight = new TransferRight(this);
         transferleft = new TransferLeft(this);
         heightChild = new HeightChild(this);

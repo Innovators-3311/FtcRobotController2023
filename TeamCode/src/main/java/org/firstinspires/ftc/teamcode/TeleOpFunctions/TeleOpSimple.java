@@ -19,7 +19,7 @@ public class TeleOpSimple extends OpMode
     public void init()
     {
         mechanicalDriveBase = new MechanicalDriveBase(hardwareMap);
-        linerSlideChild = new LinerSlideChild(this);
+        linerSlideChild = new LinerSlideChild(this, null);
         transferRight = new TransferRight(this);
         transferLeft = new TransferLeft(this);
         heightChild = new HeightChild(this);

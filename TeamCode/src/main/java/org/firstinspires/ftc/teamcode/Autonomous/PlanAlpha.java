@@ -44,7 +44,7 @@ public class PlanAlpha extends AutonomousBase
 
         heightChild.encoderControl(0, 0.7);
 
-        sleep(3000);
+        sleep(2000);
 
         transferRight.autonomousControl(false);
         transferleft.autonomousControl(false);
@@ -58,6 +58,7 @@ public class PlanAlpha extends AutonomousBase
      */
     public void planAlpha(SpikeLineEnum zone, int isBlue) throws IOException, InterruptedException
     {
+        sleep(3000);
         planPurple(zone, isBlue);
 
         if(zone == SpikeLineEnum.CENTER_SPIKE)
@@ -119,6 +120,8 @@ public class PlanAlpha extends AutonomousBase
 
 
         }
+
+
 
     }
 
