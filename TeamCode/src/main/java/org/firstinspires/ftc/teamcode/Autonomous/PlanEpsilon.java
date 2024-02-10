@@ -170,16 +170,17 @@ public class PlanEpsilon extends AutonomousBase{
 
 
         //Go backward
-        driver.forward(8, -1, 0.4, 4);
+        driver.forward(6, -1, 0.4, 4);
 
         //Lower intake
-        this.heightChild.encoderControl(2500, 0.5);
-        sleep(2000);
+        this.intakeChild.driveTime(1);
+        this.heightChild.encoderControl(2100, 0.3);
+        sleep(2500);
 
         //Intake pixel
         //this.intakeChild.driveTime(1,3);
-        this.intakeChild.driveTime(1);
-        sleep(2000);
+
+        sleep(6000);
         this.intakeChild.driveTime(0);
         //Raise intake
        // this.heightChild.encoderControl(2000, 0.8);

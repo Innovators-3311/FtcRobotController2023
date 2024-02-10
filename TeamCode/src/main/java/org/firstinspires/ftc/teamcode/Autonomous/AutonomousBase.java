@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
+import static org.firstinspires.ftc.teamcode.Autonomous.AutonomousBase.SpikeLineEnum.LEFT_SPIKE;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -101,21 +103,39 @@ public class AutonomousBase extends LinearOpMode
         isBlue = colorSwitch.getTeam();
 
         telemetry.addData("isBlue: ", "%d ", isBlue);
-        telemetry.update();
+
         sleep(2000);
         Logging.log("isBlue: " + isBlue);
 
         aprilTagOffset = aprilTagOffset();
         telemetry.addData("AprilTag offset", aprilTagOffset);
 
-        //TODO: move this to the waitForStart
+        telemetry.addLine("Press Drive2 A to continue");
+        while (this.gamepad2.a == false)
+        {
+            rec = webcamDouble.findObject();
+            if (rec != null) {
+                double x = (rec.getLeft() + rec.getRight()) / 2;
+                zone = webcamDouble.findTarget(x);
+
+                //this.telemetry.addData("detected: %d", zone);
+                //this.telemetry.addLine("detected:");
+            }
+            telemetry.addData("Press Drive2 A to continue",1);
+            telemetry.addData("AprilTag offset", aprilTagOffset);
+            telemetry.addData("detected: %d", zone);
+            telemetry.addData("isBlue: ", "%d ", isBlue);
+            telemetry.update();
+        }
+
+        telemetry.update();
 
         waitForStart();
 
         if (zone == SpikeLineEnum.UNKNOWN)
         {
             Logging.log("No team prop was detected.  Your code sucks.");
-            zone = SpikeLineEnum.CENTER_SPIKE;
+            zone = SpikeLineEnum.RIGHT_SPIKE;
         }
 
         //once we start, we should no longer need Tfod.  Should have IDed target by now.
@@ -128,13 +148,42 @@ public class AutonomousBase extends LinearOpMode
     {
         super.waitForStart();
 
+
+
+        /*
         //scan for team prop
         rec = webcamDouble.findObject();
         if (rec != null)
         {
             double x = (rec.getLeft() + rec.getRight()) / 2;
             zone = webcamDouble.findTarget(x);
+
+            if (zone == SpikeLineEnum.LEFT_SPIKE)
+            {
+                //elemetry.addLine("LEFT_SPIKE detected");
+                this.telemetry.addData("detected:", zone);
+            }
+            else if (zone == SpikeLineEnum.CENTER_SPIKE)
+            {
+                //telemetry.addLine("CENTER_SPIKE detected");
+                this.telemetry.addData("detected:", zone);
+            }
+            else if (zone == SpikeLineEnum.RIGHT_SPIKE)
+            {
+                //telemetry.addLine("RIGHT_SPIKE detected");
+                this.telemetry.addData("detected:", zone);
+            }
+            else
+            {
+                this.telemetry.addData("detected:", zone);
+                //telemetry.addLine("NO SPIKE detected!!!!!!!");
+            }
+            //telemetry.update();
+            //this.telemetry.addData
         }
+
+         */
+
     }
 
     protected int aprilTagOffset()
