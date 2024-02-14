@@ -28,7 +28,8 @@ public class PlanEpsilon extends AutonomousBase{
             wallTarget = 3; //originally 3
         }
 
-/*
+
+
         transferRight.autonomousControl(false);
         transferleft.autonomousControl(false);
         transferRight.autonomousControl(true);
@@ -36,11 +37,13 @@ public class PlanEpsilon extends AutonomousBase{
 
         sleep(DELAY);
 
-        heightChild.encoderControl(0,0.7);
+        //heightChild.encoderControl(0,0.7);
 
         sleep(1000);
 
         linerSlideChild.encoderControl(-500, 0.5);
+
+        heightChild.encoderControl(0,0.7);
 
         driveToTag.drive(4, zone.ordinal() + 1 + wallTarget, 7, aprilTagOffset);
 
@@ -48,8 +51,9 @@ public class PlanEpsilon extends AutonomousBase{
 
         transferRight.autonomousControl(false);
         transferleft.autonomousControl(false);
-*/
+
         sleep(2000);
+
     }
 
     /**
@@ -64,6 +68,7 @@ public class PlanEpsilon extends AutonomousBase{
             Logging.log("Spike Line is CENTER_SPIKE");
             centerRoute(isBlue);
             pickUpStack(true, false, isBlue);
+            strafeToFinish(true, false, isBlue);
 
             //goThroughTrussAndFinish(true, false, isBlue);
         }
@@ -80,7 +85,7 @@ public class PlanEpsilon extends AutonomousBase{
                 wingRoute(isBlue);
             }
 
-            goThroughTrussAndFinish(false, true, isBlue);
+            strafeToFinish(false, true, isBlue);
         }
         else if (zone == SpikeLineEnum.RIGHT_SPIKE)
         {
@@ -95,7 +100,7 @@ public class PlanEpsilon extends AutonomousBase{
             }
 
 
-            goThroughTrussAndFinish(false, false, isBlue);
+            strafeToFinish(false, false, isBlue);
         }
 
     }
@@ -188,7 +193,8 @@ public class PlanEpsilon extends AutonomousBase{
             //Raise intake
             // this.heightChild.encoderControl(2000, 0.8);
 
-            driver.forward(5, 1, 0.4, 5);
+
+
 
         }  else if(left){
 
@@ -199,78 +205,23 @@ public class PlanEpsilon extends AutonomousBase{
 
     }
 
-    public void goThroughTrussAndFinish(boolean center, boolean left, int isBlue) throws InterruptedException
-    {
+    public void strafeToFinish(boolean center, boolean left, int isBlue) throws InterruptedException {
 
-        int goThroughTrussDistance;
+        //Strafe to avoid target and truss
+        driver.strafe(2, isBlue, 0.4, imuControl, 5);
 
-        Thread.sleep(100);
+        //Drive to other side
+        driver.forward(98, 1, 0.4, 5);
 
-        //driver.rotate2(-90 * isBlue, imuControl);
+        //Strafe to AprilTag
+        driver.strafe(25, -isBlue, 0.5, imuControl);
 
-        Thread.sleep(100);
-
-        this.heightChild.encoderControl(1000,0.7);
-
-        //This goes to the other side
-        if(left)
-        {
-            goThroughTrussDistance = 70;
-        }
-        else if(center)
-        {
-            goThroughTrussDistance = 80;
-        }
-        else
-        {
-            if (isBlue == 1)
-            {
-                goThroughTrussDistance = 70;
-            }
-            else
-            {
-                goThroughTrussDistance = 70; //75;
-            }
-        }
-
-        driver.forward(goThroughTrussDistance, 1, 0.7);
+        //Lower head
+        this.heightChild.encoderControl(2230, 0.4);
 
 
-        //Strafe to position
-        if (isBlue == 1)
-        {
-            if (zone == SpikeLineEnum.LEFT_SPIKE)
-            {
-                driver.strafe(30, -isBlue, 0.5, imuControl);
-            }
-            else if (zone == SpikeLineEnum.CENTER_SPIKE)
-            {
-                driver.strafe(27, -isBlue, 0.5, imuControl);
-            }
-            else if (zone == SpikeLineEnum.RIGHT_SPIKE)
-            {
-                driver.strafe(20, -isBlue, 0.5, imuControl);
-            }
-        }
-        else  //is red
-        {
-            if (zone == SpikeLineEnum.LEFT_SPIKE)
-            {
-                driver.strafe(22, -isBlue, 0.5, imuControl);
-            }
-            else if (zone == SpikeLineEnum.CENTER_SPIKE)
-            {
-                driver.strafe(23, -isBlue, 0.5, imuControl);
-            }
-            else if (zone == SpikeLineEnum.RIGHT_SPIKE)
-            {
-                driver.strafe(26, -isBlue, 0.5, imuControl);  //was 24
-            }
-        }
 
+
+
+    }
     }
-
-
-
-
-}
