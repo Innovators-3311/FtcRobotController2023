@@ -67,8 +67,8 @@ public class PlanEpsilon extends AutonomousBase{
         {
             Logging.log("Spike Line is CENTER_SPIKE");
             centerRoute(isBlue);
-            pickUpStack(true, false, isBlue);
-            strafeToFinish(true, false, isBlue);
+            pickUpStack(isBlue);
+            strafeToFinish(true, 0, isBlue);
 
             //goThroughTrussAndFinish(true, false, isBlue);
         }
@@ -79,13 +79,14 @@ public class PlanEpsilon extends AutonomousBase{
             if (isBlue == 1)
             {
                 stageRoute(isBlue);
+
             }
             else if (isBlue == -1)
             {
                 wingRoute(isBlue);
             }
-
-            strafeToFinish(false, true, isBlue);
+            pickUpStack(isBlue);
+            strafeToFinish(false, 1, isBlue);
         }
         else if (zone == SpikeLineEnum.RIGHT_SPIKE)
         {
@@ -100,7 +101,7 @@ public class PlanEpsilon extends AutonomousBase{
             }
 
 
-            strafeToFinish(false, false, isBlue);
+            strafeToFinish(false, -1, isBlue);
         }
 
     }
@@ -167,11 +168,10 @@ public class PlanEpsilon extends AutonomousBase{
 
     }
 
-    public void pickUpStack(boolean center, boolean left, int isBlue) throws InterruptedException, IOException
+    public void pickUpStack(int isBlue) throws InterruptedException, IOException
     {
 
 
-        if(center) {
 
             //Turn right
             driver.rotate2(-90 * isBlue, imuControl);
@@ -194,32 +194,42 @@ public class PlanEpsilon extends AutonomousBase{
             // this.heightChild.encoderControl(2000, 0.8);
 
 
-
-
-        }  else if(left){
-
-
-
-        }
-
-
     }
 
-    public void strafeToFinish(boolean center, boolean left, int isBlue) throws InterruptedException {
+    public void strafeToFinish(boolean center, int left, int isBlue) {
+
+        /*
+        Left rules:
+         0 = center (left is false)
+         1 = true, meaning left is true
+         -1 = right (left is false)
+
+         */
+
+
 
         //Strafe to avoid target and truss
         driver.strafe(2, isBlue, 0.4, imuControl, 5);
-
         //Drive to other side
-        driver.forward(98, 1, 0.4, 5);
+        driver.forward(110, 1, 0.4, 5);
 
-        //Strafe to AprilTag
-        driver.strafe(25, -isBlue, 0.5, imuControl);
+        if(center) {
+            left = 0;
+            //Strafe to AprilTag
+            driver.strafe(25, -isBlue, 0.5, imuControl);
+
+        } else if (left == 1){
+            //Strafe to AprilTag
+            driver.strafe(18, -isBlue, 0.5, imuControl);
+
+        } else if(left == -1){
+            //Strafe to AprilTag
+            driver.strafe(36, -isBlue, 0.5, imuControl);
+
+        }
 
         //Lower head
         this.heightChild.encoderControl(2230, 0.4);
-
-
 
 
 
