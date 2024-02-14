@@ -165,28 +165,36 @@ public class PlanEpsilon extends AutonomousBase{
     public void pickUpStack(boolean center, boolean left, int isBlue) throws InterruptedException, IOException
     {
 
-        //Turn right
-        driver.rotate2(-90*isBlue, imuControl);
+
+        if(center) {
+
+            //Turn right
+            driver.rotate2(-90 * isBlue, imuControl);
 
 
-        //Go backward
-        driver.forward(6, -1, 0.4, 4);
+            //Go backward
+            driver.forward(6, -1, 0.4, 4);
 
-        //Lower intake
-        this.intakeChild.driveTime(1);
-        this.heightChild.encoderControl(2100, 0.3);
-        sleep(2500);
+            //Lower intake
+            this.intakeChild.driveTime(1);
+            this.heightChild.encoderControl(2200, 0.3);
+            sleep(2500);
 
-        //Intake pixel
-        //this.intakeChild.driveTime(1,3);
+            //Intake pixel
+            //this.intakeChild.driveTime(1,3);
 
-        sleep(6000);
-        this.intakeChild.driveTime(0);
-        //Raise intake
-       // this.heightChild.encoderControl(2000, 0.8);
+            sleep(6000);
+            this.intakeChild.driveTime(0);
+            //Raise intake
+            // this.heightChild.encoderControl(2000, 0.8);
 
-        driver.forward(5, 1, 0.4, 5);
+            driver.forward(5, 1, 0.4, 5);
 
+        }  else if(left){
+
+
+
+        }
 
 
     }
