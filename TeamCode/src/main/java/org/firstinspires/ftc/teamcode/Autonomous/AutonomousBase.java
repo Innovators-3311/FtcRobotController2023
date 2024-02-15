@@ -111,24 +111,28 @@ public class AutonomousBase extends LinearOpMode
         telemetry.addData("AprilTag offset", aprilTagOffset);
 
         telemetry.addLine("Press Drive2 A to continue");
-        while (this.gamepad2.a == false)
+        while ((this.gamepad2.a == false) && (this.gamepad1.a == false))
         {
             rec = webcamDouble.findObject();
-            if (rec != null) {
+            if (rec != null)
+            {
                 double x = (rec.getLeft() + rec.getRight()) / 2;
                 zone = webcamDouble.findTarget(x);
 
                 //this.telemetry.addData("detected: %d", zone);
                 //this.telemetry.addLine("detected:");
             }
-            telemetry.addData("Press Drive2 A to continue",1);
             telemetry.addData("AprilTag offset", aprilTagOffset);
             telemetry.addData("detected: %d", zone);
             telemetry.addData("isBlue: ", "%d ", isBlue);
+
+            telemetry.addLine("\nPress A to continue");
             telemetry.update();
         }
 
+        telemetry.addLine("Waiting for START Do not touch the controller!!!! OR ELSE!!!!\n The racoon will come for you!");
         telemetry.update();
+
 
         waitForStart();
 

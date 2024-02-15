@@ -42,7 +42,6 @@ public class HeightChild extends MotorControl
             telemetry.addData("Touch sensor", touch.isPressed());
             telemetry.addData("Touch sensor", touch.getValue());
         }
-
     }
 
     private void resetDrive()

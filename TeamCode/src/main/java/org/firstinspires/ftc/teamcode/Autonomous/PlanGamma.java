@@ -69,7 +69,8 @@ public class PlanGamma extends AutonomousBase
     /**
      * There is always a plan B.  ;)
      */
-    public void planGamma(SpikeLineEnum zone) throws IOException, InterruptedException {
+    public void planGamma(SpikeLineEnum zone) throws IOException, InterruptedException
+    {
 
         //If target is in the center...
         if(zone == SpikeLineEnum.CENTER_SPIKE)
@@ -230,7 +231,7 @@ public class PlanGamma extends AutonomousBase
 
         }
 
-        driver.forward(14, forward, defaultSpeed);
+        driver.forward(14, forward, defaultSpeed, 3);
     }
 
 }
