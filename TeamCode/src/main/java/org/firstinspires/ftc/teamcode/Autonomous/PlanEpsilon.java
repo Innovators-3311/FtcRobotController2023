@@ -45,7 +45,7 @@ public class PlanEpsilon extends AutonomousBase{
 
         heightChild.encoderControl(0,0.7);
 
-        driveToTag.drive(4, zone.ordinal() + 1 + wallTarget, 7, aprilTagOffset);
+        driveToTag.drive(5, zone.ordinal() + 1 + wallTarget, 7, aprilTagOffset);
 
         linerSlideChild.encoderControl(0, 0.5);
 
@@ -177,13 +177,22 @@ public class PlanEpsilon extends AutonomousBase{
             driver.rotate2(-90 * isBlue, imuControl);
 
 
-            //Go backward
-            driver.forward(6, -1, 0.4, 4);
+            this.heightChild.encoderControl(2000, 0.8);
+            //sleep(2500);
 
             //Lower intake
+
+
+            sleep(2000);
+
             this.intakeChild.driveTime(1);
-            this.heightChild.encoderControl(2200, 0.3);
-            sleep(2500);
+
+            //Go backward
+            driver.forward(6, -1, 0.3, 4);
+
+            //this.heightChild.encoderControl(2200, 0.3);
+            this.heightChild.encoderControl(2200, 0.05);
+
 
             //Intake pixel
             //this.intakeChild.driveTime(1,3);

@@ -107,7 +107,7 @@ public class AutonomousBase extends LinearOpMode
         sleep(2000);
         Logging.log("isBlue: " + isBlue);
 
-        aprilTagOffset = aprilTagOffset();
+        aprilTagOffset = 0;//aprilTagOffset();
         telemetry.addData("AprilTag offset", aprilTagOffset);
 
         telemetry.addLine("Press Drive2 A to continue");
@@ -123,7 +123,7 @@ public class AutonomousBase extends LinearOpMode
                 //this.telemetry.addLine("detected:");
             }
             telemetry.addData("AprilTag offset", aprilTagOffset);
-            telemetry.addData("detected: %d", zone);
+            telemetry.addData("detected: ", zone);
             telemetry.addData("isBlue: ", "%d ", isBlue);
 
             telemetry.addLine("\nPress A to continue");
@@ -192,19 +192,30 @@ public class AutonomousBase extends LinearOpMode
 
     protected int aprilTagOffset()
     {
-        // left
-        if (gamepad1.x)
+        boolean exit = false;
+        while (exit == false)
         {
-            return 1;
-        } // right
-        else if (gamepad1.b)
-        {
-            return -1;
-        } // default
-        else
-        {
-            return 0;
+            telemetry.addLine("Set April Tag Offset");
+            telemetry.addLine("X = left");
+            telemetry.addLine("B = right");
+            telemetry.addLine("A = center");
+            telemetry.update();
+
+            // left
+            if (this.gamepad1.x == true)
+            {
+                return 3;
+            } // right
+            else if (gamepad1.b == true)
+            {
+                return -3;
+            } // default
+            else if (gamepad1.a == true)
+            {
+                return 0;
+            }
         }
+        return 0;
     }
 
 }
