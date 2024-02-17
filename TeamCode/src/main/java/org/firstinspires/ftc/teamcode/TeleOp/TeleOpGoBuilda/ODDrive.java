@@ -1,21 +1,21 @@
-package org.firstinspires.ftc.teamcode.TeleOp;
+package org.firstinspires.ftc.teamcode.TeleOp.TeleOpGoBuilda;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import org.firstinspires.ftc.teamcode.Controller.MechanicalDriveBase;
-import org.firstinspires.ftc.teamcode.Controller.MechanicalDriveBaseOD;
+
+import org.firstinspires.ftc.teamcode.Controller.MecanumDriveBases.MecanumDriveBaseOD;
 
 @TeleOp(name = "OD drive", group = "drive")
 @Disabled
 public class ODDrive extends OpMode
 {
-    MechanicalDriveBaseOD mechanicalDriveBaseOD;
+    MecanumDriveBaseOD mecanumDriveBaseOD;
 
     @Override
     public void init()
     {
-        mechanicalDriveBaseOD = new MechanicalDriveBaseOD(hardwareMap);
+        mecanumDriveBaseOD = new MecanumDriveBaseOD(hardwareMap);
         telemetry.addData("Initialized", " Press start");
         telemetry.update();
     }
@@ -23,7 +23,7 @@ public class ODDrive extends OpMode
     @Override
     public void loop()
     {
-        mechanicalDriveBaseOD.gamepadController(gamepad1);
-        mechanicalDriveBaseOD.driveBaseTelemetry(telemetry);
+        mecanumDriveBaseOD.gamepadController(gamepad1);
+        mecanumDriveBaseOD.driveBaseTelemetry(telemetry);
     }
 }

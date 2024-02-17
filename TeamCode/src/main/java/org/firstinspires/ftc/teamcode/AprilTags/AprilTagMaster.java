@@ -5,7 +5,8 @@ import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.BuiltinCameraDirection;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.Controller.MechanicalDriveBase;
+import org.firstinspires.ftc.teamcode.Controller.MecanumDriveBases.MecanumDriveBase;
+import org.firstinspires.ftc.teamcode.Controller.MecanumDriveBases.MecanumDriveBaseOldHippo;
 import org.firstinspires.ftc.teamcode.util.Logging;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
@@ -25,7 +26,7 @@ public class AprilTagMaster
     final double STRAFE_GAIN = 0.045;   //  Strafe Speed Control "Gain".  eg: Ramp up to 25% power at a 25 degree Yaw error.   (0.25 / 25.0)     .07
     final double TURN_GAIN = 0.035;   //  Turn Control "Gain".  eg: Ramp up to 25% power at a 25 degree error. (0.25 / 25.0)                     .06
 
-    final double MAX_AUTO_SPEED = 0.4;   //  Clip the approach speed to this max value (adjust for your robot)   .8
+    final double MAX_AUTO_SPEED = 0.5;   //  Clip the approach speed to this max value (adjust for your robot)   .8
     final double MAX_AUTO_STRAFE = 0.5;   //  Clip the approach speed to this max value (adjust for your robot)  .9
     final double MAX_AUTO_TURN = 0.4;   //  Clip the turn speed to this max value (adjust for your robot)        .7
 
@@ -35,21 +36,21 @@ public class AprilTagMaster
     private VisionPortal visionPortal;               // Used to manage the video source.
     private AprilTagProcessor aprilTag;              // Used for managing the AprilTag detection process.
     private AprilTagDetection desiredTag = null;     // Used to hold the data for a detected AprilTag
-    private MechanicalDriveBase mechanicalDriveBase;
+    private MecanumDriveBaseOldHippo mecanumDriveBaseOldHippo;
     //    WebcamName webcamName;
     private double rangeError = 0;
     private double headingError = 0;
     private double yawError = 0;
 
-    public AprilTagMaster(MechanicalDriveBase mechanicalDriveBase, HardwareMap hardwareMap, AprilTagProcessor aprilTag)
+    public AprilTagMaster(MecanumDriveBaseOldHippo mecanumDriveBaseOldHippo, HardwareMap hardwareMap, AprilTagProcessor aprilTag)
     {
-        this.mechanicalDriveBase = mechanicalDriveBase;
+        this.mecanumDriveBaseOldHippo = mecanumDriveBaseOldHippo;
         this.aprilTag = aprilTag;
     }
 
-    public AprilTagMaster(MechanicalDriveBase mechanicalDriveBase, HardwareMap hardwareMap)
+    public AprilTagMaster(MecanumDriveBase mecanumDriveBase, HardwareMap hardwareMap)
     {
-        this.mechanicalDriveBase = mechanicalDriveBase;
+        this.mecanumDriveBaseOldHippo = mecanumDriveBaseOldHippo;
         initAprilTag(hardwareMap);
     }
 
@@ -123,7 +124,7 @@ public class AprilTagMaster
             drive = 0;
             turn = 0;
             strafe = 0;
-            mechanicalDriveBase.brake();
+            mecanumDriveBaseOldHippo.brake();
         }
 
         Logging.log("DiveToTag: range %5.2f, heading %5.2f, yawError %5.2f", rangeError, headingError, yawError);
@@ -133,7 +134,7 @@ public class AprilTagMaster
 //        telemetry.update();
 
         // Apply desired axes motions to the drivetrain.
-        mechanicalDriveBase.driveMotors(drive, -turn, strafe, 1);
+        mecanumDriveBaseOldHippo.driveMotors(drive, -turn, strafe, 1);
         if (targetFound)
         {
             return desiredTag;

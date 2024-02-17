@@ -8,7 +8,7 @@ public class DronePosition extends ServoControl
 
     public DronePosition(OpMode opMode)
     {
-        super("position", 0, 1, opMode);
+        super("position", 0, 1, opMode, null);
     }
 
     public void PositionControl()

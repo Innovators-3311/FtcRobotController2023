@@ -15,14 +15,15 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-import org.firstinspires.ftc.teamcode.Controller.MechanicalDriveBase;
+import org.firstinspires.ftc.teamcode.Controller.MecanumDriveBases.MecanumDriveBaseOldHippo;
+
 import java.util.Locale;
 
 @Autonomous(name="RadarCode", group="Exercises")
 @Disabled
 public class RadarCode extends LinearOpMode
 {
-    private MechanicalDriveBase mechanicalDriveBase;
+    private MecanumDriveBaseOldHippo mecanumDriveBaseOldHippo;
     private ElapsedTime elapsedTime;
 
     private DistanceSensor distanceSensorRight;
@@ -58,7 +59,7 @@ public class RadarCode extends LinearOpMode
     {
         initImu();
 
-        mechanicalDriveBase = new MechanicalDriveBase(hardwareMap);
+        mecanumDriveBaseOldHippo = new MecanumDriveBaseOldHippo(hardwareMap);
         elapsedTime = new ElapsedTime();
 
         distanceSensorCenter = hardwareMap.get(DistanceSensor.class, "distanceSensorCenter");
@@ -201,7 +202,7 @@ public class RadarCode extends LinearOpMode
         else return; //angle is 0
 
         // set power to rotate.
-        mechanicalDriveBase.driveMotors(0, powerRate, 0, 1);
+        mecanumDriveBaseOldHippo.driveMotors(0, powerRate, 0, 1);
 
 
         // rotate until turn is completed.
@@ -216,7 +217,7 @@ public class RadarCode extends LinearOpMode
             {
                 if (opModeIsActive() && Math.abs(getAngle()) > Math.abs(degrees))
                 {
-                    mechanicalDriveBase.driveMotors(0, 0, 0, 0);
+                    mecanumDriveBaseOldHippo.driveMotors(0, 0, 0, 0);
 //                    telemetry.addData("Stop", "");
 //                    telemetry.update();
                     break;
@@ -248,7 +249,7 @@ public class RadarCode extends LinearOpMode
                     {
                         //telemetry.addData("lost pole", "");
                         //telemetry.update();
-                        mechanicalDriveBase.driveMotors(0, 0, 0, 0);
+                        mecanumDriveBaseOldHippo.driveMotors(0, 0, 0, 0);
                         sleep(100);
                         secondPole = getAngle();
                         telemetry.addData("Angle #2:", secondPole + "DIS:" + distance);
@@ -261,7 +262,7 @@ public class RadarCode extends LinearOpMode
         }
 
         // turn the motors off.
-        mechanicalDriveBase.driveMotors(0, 0, 0, 0);
+        mecanumDriveBaseOldHippo.driveMotors(0, 0, 0, 0);
 
         // wait for rotation to stop.
         sleep(300);

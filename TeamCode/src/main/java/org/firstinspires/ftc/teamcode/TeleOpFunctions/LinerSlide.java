@@ -3,11 +3,10 @@ package org.firstinspires.ftc.teamcode.TeleOpFunctions;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.Controller.MotorControl;
 
-public class LinerSlideChild extends MotorControl
+public class LinerSlide extends MotorControl
 {
     private final int resetPosition = -50;
     private final int upperPosition = -750;
@@ -15,7 +14,7 @@ public class LinerSlideChild extends MotorControl
     TouchSensor touchSensor;
 
     //Constructor calls parent constructor using hardcoded input
-    public LinerSlideChild(OpMode opMode, ElapsedTime time)
+    public LinerSlide(OpMode opMode, ElapsedTime time)
     {
         super("slide", true, true, opMode, time);
         touchSensor = opMode.hardwareMap.get(TouchSensor.class, "touchLiner");
@@ -24,7 +23,7 @@ public class LinerSlideChild extends MotorControl
     public void linerSlideDrive()
     {
         touchSensorOverride();
-        this.encoderDrive();
+        this.toggleDrive();
         this.analogControl();
         this.telemetry();
     }
@@ -34,10 +33,9 @@ public class LinerSlideChild extends MotorControl
         super.analogControl(1, gamepad2.right_stick_y,false);
     }
 
-    private void encoderDrive()
+    protected void toggleDrive()
     {
-        encoderControl(upperPosition, 1, gamepad2.left_bumper);
-        encoderControl(resetPosition, 0.75, gamepad2.left_trigger);
+        super.toggleDrive(gamepad2.left_trigger > 0.25, upperPosition, resetPosition);
     }
 
     @Override

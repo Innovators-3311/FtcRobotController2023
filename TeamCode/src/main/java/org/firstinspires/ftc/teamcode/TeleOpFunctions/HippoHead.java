@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.TouchSensor;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Controller.MotorControl;
 
-public class HeightChild extends MotorControl
+public class HippoHead extends MotorControl
 {
 
     // + for down during auto
@@ -18,7 +18,7 @@ public class HeightChild extends MotorControl
     Telemetry telemetry;
 
     //Constructor calls parent constructor using hardcoded input
-    public HeightChild(OpMode opmode)
+    public HippoHead(OpMode opmode)
     {
         super("height", false, true, opmode, null);
         touch = opmode.hardwareMap.get(TouchSensor.class, "touchSensor");

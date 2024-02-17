@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.TeleOpFunctions;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Controller.ServoControl;
 
@@ -8,9 +9,9 @@ import org.firstinspires.ftc.teamcode.Controller.ServoControl;
 public class TransferRight extends ServoControl
 {
 
-    public TransferRight(OpMode opMode)
+    public TransferRight(OpMode opMode, ElapsedTime time)
     {
-        super("transferRight", 0, 0, opMode);
+        super("transferRight", 0, 0, opMode, time);
     }
 
     public void transferDrive()
@@ -21,8 +22,7 @@ public class TransferRight extends ServoControl
 
     private void managePosition()
     {
-        driveServo(1, gamepad2.left_bumper || gamepad2.y);
-        driveServo(0, gamepad2.left_trigger > 0.5 || gamepad2.a);
+        toggleDrive(gamepad2.left_trigger < 0.25, 0, 1);
     }
 
     public void autonomousControl(boolean up)

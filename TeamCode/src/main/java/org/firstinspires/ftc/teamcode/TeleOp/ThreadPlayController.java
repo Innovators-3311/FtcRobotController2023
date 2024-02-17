@@ -4,20 +4,20 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.teamcode.Controller.MechanicalDriveBase;
+import org.firstinspires.ftc.teamcode.Controller.MecanumDriveBases.MecanumDriveBaseOldHippo;
 
 @TeleOp(name = "threadcode", group = "threadplay")
 @Disabled
 public class ThreadPlayController extends OpMode
 {
-    MechanicalDriveBase mecanumDriveBase;
+    MecanumDriveBaseOldHippo mecanumDriveBase;
     ColorSensorClass colorSensorClass;
 
     @Override
     public void init()
     {
         colorSensorClass = new ColorSensorClass(hardwareMap);
-        mecanumDriveBase = new MechanicalDriveBase(hardwareMap);
+        mecanumDriveBase = new MecanumDriveBaseOldHippo(hardwareMap);
         telemetry.addData("Initialized", " Press start");
         telemetry.update();
     }

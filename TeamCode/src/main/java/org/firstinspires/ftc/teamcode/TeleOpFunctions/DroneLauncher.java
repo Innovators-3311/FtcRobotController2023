@@ -9,7 +9,7 @@ public class DroneLauncher extends ServoControl
 
     public DroneLauncher(OpMode opMode)
     {
-        super("launcher", 0, 1, opMode);
+        super("launcher", 0, 1, opMode, null);
     }
 
     public  void launcherControl()

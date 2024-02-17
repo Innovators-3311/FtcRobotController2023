@@ -204,7 +204,10 @@ public class MotorControl
 
     protected void toggleDrive(boolean argument, int upperPosition, int lowerPosition)
     {
-        time.startTime();
+        if (time.seconds() == 0)
+        {
+            time.startTime();
+        }
         double lastChanged = 0;
 
         if (argument && numberOfPosition == 1 && (lastChanged + 0.25) < time.seconds())
@@ -297,8 +300,6 @@ public class MotorControl
         motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motor.setPower(speed);
     }
-
-
 
     /**
      * for motors that just need to spin call break to stop

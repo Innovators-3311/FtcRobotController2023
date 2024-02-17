@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Controller;
+package org.firstinspires.ftc.teamcode.Controller.MecanumDriveBases;
 
 import static java.lang.Thread.sleep;
 
@@ -18,7 +18,7 @@ import java.io.IOException;
  * methods to command the bot.  The movements are backed up by PID controller to ensure the bot
  * stays on course.  This class is intended to be used by autonomous programs.
  */
-public class MecanumSynchronousDriver<imuControl> extends MechanicalDriveBase
+public class MecanumSynchronousDriver<imuControl> extends MecanumDriveBaseOldHippo
 {
 
    /**
@@ -73,7 +73,7 @@ public class MecanumSynchronousDriver<imuControl> extends MechanicalDriveBase
    ElapsedTime time;
 
     /**
-     * Constructor for MechanicalDriveBase from the hardware map
+     * Constructor for MecanumDriveBaseOldHippo from the hardware map
      *
      * @param hardwareMap the hardware map
      */

@@ -7,11 +7,11 @@ import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.teamcode.AprilTags.AprilTagMaster;
 import org.firstinspires.ftc.teamcode.AprilTags.DriveToTag;
 import org.firstinspires.ftc.teamcode.ColorSwitch.ColorSwitch;
-import org.firstinspires.ftc.teamcode.Controller.MecanumSynchronousDriver;
-import org.firstinspires.ftc.teamcode.Controller.MechanicalDriveBase;
-import org.firstinspires.ftc.teamcode.TeleOpFunctions.HeightChild;
-import org.firstinspires.ftc.teamcode.TeleOpFunctions.IntakeChild;
-import org.firstinspires.ftc.teamcode.TeleOpFunctions.LinerSlideChild;
+import org.firstinspires.ftc.teamcode.Controller.MecanumDriveBases.MecanumDriveBaseOldHippo;
+import org.firstinspires.ftc.teamcode.Controller.MecanumDriveBases.MecanumSynchronousDriver;
+import org.firstinspires.ftc.teamcode.TeleOpFunctions.HippoHead;
+import org.firstinspires.ftc.teamcode.TeleOpFunctions.Intake;
+import org.firstinspires.ftc.teamcode.TeleOpFunctions.LinerSlide;
 import org.firstinspires.ftc.teamcode.TeleOpFunctions.TransferLeft;
 import org.firstinspires.ftc.teamcode.TeleOpFunctions.TransferRight;
 import org.firstinspires.ftc.teamcode.util.ImuHardware;
@@ -39,11 +39,11 @@ public class AutonomousBase extends LinearOpMode
     protected MecanumSynchronousDriver driver;
     protected DriveToTag driveToTag;
 
-    protected LinerSlideChild linerSlideChild;
+    protected LinerSlide linerSlide;
     protected TransferRight transferRight;
     protected TransferLeft transferleft;
-    protected HeightChild heightChild;
-    protected IntakeChild intakeChild;
+    protected HippoHead hippoHead;
+    protected Intake intake;
 
     protected ColorSwitch colorSwitch;
 
@@ -69,19 +69,19 @@ public class AutonomousBase extends LinearOpMode
 
             webcamDouble = new WebCamDoubleVision(this, colorSwitch.getTeam());
 
-            driveToTag = new DriveToTag(hardwareMap, telemetry, new ElapsedTime(), new ElapsedTime(), new AprilTagMaster(new MechanicalDriveBase(hardwareMap), hardwareMap, webcamDouble.getAprilTag()));
+            driveToTag = new DriveToTag(hardwareMap, telemetry, new ElapsedTime(), new ElapsedTime(), new AprilTagMaster(new MecanumDriveBaseOldHippo(hardwareMap), hardwareMap, webcamDouble.getAprilTag()));
 
 
             //Following are all intake or outtake items, mostly on the expansion hub.
-            linerSlideChild = new LinerSlideChild(this);
+            linerSlide = new LinerSlide(this, null);
             sleep(DELAY);
-            transferRight = new TransferRight(this);
+            transferRight = new TransferRight(this, null);
             sleep(DELAY);
-            transferleft = new TransferLeft(this);
+            transferleft = new TransferLeft(this, null);
             sleep(DELAY);
-            heightChild = new HeightChild(this);
+            hippoHead = new HippoHead(this);
             sleep(DELAY);
-            intakeChild = new IntakeChild(this);
+            intake = new Intake(this);
             sleep(DELAY);
         }
         catch (IOException e)

@@ -4,8 +4,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.Autonomous.AutonomousBase;
-import org.firstinspires.ftc.teamcode.TeleOpFunctions.HeightChild;
-import org.firstinspires.ftc.teamcode.TeleOpFunctions.LinerSlideChild;
 import org.firstinspires.ftc.teamcode.util.Logging;
 import java.io.IOException;
 
@@ -18,24 +16,24 @@ public class LinearOpModeMez extends AutonomousBase
     private final double ticksPerInch = (8192 * 1) / (2 * 3.1415); // == 1303
     private final double ticksPerDegree = (ticksPerInch * 50.24) / 360;
 
-//    HeightChild heightChild;
-//    LinerSlideChild linerSlideChild;
+//    HippoHead hippoHead;
+//    LinerSlide linerSlide;
 
     @Override
     public void runOpMode() throws InterruptedException
     {
 
-//        heightChild = new HeightChild(this);
-//        linerSlideChild = new LinerSlideChild(this);
+//        hippoHead = new HippoHead(this);
+//        linerSlide = new LinerSlide(this);
 
 //        waitForStart();
 
-//        linerSlideChild.encoderControl(-1000, 0.5);
+//        linerSlide.encoderControl(-1000, 0.5);
 
 
 //        while (opModeIsActive())
 //        {
-////            heightChild.encoderControl(500, 0.7);
+////            hippoHead.encoderControl(500, 0.7);
 //
 //            Thread.sleep(3000);
 //        }
@@ -71,9 +69,9 @@ public class LinearOpModeMez extends AutonomousBase
 
         while (opModeIsActive())
         {
-//            heightChild.encoderControl(10,.3);
+//            hippoHead.encoderControl(10,.3);
 //            sleep(3000);
-//            heightChild.encoderControl(-10,.3);
+//            hippoHead.encoderControl(-10,.3);
 //            sleep(3000);
 
 
@@ -112,12 +110,12 @@ public class LinearOpModeMez extends AutonomousBase
 
         sleep(1000);
 
-        linerSlideChild.encoderControl(-250, 0.5);
+        linerSlide.encoderControl(-250, 0.5);
 
         driveToTag.drive(6, 2, 7, isBlue == 1 ? 0 : -1);
 
-        heightChild.encoderControl(0,0.7);
-        linerSlideChild.encoderControl(0, 0.5);
+        hippoHead.encoderControl(0,0.7);
+        linerSlide.encoderControl(0, 0.5);
         transferRight.autonomousControl(false);
         transferleft.autonomousControl(false);
 

@@ -36,13 +36,13 @@ public class PlanAlpha extends AutonomousBase
         transferleft.autonomousControl(true);
 
         sleep(1000);
-        linerSlideChild.encoderControl(-500, 0.5);
+        linerSlide.encoderControl(-500, 0.5);
 
 
         driveToTag.drive(4, zone.ordinal() + 1 + wallTarget, 7, isBlue == 1 ? 0 : -1);
 
 
-        heightChild.encoderControl(0, 0.7);
+        hippoHead.encoderControl(0, 0.7);
 
         sleep(3000);
 
@@ -67,7 +67,7 @@ public class PlanAlpha extends AutonomousBase
             driver.rotate2(-90*isBlue, imuControl);
 
             //Go through truss
-            this.heightChild.encoderControl(1800, 0.6);
+            this.hippoHead.encoderControl(1800, 0.6);
 
             sleep(2000);
 
@@ -83,7 +83,7 @@ public class PlanAlpha extends AutonomousBase
             //Turn to truss
             driver.rotate2(-90 * isBlue, imuControl);
 
-            this.heightChild.encoderControl(1800, 0.7);
+            this.hippoHead.encoderControl(1800, 0.7);
 
             sleep(2000);
 
@@ -107,7 +107,7 @@ public class PlanAlpha extends AutonomousBase
             //Turn left to go through truss
             driver.rotate2(-90*isBlue, imuControl);
 
-            this.heightChild.encoderControl(1800, 0.6);
+            this.hippoHead.encoderControl(1800, 0.6);
             sleep(2000);
 
             //Go through truss

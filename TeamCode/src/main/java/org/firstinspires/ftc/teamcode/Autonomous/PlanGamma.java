@@ -46,7 +46,7 @@ public class PlanGamma extends AutonomousBase
         transferRight.autonomousControl(true);
         transferleft.autonomousControl(true);
 
-        linerSlideChild.encoderControl(-200, 0.5);
+        linerSlide.encoderControl(-200, 0.5);
 
         sleep(2000);
         //driveToTag.drive(7, zone.ordinal() + 1 + wallTarget, 11, 0);

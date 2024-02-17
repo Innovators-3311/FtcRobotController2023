@@ -1,22 +1,24 @@
-package org.firstinspires.ftc.teamcode.Controller;
+package org.firstinspires.ftc.teamcode.Controller.MecanumDriveBases;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.IMU.IMUControl;
 
-public class MechanicalDriveBase
+public class MecanumDriveBase
 {
     public DcMotor lf;
     public DcMotor lb;
     public DcMotor rb;
     public DcMotor rf;
-  
-    public double leftPowerFront  = 0;
+
+    public double leftPowerFront = 0;
     public double rightPowerFront = 0;
-    public double rightPowerBack  = 0;
-    public double leftPowerBack   = 0;
+    public double rightPowerBack = 0;
+    public double leftPowerBack = 0;
     public double speed = 0;
 
     final double  COUNTS_PER_INCH = (8192 * 1) / (2 * 3.1415); // 1,303.835747254496
@@ -24,21 +26,21 @@ public class MechanicalDriveBase
     IMUControl imuControl;
 
     /**
-     * Constructor for MechanicalDriveBase from the hardware map
+     * Constructor for MecanumDriveBaseOldHippo from the hardware map
      *
      * @param hardwareMap the hardware map
      */
-    public MechanicalDriveBase(HardwareMap hardwareMap)
+    protected MecanumDriveBase(HardwareMap hardwareMap, boolean lfForward, boolean rfForward, boolean lbForward, boolean rbForward)
     {
         lf = hardwareMap.get(DcMotor.class, "lf");
         lb = hardwareMap.get(DcMotor.class, "lb");
         rb = hardwareMap.get(DcMotor.class, "rb");
         rf = hardwareMap.get(DcMotor.class, "rf");
 
-        lf.setDirection(DcMotor.Direction.FORWARD);
-        rf.setDirection(DcMotor.Direction.REVERSE);
-        lb.setDirection(DcMotor.Direction.FORWARD);
-        rb.setDirection(DcMotor.Direction.REVERSE);
+        lf.setDirection(setDirection(lfForward));
+        rf.setDirection(setDirection(rfForward));
+        lb.setDirection(setDirection(lbForward));
+        rb.setDirection(setDirection(rbForward));
 
         // Run Without Encoders
         resetRunMode();
@@ -52,6 +54,7 @@ public class MechanicalDriveBase
         lb.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rb.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
+
 
     /**
      * We tend to set all the motor modes at once, so break it out using "extract Method" under the
@@ -160,4 +163,14 @@ public class MechanicalDriveBase
         telemetry.addData("Motors", "lf: %.2f rf: %.2f lb: %.2f rb: %.2f", leftPowerFront, rightPowerFront, leftPowerBack, rightPowerBack);
         telemetry.addData("Speed control", speed);
     }
+
+    private DcMotor.Direction setDirection(boolean forward)
+    {
+        if (forward)
+        {
+            return DcMotor.Direction.FORWARD;
+        }
+        return DcMotor.Direction.REVERSE;
+    }
+
 }

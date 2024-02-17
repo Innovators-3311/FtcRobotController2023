@@ -5,14 +5,14 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-import org.firstinspires.ftc.teamcode.Controller.MechanicalDriveBase;
+import org.firstinspires.ftc.teamcode.Controller.MecanumDriveBases.MecanumDriveBaseOldHippo;
 import org.firstinspires.ftc.teamcode.IMU.IMUControl;
 
 @Autonomous(name = "No Crash", group = "No Crash")
 @Disabled
 public class NoCrashMaster extends OpMode
 {
-    MechanicalDriveBase mechanicalDriveBase;
+    MecanumDriveBaseOldHippo mecanumDriveBaseOldHippo;
     DistanceSensor distanceSensorRight;
     DistanceSensor distanceSensorLeft;
     IMUControl imuControl;
@@ -20,7 +20,7 @@ public class NoCrashMaster extends OpMode
     @Override
     public void init()
     {
-        mechanicalDriveBase = new MechanicalDriveBase(hardwareMap);
+        mecanumDriveBaseOldHippo = new MecanumDriveBaseOldHippo(hardwareMap);
         distanceSensorRight = hardwareMap.get(DistanceSensor.class, "LeftDis");
         distanceSensorLeft = hardwareMap.get(DistanceSensor.class, "RightDis");
         imuControl = new IMUControl(hardwareMap, telemetry);
@@ -37,7 +37,7 @@ public class NoCrashMaster extends OpMode
         }
         else
         {
-            mechanicalDriveBase.driveMotors(1,0,0,0.8);
+            mecanumDriveBaseOldHippo.driveMotors(1,0,0,0.8);
         }
     }
 

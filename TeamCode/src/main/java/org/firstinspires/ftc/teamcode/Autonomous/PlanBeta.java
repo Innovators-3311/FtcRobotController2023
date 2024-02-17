@@ -35,15 +35,15 @@ public class PlanBeta extends AutonomousBase
 
         sleep(DELAY);
 
-        heightChild.encoderControl(0,0.7);
+        hippoHead.encoderControl(0,0.7);
 
         sleep(1000);
 
-        linerSlideChild.encoderControl(-500, 0.5);
+        linerSlide.encoderControl(-500, 0.5);
 
         driveToTag.drive(4, zone.ordinal() + 1 + wallTarget, 7, isBlue == 1 ? 0 : -1);
 
-        linerSlideChild.encoderControl(0, 0.5);
+        linerSlide.encoderControl(0, 0.5);
 
         transferRight.autonomousControl(false);
         transferleft.autonomousControl(false);
@@ -170,7 +170,7 @@ public class PlanBeta extends AutonomousBase
 
         Thread.sleep(100);
 
-        this.heightChild.encoderControl(1000,0.7);
+        this.hippoHead.encoderControl(1000,0.7);
 
         //This goes to the other side
         if(left)
