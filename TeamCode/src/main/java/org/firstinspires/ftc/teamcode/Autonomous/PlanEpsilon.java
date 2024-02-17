@@ -17,7 +17,7 @@ public class PlanEpsilon extends AutonomousBase{
 
         try
         {
-            planBeta(zone, isBlue);
+            planEpsilon(zone, isBlue);
         } catch (IOException e)
         {
             e.printStackTrace();
@@ -56,10 +56,7 @@ public class PlanEpsilon extends AutonomousBase{
 
     }
 
-    /**
-     * There is always a plan B.  ;)
-     */
-    public void planBeta(SpikeLineEnum zone, int isBlue) throws IOException, InterruptedException
+    public void planEpsilon(SpikeLineEnum zone, int isBlue) throws IOException, InterruptedException
     {
 
         //If target is in the center...
@@ -70,7 +67,7 @@ public class PlanEpsilon extends AutonomousBase{
             pickUpStack(isBlue);
             strafeToFinish(true, 0, isBlue);
 
-            //goThroughTrussAndFinish(true, false, isBlue);
+
         }
         //If target is on the left...
         else if(zone == SpikeLineEnum.LEFT_SPIKE)
@@ -83,7 +80,7 @@ public class PlanEpsilon extends AutonomousBase{
             }
             else if (isBlue == -1)
             {
-                wingRoute(isBlue);
+               wingRoute(isBlue);
             }
             pickUpStack(isBlue);
             strafeToFinish(false, 1, isBlue);
@@ -99,7 +96,7 @@ public class PlanEpsilon extends AutonomousBase{
             {
                 stageRoute(isBlue);
             }
-
+            pickUpStack(isBlue);
 
             strafeToFinish(false, -1, isBlue);
         }
@@ -123,8 +120,13 @@ public class PlanEpsilon extends AutonomousBase{
         //Adjust (right)
         driver.rotate2(-45 * isBlue, imuControl);
 
-        //Drive forward (meant to go through the middle of the truss)
-        driver.forward(27, 1, 0.7);  // 26
+        //Strafe so that robot doesn't hit truss
+        driver.strafe(0.5, isBlue, 0.4, imuControl);
+
+        //Go forward to pick up from stack
+        driver.forward(28, 1, 0.4, 3);
+
+
     }
 
     public void stageRoute(int isBlue) throws IOException, InterruptedException
@@ -144,27 +146,32 @@ public class PlanEpsilon extends AutonomousBase{
         //Adjust (left)
         driver.rotate2(45 * isBlue, imuControl);
 
-        //Go to the middle
-        driver.forward(25.5, 1, 0.8);
+        //Strafe to side
+        driver.strafe(0.5, isBlue, 0.4, imuControl);
+
+        //Go forward for pickUpStack
+        driver.forward(25 , 1, 0.4);
+
+
     }
 
     public void centerRoute(int isBlue)
     {
-        //Go forward and place pixel
-        driver.forward(26, 1, 0.6);
 
-        //Go back so that robot lets go of pixel
-        driver.forward(4, -1, 0.5);
+            //Go forward and place pixel
+            driver.forward(26, 1, 0.6);
 
-        //Strafe to left
-        driver.strafe(10, isBlue, 0.6, imuControl);
+            //Go back so that robot lets go of pixel
+            driver.forward(4, -1, 0.5);
 
-
-        //Turn left
+            //Strafe to left
+            driver.strafe(10, isBlue, 0.6, imuControl);
 
 
-        //Continue to go into position
-        driver.forward(25, 1, 0.6);
+            //Continue to go into position
+            driver.forward(25, 1, 0.6);
+
+
 
     }
 
@@ -172,6 +179,7 @@ public class PlanEpsilon extends AutonomousBase{
     {
 
 
+        if(isBlue == -1) {
 
             //Turn right
             driver.rotate2(-90 * isBlue, imuControl);
@@ -183,7 +191,7 @@ public class PlanEpsilon extends AutonomousBase{
             //Lower intake
 
 
-            sleep(2000);
+            //sleep(2000);
 
             this.intakeChild.driveTime(1);
 
@@ -197,11 +205,36 @@ public class PlanEpsilon extends AutonomousBase{
             //Intake pixel
             //this.intakeChild.driveTime(1,3);
 
-            sleep(6000);
+            sleep(4000);
             this.intakeChild.driveTime(0);
             //Raise intake
             // this.heightChild.encoderControl(2000, 0.8);
 
+        } else{
+            //Turn right
+            driver.rotate2(-90 * isBlue, imuControl);
+
+
+            this.heightChild.encoderControl(2000, 0.8);
+
+            //sleep(2000);
+
+            this.intakeChild.driveTime(1);
+
+            //Go backward
+            driver.forward(18, -1, 0.3, 4);
+
+            //this.heightChild.encoderControl(2200, 0.3);
+            this.heightChild.encoderControl(2200, 0.05);
+
+
+            sleep(4000);
+            this.intakeChild.driveTime(0);
+            //Raise intake
+            // this.heightChild.encoderControl(2000, 0.8);
+
+
+        }
 
     }
 
@@ -220,12 +253,12 @@ public class PlanEpsilon extends AutonomousBase{
         //Strafe to avoid target and truss
         driver.strafe(2, isBlue, 0.4, imuControl, 5);
         //Drive to other side
-        driver.forward(110, 1, 0.4, 5);
+        driver.forward(90, 1, 0.7, 8);
 
         if(center) {
             left = 0;
             //Strafe to AprilTag
-            driver.strafe(25, -isBlue, 0.5, imuControl);
+            driver.strafe(30, -isBlue, 0.5, imuControl);
 
         } else if (left == 1){
             //Strafe to AprilTag
@@ -233,7 +266,7 @@ public class PlanEpsilon extends AutonomousBase{
 
         } else if(left == -1){
             //Strafe to AprilTag
-            driver.strafe(36, -isBlue, 0.5, imuControl);
+            driver.strafe(52, -isBlue, 0.5, imuControl);
 
         }
 
