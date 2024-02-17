@@ -45,7 +45,7 @@ public class PlanEpsilon extends AutonomousBase{
 
         heightChild.encoderControl(0,0.7);
 
-        driveToTag.drive(5, zone.ordinal() + 1 + wallTarget, 7, aprilTagOffset);
+        driveToTag.drive(5, zone.ordinal() + 1 + wallTarget, 6, aprilTagOffset);
 
         linerSlideChild.encoderControl(0, 0.5);
 
@@ -150,7 +150,7 @@ public class PlanEpsilon extends AutonomousBase{
         driver.strafe(0.5, isBlue, 0.4, imuControl);
 
         //Go forward for pickUpStack
-        driver.forward(25 , 1, 0.4);
+        driver.forward(27, 1, 0.4);
 
 
     }
@@ -166,7 +166,6 @@ public class PlanEpsilon extends AutonomousBase{
 
             //Strafe to left
             driver.strafe(10, isBlue, 0.6, imuControl);
-
 
             //Continue to go into position
             driver.forward(25, 1, 0.6);
@@ -187,9 +186,6 @@ public class PlanEpsilon extends AutonomousBase{
 
             this.heightChild.encoderControl(2000, 0.8);
             //sleep(2500);
-
-            //Lower intake
-
 
             //sleep(2000);
 
@@ -256,17 +252,23 @@ public class PlanEpsilon extends AutonomousBase{
         driver.forward(90, 1, 0.7, 8);
 
         if(center) {
-            left = 0;
+   //         left = 0;
             //Strafe to AprilTag
             driver.strafe(30, -isBlue, 0.5, imuControl);
 
         } else if (left == 1){
             //Strafe to AprilTag
-            driver.strafe(18, -isBlue, 0.5, imuControl);
-
+            if (isBlue == 1)
+            {
+                driver.strafe(36, -isBlue, 0.5, imuControl);
+            }
+            else
+            {
+                driver.strafe(18, -isBlue, 0.5, imuControl);
+            }
         } else if(left == -1){
             //Strafe to AprilTag
-            driver.strafe(52, -isBlue, 0.5, imuControl);
+            driver.strafe(90, -isBlue, 0.5, imuControl);
 
         }
 
