@@ -29,7 +29,6 @@ public class PlanEpsilon extends AutonomousBase{
         }
 
 
-
         transferRight.autonomousControl(false);
         transferleft.autonomousControl(false);
         transferRight.autonomousControl(true);
@@ -170,8 +169,6 @@ public class PlanEpsilon extends AutonomousBase{
             //Continue to go into position
             driver.forward(25, 1, 0.6);
 
-
-
     }
 
     public void pickUpStack(int isBlue) throws InterruptedException, IOException
@@ -185,9 +182,7 @@ public class PlanEpsilon extends AutonomousBase{
 
 
             this.heightChild.encoderControl(2000, 0.8);
-            //sleep(2500);
-
-            //sleep(2000);
+           
 
             this.intakeChild.driveTime(1);
 
@@ -197,11 +192,9 @@ public class PlanEpsilon extends AutonomousBase{
             //this.heightChild.encoderControl(2200, 0.3);
             this.heightChild.encoderControl(2200, 0.05);
 
-
-            //Intake pixel
-            //this.intakeChild.driveTime(1,3);
-
             sleep(4000);
+
+             //Intake pixel
             this.intakeChild.driveTime(0);
             //Raise intake
             // this.heightChild.encoderControl(2000, 0.8);
@@ -244,38 +237,44 @@ public class PlanEpsilon extends AutonomousBase{
 
          */
 
-
-
         //Strafe to avoid target and truss
         driver.strafe(2, isBlue, 0.4, imuControl, 5);
         //Drive to other side
         driver.forward(90, 1, 0.7, 8);
 
         if(center) {
-   //         left = 0;
+            if(isBlue == 1)
+            { //Center instance (AprilTag 002/005)
             //Strafe to AprilTag
             driver.strafe(30, -isBlue, 0.5, imuControl);
 
+            }
         } else if (left == 1){
             //Strafe to AprilTag
             if (isBlue == 1)
-            {
+            { //Left blue instance (AprilTag 001)
                 driver.strafe(36, -isBlue, 0.5, imuControl);
+            } else
+            { //Left red instance (AprilTag 004)
+                driver.strafe(18, isBlue, 0.5, imuControl);                
             }
-            else
-            {
-                driver.strafe(18, -isBlue, 0.5, imuControl);
-            }
-        } else if(left == -1){
+        } else if(left == -1)
+        {
+          if(isBlue == 1)
+          { //Right blue instance (AprilTag 003)
             //Strafe to AprilTag
-            driver.strafe(90, -isBlue, 0.5, imuControl);
-
+            driver.strafe(12, -isBlue, 0.5, imuControl);
+          } else
+          { //Right red instance (AprilTag 006)
+            driver.strafe(60, isBlue, 0.5, imuControl);
+          }
+            
+        } else{
+            telemetry.addLine("Value other than 0, 1, or -1 was put in strafeToFinish. Robot will not function.");            
         }
-
+            
         //Lower head
         this.heightChild.encoderControl(2230, 0.4);
-
-
 
     }
     }
