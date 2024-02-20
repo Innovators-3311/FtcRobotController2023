@@ -11,6 +11,8 @@ import org.firstinspires.ftc.teamcode.Controller.MecanumDriveBases.MecanumDriveB
 import org.firstinspires.ftc.teamcode.TeleOpFunctions.DroneLauncher;
 import org.firstinspires.ftc.teamcode.TeleOpFunctions.DronePosition;
 import org.firstinspires.ftc.teamcode.TeleOpFunctions.Hanging;
+import org.firstinspires.ftc.teamcode.TeleOpFunctions.HangingServoLeft;
+import org.firstinspires.ftc.teamcode.TeleOpFunctions.HangingServoRight;
 import org.firstinspires.ftc.teamcode.TeleOpFunctions.HippoHead;
 import org.firstinspires.ftc.teamcode.TeleOpFunctions.Intake;
 import org.firstinspires.ftc.teamcode.TeleOpFunctions.LinerSlide;
@@ -33,6 +35,8 @@ public class TeleOpLordFlyingHippo extends OpMode
     TransferLeft transferLeft;
     DronePosition dronePosition;
     DroneLauncher droneLauncher;
+    HangingServoLeft hangingServoLeft;
+    HangingServoRight hangingServoRight;
 
     @Override
     public void init()
@@ -50,6 +54,8 @@ public class TeleOpLordFlyingHippo extends OpMode
         transferLeft = new TransferLeft(this, time);
         dronePosition = new DronePosition(this);
         droneLauncher = new DroneLauncher(this);
+        hangingServoLeft = new HangingServoLeft(this, time);
+        hangingServoRight = new HangingServoRight(this, time);
     }
 
     @Override
@@ -67,6 +73,8 @@ public class TeleOpLordFlyingHippo extends OpMode
         transferLeft.transferDrive();
         droneLauncher.launcherControl();
         dronePosition.PositionControl();
+        hangingServoLeft.HangingServoRight();
+        hangingServoRight.HangingServoRight();
     }
 
 }

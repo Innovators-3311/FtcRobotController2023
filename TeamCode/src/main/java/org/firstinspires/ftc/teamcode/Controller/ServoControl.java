@@ -99,6 +99,11 @@ public class ServoControl
         }
     }
 
+    protected void goToCurrentPosition()
+    {
+        servo.setPosition(servo.getPosition());
+    }
+
 
     protected void telemetry()
     {
