@@ -98,7 +98,7 @@ public class MecanumDriveBase
           double turn = gamepad.right_stick_x;
           double strafe = gamepad.left_stick_x;
           speed = 1 - (0.6 * gamepad.right_trigger);
-          driveMotors(drive, turn, strafe, speed);
+          this.driveMotors(drive, turn, strafe, speed);
     }
 
     /**
@@ -109,25 +109,21 @@ public class MecanumDriveBase
      * @param strafe strafe (left or right = -1 to 1)
      * @param speed scale factor that is applied to all motor powers (0 to 1)
      */
-      public void driveMotors(double drive, double turn, double strafe, double speed)
-      {
-          leftPowerFront  = (drive + turn + strafe);
-          rightPowerFront = (drive - turn - strafe);
-          leftPowerBack   = (drive + turn - strafe);
-          rightPowerBack  = (drive - turn + strafe);
-
-          // This code is awful.
-          double maxAbsVal = maxAbsVal(leftPowerFront, leftPowerBack,
-                                       rightPowerFront, rightPowerBack);
-        
-          maxAbsVal = Math.max(1.0, maxAbsVal);
-
-          lf.setPower(leftPowerFront/maxAbsVal * speed);
-          rf.setPower(rightPowerFront/maxAbsVal * speed);
-          lb.setPower(leftPowerBack/maxAbsVal * speed);
-          rb.setPower(rightPowerBack/maxAbsVal * speed);
-
-      }
+    public void driveMotors(double drive, double turn, double strafe, double speed)
+    {
+        leftPowerFront  = (drive + turn + strafe);
+        rightPowerFront = (drive - turn - strafe);
+        leftPowerBack   = (drive + turn - strafe);
+        rightPowerBack  = (drive - turn + strafe);
+        // This code is awful.
+        double maxAbsVal = maxAbsVal(leftPowerFront, leftPowerBack,
+                rightPowerFront, rightPowerBack);
+        maxAbsVal = Math.max(1.0, maxAbsVal);
+        lf.setPower(leftPowerFront/maxAbsVal * speed);
+        rf.setPower(rightPowerFront/maxAbsVal * speed);
+        lb.setPower(leftPowerBack/maxAbsVal * speed);
+        rb.setPower(rightPowerBack/maxAbsVal * speed);
+    }
 
     /**
      * Returns the absolute maximum power on any drive motor.
