@@ -107,7 +107,7 @@ public class AutonomousBase extends LinearOpMode
         sleep(2000);
         Logging.log("isBlue: " + isBlue);
 
-        aprilTagOffset = 0;//aprilTagOffset();
+        aprilTagOffset = -20;//aprilTagOffset();
         telemetry.addData("AprilTag offset", aprilTagOffset);
 
         telemetry.addLine("Press Drive2 A to continue");

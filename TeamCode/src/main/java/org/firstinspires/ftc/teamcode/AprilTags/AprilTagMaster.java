@@ -25,9 +25,13 @@ public class AprilTagMaster
     final double STRAFE_GAIN = 0.045;   //  Strafe Speed Control "Gain".  eg: Ramp up to 25% power at a 25 degree Yaw error.   (0.25 / 25.0)     .07
     final double TURN_GAIN = 0.035;   //  Turn Control "Gain".  eg: Ramp up to 25% power at a 25 degree error. (0.25 / 25.0)                     .06
 
-    final double MAX_AUTO_SPEED = 0.4;   //  Clip the approach speed to this max value (adjust for your robot)   .8
-    final double MAX_AUTO_STRAFE = 0.5;   //  Clip the approach speed to this max value (adjust for your robot)  .9
-    final double MAX_AUTO_TURN = 0.4;   //  Clip the turn speed to this max value (adjust for your robot)        .7
+    //final double MAX_AUTO_SPEED = 0.4;   //  Clip the approach speed to this max value (adjust for your robot)   .8
+    //final double MAX_AUTO_STRAFE = 0.5;   //  Clip the approach speed to this max value (adjust for your robot)  .9
+    //final double MAX_AUTO_TURN = 0.4;   //  Clip the turn speed to this max value (adjust for your robot)        .7
+
+    final double MAX_AUTO_SPEED = 0.2;   //  Clip the approach speed to this max value (adjust for your robot)   .8
+    final double MAX_AUTO_STRAFE = 0.1;   //  Clip the approach speed to this max value (adjust for your robot)  .9
+    final double MAX_AUTO_TURN = 0.2;   //  Clip the turn speed to this max value (adjust for your robot)        .7
 
     private static final boolean USE_WEBCAM = true;  // Set true to use a webcam, or false for a phone camera
     private static int desiredTagID = -1;// Choose the tag you want to approach or set to -1 for ANY tag.
@@ -58,6 +62,38 @@ public class AprilTagMaster
         // Push telemetry to the Driver Station.
         telemetryAprilTag(telemetry);
         telemetry.update();
+    }
+
+
+    public AprilTagDetection findTag()
+    {
+        desiredTag = null;
+        boolean targetFound = false;
+
+        desiredTagID = 5;
+
+        // Step through the list of detected tags and look for a matching tag
+        List<AprilTagDetection> currentDetections = aprilTag.getDetections();
+        for (AprilTagDetection detection : currentDetections)
+        {
+            if ((detection.metadata != null) && ((desiredTagID < 0) || (detection.id == desiredTagID)))
+            {
+                targetFound = true;
+                desiredTag = detection;
+                break;  // don't look any further.
+            }
+            else
+            {
+                //telemetry.addData("Unknown Target", "Tag ID %d is not in TagLibrary\n", detection.id);
+            }
+        }
+
+        if (targetFound)
+        {
+            return desiredTag;
+        }
+        return null;
+
     }
 
     public AprilTagDetection findTag(double range, double yaw, int target, Telemetry telemetry)
@@ -98,6 +134,8 @@ public class AprilTagMaster
             telemetry.addData("Range", "%5.1f inches", desiredTag.ftcPose.range);
             telemetry.addData("Bearing", "%3.0f degrees", desiredTag.ftcPose.bearing);
             telemetry.addData("Yaw", "%3.0f degrees", desiredTag.ftcPose.yaw);
+
+            Logging.log("DiveToTag: range %5.2f, heading %5.2f, yawError %5.2f", desiredTag.ftcPose.range, desiredTag.ftcPose.bearing, desiredTag.ftcPose.yaw);
         }
 
         // If Left Bumper is being pressed, AND we have found the desired target, Drive to target Automatically .
@@ -115,8 +153,8 @@ public class AprilTagMaster
 
             telemetry.addData("Auto", "Drive %5.2f, Strafe %5.2f, Turn %5.2f ", drive, strafe, turn);
 
-            Logging.log("DiveToTag: range %5.2f, heading %5.2f, yawError %5.2f", rangeError, headingError, yawError);
-            Logging.log("DiveToTag: Drive %5.2f, Strafe %5.2f, Turn %5.2f", drive, strafe, turn);
+            //Logging.log("DiveToTag: range %5.2f, heading %5.2f, yawError %5.2f", rangeError, headingError, yawError);
+            //Logging.log("DiveToTag: Drive %5.2f, Strafe %5.2f, Turn %5.2f", drive, strafe, turn);
         }
         else
         {
@@ -126,8 +164,8 @@ public class AprilTagMaster
             mechanicalDriveBase.brake();
         }
 
-        Logging.log("DiveToTag: range %5.2f, heading %5.2f, yawError %5.2f", rangeError, headingError, yawError);
-        Logging.log("DiveToTag: Drive %5.2f, Strafe %5.2f, Turn %5.2f", drive, strafe, turn);
+        //Logging.log("DiveToTag: range %5.2f, heading %5.2f, yawError %5.2f", rangeError, headingError, yawError);
+        //Logging.log("DiveToTag: Drive %5.2f, Strafe %5.2f, Turn %5.2f", drive, strafe, turn);
 
 
 //        telemetry.update();

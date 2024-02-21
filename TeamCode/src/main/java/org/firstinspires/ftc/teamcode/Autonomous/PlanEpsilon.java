@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.util.Logging;
+import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 
 import java.io.IOException;
 
@@ -46,6 +47,15 @@ public class PlanEpsilon extends AutonomousBase{
 
         driveToTag.drive(5, zone.ordinal() + 1 + wallTarget, 6, aprilTagOffset);
 
+//        try
+//        {
+//            driveToTag();
+//        }
+//        catch (IOException e)
+//        {
+//            e.printStackTrace();
+//        }
+
         linerSlideChild.encoderControl(0, 0.5);
 
         transferRight.autonomousControl(false);
@@ -55,6 +65,20 @@ public class PlanEpsilon extends AutonomousBase{
 
     }
 
+    void driveToTag() throws IOException, InterruptedException
+    {
+        AprilTagDetection detection = driveToTag.findTag();
+        Logging.log("DiveToTag: range %5.2f, heading %5.2f, yawError %5.2f", detection.ftcPose.range, detection.ftcPose.bearing, detection.ftcPose.yaw);
+        sleep(3000);
+        driver.rotate2(-detection.ftcPose.yaw, imuControl);
+        sleep(3000);
+        driver.strafe(detection.ftcPose.x ,-1,0.4, imuControl);
+        sleep(3000);
+        driver.forward(detection.ftcPose.y -6, 1, 0.3, 3);
+    }
+
+
+
     public void planEpsilon(SpikeLineEnum zone, int isBlue) throws IOException, InterruptedException
     {
 
@@ -63,7 +87,7 @@ public class PlanEpsilon extends AutonomousBase{
         {
             Logging.log("Spike Line is CENTER_SPIKE");
             centerRoute(isBlue);
-            pickUpStack(isBlue);
+            pickUpStack(isBlue, "center");
             strafeToFinish(true, 0, isBlue);
 
 
@@ -81,7 +105,7 @@ public class PlanEpsilon extends AutonomousBase{
             {
                wingRoute(isBlue);
             }
-            pickUpStack(isBlue);
+            pickUpStack(isBlue, "left");
             strafeToFinish(false, 1, isBlue);
         }
         else if (zone == SpikeLineEnum.RIGHT_SPIKE)
@@ -95,7 +119,7 @@ public class PlanEpsilon extends AutonomousBase{
             {
                 stageRoute(isBlue);
             }
-            pickUpStack(isBlue);
+            pickUpStack(isBlue, "right");
 
             strafeToFinish(false, -1, isBlue);
         }
@@ -171,35 +195,85 @@ public class PlanEpsilon extends AutonomousBase{
 
     }
 
-    public void pickUpStack(int isBlue) throws InterruptedException, IOException
+    public void pickUpStack(int isBlue, String route) throws InterruptedException, IOException
     {
 
 
-        if(isBlue == -1) {
-
+        if(isBlue == -1)
+        {
             //Turn right
             driver.rotate2(-90 * isBlue, imuControl);
+            if (route.equals("left"))
+            {
+                //Left Red instance
+               //Strafe to adjust
+         //      driver.strafe(5, 1, 0.4, imuControl, 2);
+
+               //Go backward and intake
+                driver.forward(16, -1, 0.5, 2);
+
+                this.heightChild.encoderControl(2000, 0.8);
+                sleep(2000);
+                //Intake pixel
+                this.intakeChild.driveTime(1);
 
 
-            this.heightChild.encoderControl(2000, 0.8);
-           
+            } else if (route.equals("right"))
+            {
+                //Right red instance
 
-            this.intakeChild.driveTime(1);
+                sleep(2000);
 
-            //Go backward
-            driver.forward(6, -1, 0.3, 4);
+                this.heightChild.encoderControl(2300, 0.8);
 
-            //this.heightChild.encoderControl(2200, 0.3);
-            this.heightChild.encoderControl(2200, 0.05);
+                //Intake pixel
+                this.intakeChild.driveTime(1);
 
-            sleep(4000);
+                //Go backward and intake
+                driver.forward(12, -1, 0.5, 2);
 
-             //Intake pixel
-            this.intakeChild.driveTime(0);
-            //Raise intake
-            // this.heightChild.encoderControl(2000, 0.8);
 
-        } else{
+
+
+
+            }
+            else
+            {
+                //Red center instance
+
+                this.heightChild.encoderControl(2000, 0.8);
+                sleep(2000);
+
+
+
+                //Go backward
+                driver.forward(6, -1, 0.3, 4);
+
+
+
+            }
+
+                //Shared instance among red
+
+                //this.heightChild.encoderControl(2200, 0.3);
+                this.heightChild.encoderControl(2200, 0.05);
+
+                sleep(4000);
+                //Stop intake
+                this.intakeChild.driveTime(0);
+
+                //Raise intake
+                // this.heightChild.encoderControl(2000, 0.8);
+
+
+              //  driver.strafe(5, -1, 0.5, imuControl);
+
+        }
+        else
+        {
+
+            //Blue side instances
+
             //Turn right
             driver.rotate2(-90 * isBlue, imuControl);
 
@@ -242,12 +316,16 @@ public class PlanEpsilon extends AutonomousBase{
         //Drive to other side
         driver.forward(90, 1, 0.7, 8);
 
-        if(center) {
+        if(center)
+        {
             if(isBlue == 1)
             { //Center instance (AprilTag 002/005)
-            //Strafe to AprilTag
-            driver.strafe(30, -isBlue, 0.5, imuControl);
-
+                //Strafe to AprilTag
+                driver.strafe(30, -isBlue, 0.5, imuControl);
+            }
+            else
+            {
+                driver.strafe(20, -isBlue, 0.5, imuControl);
             }
         } else if (left == 1){
             //Strafe to AprilTag
@@ -256,7 +334,7 @@ public class PlanEpsilon extends AutonomousBase{
                 driver.strafe(36, -isBlue, 0.5, imuControl);
             } else
             { //Left red instance (AprilTag 004)
-                driver.strafe(18, isBlue, 0.5, imuControl);                
+                driver.strafe(8, -isBlue, 0.5, imuControl);
             }
         } else if(left == -1)
         {
@@ -266,7 +344,7 @@ public class PlanEpsilon extends AutonomousBase{
             driver.strafe(12, -isBlue, 0.5, imuControl);
           } else
           { //Right red instance (AprilTag 006)
-            driver.strafe(60, isBlue, 0.5, imuControl);
+            driver.strafe(20, -isBlue, 0.5, imuControl);
           }
             
         } else{

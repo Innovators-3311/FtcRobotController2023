@@ -73,6 +73,13 @@ public class DriveToTag
 
     }
 
+    public AprilTagDetection findTag()
+    {
+        AprilTagDetection detection = aprilTagMaster.findTag();
+
+        return detection;
+    }
+
     public void targetLocator(Gamepad gamepad)
     {
         elapsedTime2.startTime();

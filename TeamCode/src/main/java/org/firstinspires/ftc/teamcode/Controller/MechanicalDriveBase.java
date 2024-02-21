@@ -158,6 +158,7 @@ public class MechanicalDriveBase
     public void driveBaseTelemetry(Telemetry telemetry)
     {
         telemetry.addData("Motors", "lf: %.2f rf: %.2f lb: %.2f rb: %.2f", leftPowerFront, rightPowerFront, leftPowerBack, rightPowerBack);
+        telemetry.addData("Position", "lf: %d rf: %d lb: %d rb: %d", lf.getCurrentPosition(), rf.getCurrentPosition(), lb.getCurrentPosition(), rf.getCurrentPosition());
         telemetry.addData("Speed control", speed);
     }
 }
