@@ -20,8 +20,8 @@ public class HippoHead extends MotorControl
     //Constructor calls parent constructor using hardcoded input
     public HippoHead(OpMode opmode)
     {
-        super("height", false, true, opmode, null);
-        touch = opmode.hardwareMap.get(TouchSensor.class, "touchSensor");
+        super("hippoHead", false, true, opmode, null);
+        touch = opmode.hardwareMap.get(TouchSensor.class, "touchHead");
         telemetry = opmode.telemetry;
     }
 

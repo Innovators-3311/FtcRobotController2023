@@ -9,12 +9,12 @@ public class Hanging extends MotorControl
     private int upperPosition = 0;
     private int lowerPosition = 0;
 
-    public Hanging(OpMode opMode, ElapsedTime time) {super("Hanging", true, true, opMode, time);}
+    public Hanging(OpMode opMode, ElapsedTime time) {super("hanging", true, true, opMode, time);}
 
     public void hangingDrive()
     {
         analogControl();
-        toggleDrive();
+//        toggleDrive();
         telemetry();
     }
 
@@ -25,7 +25,7 @@ public class Hanging extends MotorControl
 
     protected void toggleDrive()
     {
-        super.toggleDrive(gamepad2.left_bumper, upperPosition, lowerPosition);
+        super.toggleDrive(gamepad1.left_bumper, upperPosition, lowerPosition);
     }
 
     @Override

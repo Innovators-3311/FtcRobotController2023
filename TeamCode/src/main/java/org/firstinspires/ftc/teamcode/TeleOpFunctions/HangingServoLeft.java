@@ -11,10 +11,10 @@ public class HangingServoLeft extends ServoControl
 
     public HangingServoLeft(OpMode opMode, ElapsedTime time)
     {
-        super("hangingServoLeft", 0, 1, opMode, time);
+        super("hangingLeft", 0, 1, opMode, time);
     }
 
-    public void HangingServoRight()
+    public void hangingLeftDrive()
     {
         toggleDrive();
         goToCurrentPosition();

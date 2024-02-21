@@ -19,7 +19,7 @@ import org.firstinspires.ftc.teamcode.TeleOpFunctions.LinerSlide;
 import org.firstinspires.ftc.teamcode.TeleOpFunctions.TransferLeft;
 import org.firstinspires.ftc.teamcode.TeleOpFunctions.TransferRight;
 
-@TeleOp(name = "TeleOp Lord", group = "robot")
+@TeleOp(name = "TeleOp Lord \n FLY HIPPO", group = "robot")
 public class TeleOpLordFlyingHippo extends OpMode
 {
     MecanumDriveBaseFlyingHippo mecanumDriveBaseFlyingHippo;
@@ -43,15 +43,15 @@ public class TeleOpLordFlyingHippo extends OpMode
     {
         time = new ElapsedTime();
         mecanumDriveBaseFlyingHippo = new MecanumDriveBaseFlyingHippo(hardwareMap, true, false, true, false);
-        driveToTag = new DriveToTag(hardwareMap, telemetry, new ElapsedTime(), new ElapsedTime(), new AprilTagMaster(mecanumDriveBaseFlyingHippo, hardwareMap));
+//        driveToTag = new DriveToTag(hardwareMap, telemetry, new ElapsedTime(), new ElapsedTime(), new AprilTagMaster(mecanumDriveBaseFlyingHippo, hardwareMap));
 
         linerSlide = new LinerSlide(this, time);
         hippoHead = new HippoHead(this);
         hanging = new Hanging(this, time);
         intake = new Intake(this);
 
-        transferRight = new TransferRight(this, time);
-        transferLeft = new TransferLeft(this, time);
+//        transferRight = new TransferRight(this, time);
+//        transferLeft = new TransferLeft(this, time);
         dronePosition = new DronePosition(this);
         droneLauncher = new DroneLauncher(this);
         hangingServoLeft = new HangingServoLeft(this, time);
@@ -62,19 +62,19 @@ public class TeleOpLordFlyingHippo extends OpMode
     public void loop()
     {
         mecanumDriveBaseFlyingHippo.gamepadController(gamepad1);
-        driveToTag.targetLocator(gamepad1);
+//        driveToTag.targetLocator(gamepad1);
 
         linerSlide.linerSlideDrive();
         hippoHead.heightDrive();
         hanging.hangingDrive();
         intake.IntakeDrive();
 
-        transferRight.transferDrive();
-        transferLeft.transferDrive();
+//        transferRight.transferDrive();
+//        transferLeft.transferDrive();
         droneLauncher.launcherControl();
         dronePosition.PositionControl();
-        hangingServoLeft.HangingServoRight();
-        hangingServoRight.HangingServoRight();
+        hangingServoLeft.hangingLeftDrive();
+        hangingServoRight.hangingRightDrive();
     }
 
 }
