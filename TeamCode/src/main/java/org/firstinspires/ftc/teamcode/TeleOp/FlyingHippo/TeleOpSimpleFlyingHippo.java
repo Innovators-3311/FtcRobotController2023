@@ -37,9 +37,9 @@ public class TeleOpSimpleFlyingHippo extends OpMode
         mecanumDriveBaseOldHippo = new MecanumDriveBaseOldHippo(hardwareMap);
 
         linerSlide = new LinerSlide(this, null);
-        hippoHead = new HippoHead(this);
+        hippoHead = new HippoHead(this, true);
         hanging = new Hanging(this, time);
-        intake = new Intake(this);
+        intake = new Intake(this, false);
 
         transferRight = new TransferRight(this, time);
         transferLeft = new TransferLeft(this, time);

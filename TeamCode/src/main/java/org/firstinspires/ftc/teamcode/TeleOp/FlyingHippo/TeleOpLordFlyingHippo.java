@@ -46,9 +46,9 @@ public class TeleOpLordFlyingHippo extends OpMode
 //        driveToTag = new DriveToTag(hardwareMap, telemetry, new ElapsedTime(), new ElapsedTime(), new AprilTagMaster(mecanumDriveBaseFlyingHippo, hardwareMap));
 
         linerSlide = new LinerSlide(this, time);
-        hippoHead = new HippoHead(this);
+        hippoHead = new HippoHead(this, true);
         hanging = new Hanging(this, time);
-        intake = new Intake(this);
+        intake = new Intake(this, false);
 
 //        transferRight = new TransferRight(this, time);
 //        transferLeft = new TransferLeft(this, time);

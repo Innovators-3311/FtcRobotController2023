@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode.TeleOpFunctions;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.TouchSensor;
+import com.qualcomm.robotcore.util.ElapsedTime;
+
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Controller.MotorControl;
 
@@ -18,12 +20,11 @@ public class HippoHead extends MotorControl
     Telemetry telemetry;
 
     //Constructor calls parent constructor using hardcoded input
-    public HippoHead(OpMode opmode)
+    public HippoHead(OpMode opmode, boolean direction)
     {
-        super("hippoHead", false, true, opmode, null);
-        touch = opmode.hardwareMap.get(TouchSensor.class, "touchHead");
-        telemetry = opmode.telemetry;
+        super("hippoHead", direction, true, opmode, null);
     }
+
 
     //Calls all methods and then is called itself in the OpMode loop
     public void heightDrive()

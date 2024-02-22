@@ -24,7 +24,7 @@ public class TeleOpResetFlyingHippo extends OpMode
         mecanumDriveBaseFlyingHippo = new MecanumDriveBaseFlyingHippo(hardwareMap, true, false, true, false);
 
         linerSlide = new LinerSlide(this, time);
-        hippoHead = new HippoHead(this);
+        hippoHead = new HippoHead(this, false);
         hanging = new Hanging(this, time);
     }
 
