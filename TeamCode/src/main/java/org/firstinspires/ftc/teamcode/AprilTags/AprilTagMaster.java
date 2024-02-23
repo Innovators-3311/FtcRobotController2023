@@ -105,7 +105,7 @@ public class AprilTagMaster
         if (targetFound)
         {
             // Determine heading, range and Yaw (tag image rotation) error so we can use them to control the robot automatically.
-            rangeError = (desiredTag.ftcPose.range - desiredDistance);
+            rangeError = (desiredTag.ftcPose.x - desiredDistance);
             headingError = desiredTag.ftcPose.bearing;
             yawError = (desiredTag.ftcPose.yaw - strafeDif);
 
