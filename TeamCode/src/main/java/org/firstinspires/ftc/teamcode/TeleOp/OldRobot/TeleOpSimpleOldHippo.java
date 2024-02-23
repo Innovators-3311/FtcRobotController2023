@@ -32,7 +32,7 @@ public class TeleOpSimpleOldHippo extends OpMode
     public void init()
     {
         mecanumDriveBaseOldHippo = new MecanumDriveBaseOldHippo(hardwareMap);
-        linerSlide = new LinerSlide(this, null);
+        linerSlide = new LinerSlide(this, true,null);
         transferRight = new TransferRight(this, time);
         transferLeft = new TransferLeft(this, time);
         hippoHead = new HippoHead(this, false);
@@ -48,7 +48,7 @@ public class TeleOpSimpleOldHippo extends OpMode
 
         linerSlide.linerSlideDriveSimple();
         hippoHead.heightDriveSimple();
-        intake.IntakeDrive();
+        intake.IntakeDrive(linerSlide.getTouchSensor());
 
         transferRight.transferDrive();
         transferLeft.transferDrive();

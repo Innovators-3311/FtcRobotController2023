@@ -36,7 +36,7 @@ public class TeleOpSimpleFlyingHippo extends OpMode
         time = new ElapsedTime();
         mecanumDriveBaseOldHippo = new MecanumDriveBaseOldHippo(hardwareMap);
 
-        linerSlide = new LinerSlide(this, null);
+        linerSlide = new LinerSlide(this, true, null);
         hippoHead = new HippoHead(this, true);
         hanging = new Hanging(this, time);
         intake = new Intake(this, false);
@@ -55,7 +55,7 @@ public class TeleOpSimpleFlyingHippo extends OpMode
         linerSlide.linerSlideDriveSimple();
         hippoHead.heightDriveSimple();
         hanging.hangingDrive();
-        intake.IntakeDrive();
+        intake.IntakeDrive(linerSlide.getTouchSensor());
 
         transferRight.transferDrive();
         transferLeft.transferDrive();

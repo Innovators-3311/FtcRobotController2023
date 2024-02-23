@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.TeleOpFunctions;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.TouchSensor;
+
 import org.firstinspires.ftc.teamcode.Controller.MotorControl;
 
 public class Intake extends MotorControl
@@ -13,15 +15,15 @@ public class Intake extends MotorControl
     }
 
     //Calls all methods and then is called itself in the OpMode loop
-    public void IntakeDrive()
+    public void IntakeDrive(TouchSensor touchSensor)
     {
-        this.simpleDrive();
+        this.simpleDrive(touchSensor);
         this.telemetry();
     }
 
-    private void simpleDrive()
+    private void simpleDrive(TouchSensor touchSensor)
     {
-        super.simpleDrive(1, gamepad2.right_bumper, gamepad2.right_trigger > 0.5);
+        super.simpleDrive(1, gamepad2.right_bumper , gamepad2.right_trigger > 0.5 && touchSensor.isPressed());
     }
 
     @Override
