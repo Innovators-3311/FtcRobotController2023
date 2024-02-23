@@ -45,7 +45,7 @@ public class PlanEpsilon extends AutonomousBase{
 
         heightChild.encoderControl(0,0.7);
 
-        driveToTag.drive(5, zone.ordinal() + 1 + wallTarget, 6, aprilTagOffset);
+        driveToTag.drive(5, zone.ordinal() + 1 + wallTarget, 0, aprilTagOffset);
 
 //        try
 //        {
@@ -68,7 +68,7 @@ public class PlanEpsilon extends AutonomousBase{
     void driveToTag() throws IOException, InterruptedException
     {
         AprilTagDetection detection = driveToTag.findTag();
-        Logging.log("DiveToTag: range %5.2f, heading %5.2f, yawError %5.2f", detection.ftcPose.range, detection.ftcPose.bearing, detection.ftcPose.yaw);
+        Logging.log("DiveToTag: x %5.2f, y %5.2f, yawError %5.2f", detection.ftcPose.x, detection.ftcPose.y, detection.ftcPose.yaw);
         sleep(3000);
         driver.rotate2(-detection.ftcPose.yaw, imuControl);
         sleep(3000);
@@ -243,7 +243,7 @@ public class PlanEpsilon extends AutonomousBase{
                 //Intake pixel
 
                 //Go backward
-                driver.forward(6, -1, 0.3, 4);
+                driver.forward(6, -1, 0.3, 2);
 
             }
 
@@ -284,17 +284,17 @@ public class PlanEpsilon extends AutonomousBase{
             if (route.equals("left"))
             {
                 //Go backward
-                driver.forward(17, -1, 0.3, 4);
+                driver.forward(17, -1, 0.3, 2);
             }
             else if (route.equals("right"))
             {
                 //Go backward
-                driver.forward(12, -1, 0.3, 4);
+                driver.forward(12, -1, 0.3, 2);
             }
             else
             {
                 //Go backward
-                driver.forward(18, -1, 0.3, 4);
+                driver.forward(7, -1, 0.3, 2);
             }
 
             //Go backward

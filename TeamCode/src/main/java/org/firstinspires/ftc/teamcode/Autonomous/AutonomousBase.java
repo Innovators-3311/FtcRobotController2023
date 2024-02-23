@@ -49,7 +49,7 @@ public class AutonomousBase extends LinearOpMode
     protected IntakeChild intakeChild;
     protected ColorSwitch colorSwitch;
 
-    protected int aprilTagOffset;
+    protected int aprilTagOffset = 0;
 
     SpikeLineEnum zone = SpikeLineEnum.UNKNOWN;
 
@@ -107,7 +107,7 @@ public class AutonomousBase extends LinearOpMode
         sleep(2000);
         Logging.log("isBlue: " + isBlue);
 
-        aprilTagOffset = -20;//aprilTagOffset();
+        aprilTagOffset = 0; //-20;//aprilTagOffset();
         telemetry.addData("AprilTag offset", aprilTagOffset);
 
         telemetry.addLine("Press Drive2 A to continue");
@@ -204,11 +204,11 @@ public class AutonomousBase extends LinearOpMode
             // left
             if (this.gamepad1.x == true)
             {
-                return 3;
+                return 1;
             } // right
             else if (gamepad1.b == true)
             {
-                return -3;
+                return -1;
             } // default
             else if (gamepad1.a == true)
             {

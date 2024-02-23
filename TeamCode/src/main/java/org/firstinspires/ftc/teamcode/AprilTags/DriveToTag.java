@@ -33,9 +33,9 @@ public class DriveToTag
     /**
      * @param time The amount of time you want the robot to drive to tag
      * @param target The aprilTag you want to drive to
-     * @param yaw - is right + is left
+     * @param allignment - is right + is left
      * **/
-    public void drive(int time, int target, double range, double yaw)
+    public void drive(int time, int target, double range, double allignment)
     {
         elapsedTime.reset();
         elapsedTime.startTime();
@@ -52,11 +52,11 @@ public class DriveToTag
             {
 
                 telemetry.addData("Time = ",elapsedTime.seconds() + " seconds");
-                AprilTagDetection detection = aprilTagMaster.findTag(range, yaw, target, telemetry);
+                AprilTagDetection detection = aprilTagMaster.findTag(range, allignment, target, telemetry);
                 if (detection != null)
                 {
-                    Logging.log("ftcPose.range = %f  range = %f",detection.ftcPose.range, range );
-                    if (detection.ftcPose.range <= range)
+                    Logging.log("ftcPose.xx = %f  range = %f",detection.ftcPose.x, range );
+                    if (detection.ftcPose.x <= allignment && detection.ftcPose.y <= range && detection.ftcPose.yaw == 0)
                     {
                         Logging.log("exiting drive to tag");
                         break;
@@ -66,6 +66,7 @@ public class DriveToTag
                 {
                     Logging.log("Tag lost!!");
                 }
+                telemetry.update();
             }
         }
 

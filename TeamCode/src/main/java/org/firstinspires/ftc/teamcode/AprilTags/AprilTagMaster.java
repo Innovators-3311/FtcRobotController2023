@@ -15,22 +15,20 @@ import java.util.List;
 public class AprilTagMaster
 {
     // Adjust these numbers to suit your robot.
-    double desiredDistance = 0; //  this is how close the camera should get to the target (inches)
-    double strafeDif = 0;
 
     //  Set the GAIN constants to control the relationship between the measured position error, and how much power is
     //  applied to the drive motors to correct the error.
     //  Drive = Error * Gain    Make these values smaller for smoother control, or larger for a more aggressive response.
-    final double SPEED_GAIN = 0.05;   //  Forward Speed Control "Gain". eg: Ramp up to 50% power at a 25 inch error.   (0.50 / 25.0)            .07
-    final double STRAFE_GAIN = 0.045;   //  Strafe Speed Control "Gain".  eg: Ramp up to 25% power at a 25 degree Yaw error.   (0.25 / 25.0)     .07
-    final double TURN_GAIN = 0.035;   //  Turn Control "Gain".  eg: Ramp up to 25% power at a 25 degree error. (0.25 / 25.0)                     .06
+    final double SPEED_GAIN = 0.02;   //  Forward Speed Control "Gain". eg: Ramp up to 50% power at a 25 inch error.   (0.50 / 25.0)            .07
+    final double STRAFE_GAIN = 0.03;   //  Strafe Speed Control "Gain".  eg: Ramp up to 25% power at a 25 degree Yaw error.   (0.25 / 25.0)     .07
+    final double TURN_GAIN = 0.03;   //  Turn Control "Gain".  eg: Ramp up to 25% power at a 25 degree error. (0.25 / 25.0)                     .06
 
     //final double MAX_AUTO_SPEED = 0.4;   //  Clip the approach speed to this max value (adjust for your robot)   .8
     //final double MAX_AUTO_STRAFE = 0.5;   //  Clip the approach speed to this max value (adjust for your robot)  .9
     //final double MAX_AUTO_TURN = 0.4;   //  Clip the turn speed to this max value (adjust for your robot)        .7
 
     final double MAX_AUTO_SPEED = 0.2;   //  Clip the approach speed to this max value (adjust for your robot)   .8
-    final double MAX_AUTO_STRAFE = 0.1;   //  Clip the approach speed to this max value (adjust for your robot)  .9
+    final double MAX_AUTO_STRAFE = 0.3;   //  Clip the approach speed to this max value (adjust for your robot)  .9
     final double MAX_AUTO_TURN = 0.2;   //  Clip the turn speed to this max value (adjust for your robot)        .7
 
     private static final boolean USE_WEBCAM = true;  // Set true to use a webcam, or false for a phone camera
@@ -41,9 +39,9 @@ public class AprilTagMaster
     private AprilTagDetection desiredTag = null;     // Used to hold the data for a detected AprilTag
     private MechanicalDriveBase mechanicalDriveBase;
     //    WebcamName webcamName;
-    private double rangeError = 0;
-    private double headingError = 0;
+    private double xError = 0;
     private double yawError = 0;
+    private double yError = 0;
 
     public AprilTagMaster(MechanicalDriveBase mechanicalDriveBase, HardwareMap hardwareMap, AprilTagProcessor aprilTag)
     {
@@ -96,10 +94,9 @@ public class AprilTagMaster
 
     }
 
-    public AprilTagDetection findTag(double range, double yaw, int target, Telemetry telemetry)
+    public AprilTagDetection findTag(double range, double alliggnment, int target, Telemetry telemetry)
     {
-        desiredDistance = range;
-        strafeDif = yaw;
+
         boolean targetFound = false;    // Set to true when an AprilTag target is detected
         double drive = 0;        // Desired forward power/speed (-1 to +1)
         double strafe = 0;        // Desired strafe power/speed (-1 to +1)
@@ -131,25 +128,26 @@ public class AprilTagMaster
         if (targetFound)
         {
             telemetry.addData("Target", "ID %d (%s)", desiredTag.id, desiredTag.metadata.name);
-            telemetry.addData("Range", "%5.1f inches", desiredTag.ftcPose.range);
-            telemetry.addData("Bearing", "%3.0f degrees", desiredTag.ftcPose.bearing);
-            telemetry.addData("Yaw", "%3.0f degrees", desiredTag.ftcPose.yaw);
+            telemetry.addData("x", "%5.1f inches", desiredTag.ftcPose.x);
+            telemetry.addData("Bearing", "%3.0f degrees", desiredTag.ftcPose.yaw);
+            telemetry.addData("y", "%3.0f degrees", desiredTag.ftcPose.y);
 
-            Logging.log("DiveToTag: range %5.2f, heading %5.2f, yawError %5.2f", desiredTag.ftcPose.range, desiredTag.ftcPose.bearing, desiredTag.ftcPose.yaw);
+            Logging.log("DiveToTag: x %5.2f, allignment %5.2f, y %5.2f", desiredTag.ftcPose.x, desiredTag.ftcPose.yaw, desiredTag.ftcPose.y);
         }
 
         // If Left Bumper is being pressed, AND we have found the desired target, Drive to target Automatically .
         if (targetFound)
         {
             // Determine heading, range and Yaw (tag image rotation) error so we can use them to control the robot automatically.
-            rangeError = (desiredTag.ftcPose.range - desiredDistance);
-            headingError = desiredTag.ftcPose.bearing;
-            yawError = (desiredTag.ftcPose.yaw - strafeDif);
+            xError = (desiredTag.ftcPose.x - alliggnment);
+            yawError = desiredTag.ftcPose.yaw;
+            yError = (desiredTag.ftcPose.y - range);
 
             // Use the speed and turn "gains" to calculate how we want the robot to move.
-            drive = Range.clip(rangeError * SPEED_GAIN, -MAX_AUTO_SPEED, MAX_AUTO_SPEED);
-            turn = Range.clip(headingError * TURN_GAIN, -MAX_AUTO_TURN, MAX_AUTO_TURN);
-            strafe = Range.clip(yawError * STRAFE_GAIN, -MAX_AUTO_STRAFE, MAX_AUTO_STRAFE);
+            strafe = Range.clip(xError * SPEED_GAIN, -MAX_AUTO_SPEED, MAX_AUTO_SPEED);
+            drive = Range.clip(yError * STRAFE_GAIN, -MAX_AUTO_STRAFE, MAX_AUTO_STRAFE);
+            turn = Range.clip(yawError * TURN_GAIN, -MAX_AUTO_TURN, MAX_AUTO_TURN);
+
 
             telemetry.addData("Auto", "Drive %5.2f, Strafe %5.2f, Turn %5.2f ", drive, strafe, turn);
 
@@ -164,6 +162,19 @@ public class AprilTagMaster
             mechanicalDriveBase.brake();
         }
 
+        if (xError == alliggnment)
+        {
+            mechanicalDriveBase.driveMotors(0, -turn, strafe, 1);
+        }
+        else if (yError == range)
+        {
+            mechanicalDriveBase.driveMotors(drive, -turn, 0, 1);
+        }
+        else
+        {
+            mechanicalDriveBase.driveMotors(drive,  -turn, strafe, 1);
+        }
+
         //Logging.log("DiveToTag: range %5.2f, heading %5.2f, yawError %5.2f", rangeError, headingError, yawError);
         //Logging.log("DiveToTag: Drive %5.2f, Strafe %5.2f, Turn %5.2f", drive, strafe, turn);
 
@@ -171,7 +182,7 @@ public class AprilTagMaster
 //        telemetry.update();
 
         // Apply desired axes motions to the drivetrain.
-        mechanicalDriveBase.driveMotors(drive, -turn, strafe, 1);
+
         if (targetFound)
         {
             return desiredTag;
