@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.TeleOpFunctions;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Controller.ServoControl;
@@ -16,22 +17,11 @@ public class HangingServoLeft extends ServoControl
 
     public void hangingLeftDrive()
     {
-        toggleDrive();
-        goToCurrentPosition();
+        continuousDrive();
     }
 
-    protected void toggleDrive()
+    protected void continuousDrive()
     {
-        super.toggleDrive(gamepad1.left_bumper, 0, 1);
-    }
-
-
-    protected void goToCurrentPosition()
-    {
-        if (gamepad1.back || flag)
-        {
-            flag = true;
-            super.goToCurrentPosition();
-        }
+        super.continuousDrive(Servo.Direction.FORWARD, gamepad1.left_bumper);
     }
 }

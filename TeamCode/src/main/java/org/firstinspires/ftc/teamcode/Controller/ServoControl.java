@@ -99,6 +99,19 @@ public class ServoControl
         }
     }
 
+    protected void continuousDrive(Servo.Direction direction, boolean argument)
+    {
+        if (argument)
+        {
+            servo.setDirection(direction);
+        }
+        else
+        {
+            servo.setPosition(servo.getPosition());
+        }
+    }
+
+
     protected void goToCurrentPosition()
     {
         servo.setPosition(servo.getPosition());
