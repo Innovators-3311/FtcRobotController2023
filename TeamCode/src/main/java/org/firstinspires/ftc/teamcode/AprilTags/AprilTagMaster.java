@@ -94,8 +94,7 @@ public class AprilTagMaster
 
     }
 
-    // Positive   value is left alignment
-    public AprilTagDetection findTag(double range, double alignment, int target, Telemetry telemetry)
+    public AprilTagDetection findTag(double range, double alliggnment, int target, Telemetry telemetry)
     {
 
         boolean targetFound = false;    // Set to true when an AprilTag target is detected
@@ -140,13 +139,13 @@ public class AprilTagMaster
         if (targetFound)
         {
             // Determine heading, range and Yaw (tag image rotation) error so we can use them to control the robot automatically.
-            xError = (desiredTag.ftcPose.x - alignment);
+            xError = (desiredTag.ftcPose.x - alliggnment);
             yawError = desiredTag.ftcPose.yaw;
             yError = (desiredTag.ftcPose.y - range);
 
             // Use the speed and turn "gains" to calculate how we want the robot to move.
-            strafe = Range.clip(xError * STRAFE_GAIN, -MAX_AUTO_STRAFE, MAX_AUTO_STRAFE);
-            drive = Range.clip(yError * SPEED_GAIN, -MAX_AUTO_SPEED, MAX_AUTO_SPEED);
+            strafe = Range.clip(xError * SPEED_GAIN, -MAX_AUTO_SPEED, MAX_AUTO_SPEED);
+            drive = Range.clip(yError * STRAFE_GAIN, -MAX_AUTO_STRAFE, MAX_AUTO_STRAFE);
             turn = Range.clip(yawError * TURN_GAIN, -MAX_AUTO_TURN, MAX_AUTO_TURN);
 
 
