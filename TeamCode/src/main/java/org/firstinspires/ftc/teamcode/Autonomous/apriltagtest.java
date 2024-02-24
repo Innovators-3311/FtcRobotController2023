@@ -27,7 +27,7 @@ public class apriltagtest extends LinearOpMode
         driveToTag = new DriveToTag(hardwareMap, telemetry, new ElapsedTime(), new ElapsedTime(), aprilTagMaster);
         waitForStart();
 
-        driveToTag.drive(10, 5, 5, -0.4);
+        driveToTag.drive(10, 5, 5, -1);
 //        while (opModeIsActive())
 //        {
 //            aprilTagMaster.tagsTelemetry(telemetry);

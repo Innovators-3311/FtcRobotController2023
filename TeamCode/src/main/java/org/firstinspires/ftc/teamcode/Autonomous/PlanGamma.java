@@ -50,13 +50,14 @@ public class PlanGamma extends AutonomousBase
 
         sleep(2000);
         //driveToTag.drive(7, zone.ordinal() + 1 + wallTarget, 11, 0);
-        driveToTag.drive(3, zone.ordinal() + 1 + wallTarget, 7, aprilTagOffset);
+        driveToTag.drive(5, zone.ordinal() + 1 + wallTarget, 3.9, aprilTagOffset);
 
         transferRight.autonomousControl(false);
         transferleft.autonomousControl(false);
 
 
         sleep(1000);
+        linerSlideChild.encoderControl(-10, .25);
         //Park robot
         try {
             parkRobot(zone, isBlue);

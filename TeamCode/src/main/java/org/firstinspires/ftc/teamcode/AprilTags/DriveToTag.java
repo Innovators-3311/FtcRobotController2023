@@ -56,7 +56,7 @@ public class DriveToTag
                 if (detection != null)
                 {
                     Logging.log("ftcPose.xx = %f  range = %f",detection.ftcPose.x, range );
-                    if (detection.ftcPose.x <= allignment && detection.ftcPose.y <= range && detection.ftcPose.yaw == 0)
+                    if (detection.ftcPose.x == allignment && detection.ftcPose.y <= range && detection.ftcPose.yaw == 0)
                     {
                         Logging.log("exiting drive to tag");
                         break;
