@@ -81,14 +81,7 @@ public class ServoControl
 
     protected void driveServo(double target)
     {
-        if (servo.getPosition() != target)
-        {
-            servo.setPosition(target);
-        }
-        else
-        {
-            servo.setPosition(servo.getPosition());
-        }
+        servo.setPosition(target);
     }
 
     protected void driveServo(double target, boolean argument)
@@ -97,11 +90,6 @@ public class ServoControl
         {
             driveServo(target);
         }
-    }
-
-    protected void goToCurrentPosition()
-    {
-        servo.setPosition(servo.getPosition());
     }
 
 
