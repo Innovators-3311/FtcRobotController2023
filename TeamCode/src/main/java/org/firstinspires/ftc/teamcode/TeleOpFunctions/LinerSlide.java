@@ -23,7 +23,8 @@ public class LinerSlide extends MotorControl
     public void linerSlideDrive()
     {
         touchSensorOverride();
-        this.toggleDrive();
+        super.encoderControl(-50, 1, gamepad2.left_trigger);
+        super.encoderControl(-1000, 1, gamepad2.left_bumper);
         this.analogControl();
         this.telemetry();
     }
@@ -33,10 +34,6 @@ public class LinerSlide extends MotorControl
         super.analogControl(1, gamepad2.right_stick_y,false);
     }
 
-    protected void toggleDrive()
-    {
-        super.toggleDrive(gamepad2.left_trigger > 0.25, upperPosition, resetPosition);
-    }
 
     @Override
     public void encoderControl(int target, double speed)

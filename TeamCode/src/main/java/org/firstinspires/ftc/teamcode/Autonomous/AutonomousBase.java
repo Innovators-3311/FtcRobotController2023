@@ -79,7 +79,7 @@ public class AutonomousBase extends LinearOpMode
             sleep(DELAY);
             transferleft = new TransferLeft(this, null);
             sleep(DELAY);
-            hippoHead = new HippoHead(this, false);
+            hippoHead = new HippoHead(this, false, linerSlide.getTouchSensor());
             sleep(DELAY);
             intake = new Intake(this, true);
             sleep(DELAY);

@@ -1,27 +1,26 @@
 package org.firstinspires.ftc.teamcode.TeleOpFunctions;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.teamcode.Controller.CRServoControl;
 import org.firstinspires.ftc.teamcode.Controller.ServoControl;
 
-public class HangingServoRight extends ServoControl
+public class HangingServoRight extends CRServoControl
 {
-    private boolean flag = false;
 
-    public HangingServoRight(OpMode opMode, ElapsedTime time)
+    public HangingServoRight(OpMode opMode)
     {
-        super("hangingRight", 0, 1, opMode, time);
+        super("hangingRight", opMode);
     }
 
     public void hangingRightDrive()
     {
-        continuousDrive();
+        CRServoDrive();
     }
 
-    protected void continuousDrive()
+    protected void CRServoDrive()
     {
-        super.continuousDrive(Servo.Direction.FORWARD, gamepad1.left_bumper);
+        super.CRServoDrive(gamepad1.dpad_up, gamepad1.dpad_down);
     }
 }

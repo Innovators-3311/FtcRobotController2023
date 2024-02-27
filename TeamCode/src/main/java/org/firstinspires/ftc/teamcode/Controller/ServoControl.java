@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Controller;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -48,8 +49,7 @@ public class ServoControl
         }
         catch (IllegalArgumentException e)
         {
-            telemetry.addData("Exception:", "%s not found in Hardware Map",servoName);
-            telemetry.update();
+            telemetry.addData("Exception:", "%s not found in Hardware Map", servoName);
         }
 
     }
@@ -98,19 +98,6 @@ public class ServoControl
             driveServo(target);
         }
     }
-
-    protected void continuousDrive(Servo.Direction direction, boolean argument)
-    {
-        if (argument)
-        {
-            servo.setDirection(direction);
-        }
-        else
-        {
-            servo.setPosition(servo.getPosition());
-        }
-    }
-
 
     protected void goToCurrentPosition()
     {

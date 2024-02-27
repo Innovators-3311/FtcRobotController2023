@@ -20,7 +20,7 @@ public class Hanging extends MotorControl
 
     protected void analogControl()
     {
-        super.simpleDrive(1, gamepad1.y, gamepad1.a);
+        super.simpleDrive(1, gamepad1.y, gamepad1.a && !gamepad1.start);
     }
 
     @Override

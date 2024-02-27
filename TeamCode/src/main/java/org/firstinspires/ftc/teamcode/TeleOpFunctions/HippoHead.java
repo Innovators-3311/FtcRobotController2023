@@ -20,9 +20,10 @@ public class HippoHead extends MotorControl
     Telemetry telemetry;
 
     //Constructor calls parent constructor using hardcoded input
-    public HippoHead(OpMode opmode, boolean direction)
+    public HippoHead(OpMode opmode, boolean direction, TouchSensor touch)
     {
         super("hippoHead", direction, true, opmode, null);
+        this.touch = touch;
     }
 
 
@@ -40,8 +41,6 @@ public class HippoHead extends MotorControl
         if (!gamepad2.back)
         {
             super.analogControl(1, gamepad2.left_stick_y, false, touch.isPressed(), lowerBound);
-            telemetry.addData("Touch sensor", touch.isPressed());
-            telemetry.addData("Touch sensor", touch.getValue());
         }
 
     }

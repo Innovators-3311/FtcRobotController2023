@@ -22,7 +22,8 @@ public class TransferLeft extends ServoControl
 
     private void managePosition()
     {
-        toggleDrive(gamepad2.left_trigger < 0.25, 0, 1);
+        driveServo(0, gamepad2.left_bumper || gamepad2.y);
+        driveServo(1, gamepad2.left_trigger > 0.25 || gamepad2.a);
     }
 
     public void autonomousControl(boolean up)

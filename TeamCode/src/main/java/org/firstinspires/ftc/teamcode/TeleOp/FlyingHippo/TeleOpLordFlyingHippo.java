@@ -23,7 +23,7 @@ import org.firstinspires.ftc.teamcode.TeleOpFunctions.TransferRight;
 public class TeleOpLordFlyingHippo extends OpMode
 {
     MecanumDriveBaseFlyingHippo mecanumDriveBaseFlyingHippo;
-    DriveToTag driveToTag;
+//    DriveToTag driveToTag;
     ElapsedTime time;
 
     LinerSlide linerSlide;
@@ -45,17 +45,23 @@ public class TeleOpLordFlyingHippo extends OpMode
         mecanumDriveBaseFlyingHippo = new MecanumDriveBaseFlyingHippo(hardwareMap, true, false, true, false);
 //        driveToTag = new DriveToTag(hardwareMap, telemetry, new ElapsedTime(), new ElapsedTime(), new AprilTagMaster(mecanumDriveBaseFlyingHippo, hardwareMap));
 
-        linerSlide = new LinerSlide(this, true, time);
-        hippoHead = new HippoHead(this, true);
+        linerSlide = new LinerSlide(this, false, time);
+        hippoHead = new HippoHead(this, true, linerSlide.getTouchSensor());
         hanging = new Hanging(this, time);
         intake = new Intake(this, false);
 
-//        transferRight = new TransferRight(this, time);
-//        transferLeft = new TransferLeft(this, time);
+
+        transferLeft = new TransferLeft(this, time);
+        transferRight = new TransferRight(this, time);
+
         dronePosition = new DronePosition(this);
         droneLauncher = new DroneLauncher(this);
-        hangingServoLeft = new HangingServoLeft(this, time);
-        hangingServoRight = new HangingServoRight(this, time);
+
+        hangingServoLeft = new HangingServoLeft(this);
+        hangingServoRight = new HangingServoRight(this);
+
+        telemetry.addData("Hippo Fly Lord", "Ready to go nam nam");
+        telemetry.update();
     }
 
     @Override
@@ -69,8 +75,8 @@ public class TeleOpLordFlyingHippo extends OpMode
         hanging.hangingDrive();
         intake.IntakeDrive(linerSlide.getTouchSensor());
 
-//        transferRight.transferDrive();
-//        transferLeft.transferDrive();
+        transferRight.transferDrive();
+        transferLeft.transferDrive();
         droneLauncher.launcherControl();
         dronePosition.PositionControl();
         hangingServoLeft.hangingLeftDrive();

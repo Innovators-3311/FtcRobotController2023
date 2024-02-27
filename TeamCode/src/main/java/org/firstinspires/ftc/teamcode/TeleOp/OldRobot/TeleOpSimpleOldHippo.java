@@ -35,7 +35,7 @@ public class TeleOpSimpleOldHippo extends OpMode
         linerSlide = new LinerSlide(this, true,null);
         transferRight = new TransferRight(this, time);
         transferLeft = new TransferLeft(this, time);
-        hippoHead = new HippoHead(this, false);
+        hippoHead = new HippoHead(this, false, linerSlide.getTouchSensor());
         intake = new Intake(this, false);
         dronePosition = new DronePosition(this);
         droneLauncher = new DroneLauncher(this);

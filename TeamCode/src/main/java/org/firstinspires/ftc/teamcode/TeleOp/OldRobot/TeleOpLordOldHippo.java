@@ -39,7 +39,7 @@ public class TeleOpLordOldHippo extends OpMode
         driveToTag = new DriveToTag(hardwareMap, telemetry, new ElapsedTime(), new ElapsedTime(), new AprilTagMaster(mecanumDriveBaseOldHippo, hardwareMap));
 
         linerSlide = new LinerSlide(this, true, time);
-        hippoHead = new HippoHead(this, false);
+        hippoHead = new HippoHead(this, false, linerSlide.getTouchSensor());
         intake = new Intake(this, false);
 
         transferRight = new TransferRight(this, time);
