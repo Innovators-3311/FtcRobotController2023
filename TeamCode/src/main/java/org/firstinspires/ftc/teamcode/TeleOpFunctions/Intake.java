@@ -23,7 +23,7 @@ public class Intake extends MotorControl
 
     private void simpleDrive(TouchSensor touchSensor)
     {
-        super.simpleDrive(1, gamepad2.right_bumper && touchSensor.isPressed(), gamepad2.right_trigger > 0.25);
+        super.simpleDrive(1, gamepad2.right_bumper, gamepad2.right_trigger > 0.25);
     }
 
     @Override

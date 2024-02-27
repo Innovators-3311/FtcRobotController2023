@@ -77,8 +77,10 @@ public class TeleOpLordFlyingHippo extends OpMode
 
         transferRight.transferDrive();
         transferLeft.transferDrive();
+
         droneLauncher.launcherControl();
         dronePosition.PositionControl();
+
         hangingServoLeft.hangingLeftDrive();
         hangingServoRight.hangingRightDrive();
     }
