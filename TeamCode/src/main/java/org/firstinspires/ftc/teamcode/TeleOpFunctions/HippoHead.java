@@ -32,7 +32,7 @@ public class HippoHead extends MotorControl
     {
         this.resetDrive();
         this.analogControl();
-        this.encoderDrive();
+//        this.encoderDrive();
         this.telemetry();
     }
 
