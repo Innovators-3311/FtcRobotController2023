@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.Controller.MecanumDriveBases.MecanumDriveBaseOldHippo;
 
-@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "Basic drive", group = "robot")
+@com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "Basic drive \nFLY HIPPO", group = "robot")
 public class BasicDriveFlyingHippo extends OpMode
 {
     MecanumDriveBaseOldHippo mecanumDriveBaseOldHippo;

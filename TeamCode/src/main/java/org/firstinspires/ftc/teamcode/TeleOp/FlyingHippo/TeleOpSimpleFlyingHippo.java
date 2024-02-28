@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.TeleOpFunctions.LinerSlide;
 import org.firstinspires.ftc.teamcode.TeleOpFunctions.TransferLeft;
 import org.firstinspires.ftc.teamcode.TeleOpFunctions.TransferRight;
 
-@TeleOp(name = "Simple TeleOp", group = "robot")
+@TeleOp(name = "Simple TeleOp \nFLY HIPPO", group = "robot")
 public class TeleOpSimpleFlyingHippo extends OpMode
 {
     MecanumDriveBaseOldHippo mecanumDriveBaseOldHippo;
@@ -41,8 +41,8 @@ public class TeleOpSimpleFlyingHippo extends OpMode
         hanging = new Hanging(this, time);
         intake = new Intake(this, false);
 
-        transferRight = new TransferRight(this, time);
-        transferLeft = new TransferLeft(this, time);
+        transferRight = new TransferRight(this);
+        transferLeft = new TransferLeft(this);
         dronePosition = new DronePosition(this);
         droneLauncher = new DroneLauncher(this);
 

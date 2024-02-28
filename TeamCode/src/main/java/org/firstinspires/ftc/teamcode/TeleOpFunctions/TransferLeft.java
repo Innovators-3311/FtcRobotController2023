@@ -9,9 +9,9 @@ import org.firstinspires.ftc.teamcode.Controller.ServoControl;
 public class TransferLeft extends ServoControl
 {
 
-    public TransferLeft(OpMode opMode, ElapsedTime time)
+    public TransferLeft(OpMode opMode)
     {
-        super("transferLeft", 0, 0, opMode, time);
+        super("transferLeft", 0, 0, opMode, null);
     }
 
     public void transferDrive()

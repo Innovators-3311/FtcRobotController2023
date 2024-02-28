@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.TeleOpFunctions.Hanging;
 import org.firstinspires.ftc.teamcode.TeleOpFunctions.HippoHead;
 import org.firstinspires.ftc.teamcode.TeleOpFunctions.LinerSlide;
 
-@TeleOp(name = "reset", group = "robot")
+@TeleOp(name = "reset \nFLY HIPPO", group = "robot")
 public class TeleOpResetFlyingHippo extends OpMode
 {
     MecanumDriveBaseFlyingHippo mecanumDriveBaseFlyingHippo;

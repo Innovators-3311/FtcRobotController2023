@@ -75,9 +75,9 @@ public class AutonomousBase extends LinearOpMode
             //Following are all intake or outtake items, mostly on the expansion hub.
             linerSlide = new LinerSlide(this, true, null);
             sleep(DELAY);
-            transferRight = new TransferRight(this, null);
+            transferRight = new TransferRight(this);
             sleep(DELAY);
-            transferleft = new TransferLeft(this, null);
+            transferleft = new TransferLeft(this);
             sleep(DELAY);
             hippoHead = new HippoHead(this, false, linerSlide.getTouchSensor());
             sleep(DELAY);

@@ -95,8 +95,7 @@ public class ServoControl
 
     protected void telemetry()
     {
-        telemetry.addData(servoName, "minPosition: %.2f\n" +
-                "\tmaxPosition: %.2f", minPosition, maxPosition);
+        telemetry.addData(servoName, "last known position %f", servo.getPosition());
     }
 
 }
