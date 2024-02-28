@@ -29,10 +29,7 @@
 
 package org.firstinspires.ftc.teamcode.util;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-
 import org.firstinspires.ftc.robotcore.external.hardware.camera.BuiltinCameraDirection;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
@@ -275,13 +272,17 @@ public class WebCamDoubleVision
         Recognition currentRecognition = null;
 
         List<Recognition> currentRecognitions = tfod.getRecognitions();
-        mOpMode.telemetry.addData("# Objects Detected", currentRecognitions.size());
+        //mOpMode.telemetry.addData("# Objects Detected %d", currentRecognitions.size());
 
         // Step through the list of recognitions and display info for each one.
         for (Recognition recognition : currentRecognitions)
         {
             double x = (recognition.getLeft() + recognition.getRight()) / 2;
             double y = (recognition.getTop() + recognition.getBottom()) / 2;
+
+            //mOpMode.telemetry.addData(""," ");
+            //mOpMode.telemetry.addData("Image", "%s (%.0f %% Conf.)", recognition.getLabel(), recognition.getConfidence() * 100);
+            //mOpMode.telemetry.addData("- Position", "%.0f / %.0f", x, y);
 
             if (bestRecognition == null)
             {
@@ -302,11 +303,11 @@ public class WebCamDoubleVision
 
         if (!(currentRecognitions.isEmpty()))
         {
-            mOpMode.telemetry.addData("", " ");
-            mOpMode.telemetry.addData("Image", "%s (%.0f %% Conf.)", bestRecognition.getLabel(), bestRecognition.getConfidence() * 100);
+            //mOpMode.telemetry.addData("", " ");
+            //mOpMode.telemetry.addData("Image", "%s (%.0f %% Conf.)", bestRecognition.getLabel(), bestRecognition.getConfidence() * 100);
 //            x = ;
 //            y = (bestRecognition.getTop() + bestRecognition.getBottom()) / 2;
-            mOpMode.telemetry.addData("- Position", "%.0f / %.0f", (bestRecognition.getLeft() + bestRecognition.getRight()) / 2);
+            //mOpMode.telemetry.addData("- Position", "%.0f / %.0f", (bestRecognition.getLeft() + bestRecognition.getRight()) / 2);
             //mOpMode.telemetry.addData("- Size", "%.0f x %.0f", bestRecognition.getWidth(), bestRecognition.getHeight());
 
 

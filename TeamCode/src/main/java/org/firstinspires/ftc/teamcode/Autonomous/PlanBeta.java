@@ -41,7 +41,7 @@ public class PlanBeta extends AutonomousBase
 
         linerSlide.encoderControl(-500, 0.5);
 
-        driveToTag.drive(4, zone.ordinal() + 1 + wallTarget, 7, isBlue == 1 ? 0 : -1);
+        driveToTag.drive(5, zone.ordinal() + 1 + wallTarget, 7, aprilTagOffset);
 
         linerSlide.encoderControl(0, 0.5);
 

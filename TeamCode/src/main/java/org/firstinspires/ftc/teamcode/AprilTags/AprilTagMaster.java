@@ -16,19 +16,21 @@ import java.util.List;
 public class AprilTagMaster
 {
     // Adjust these numbers to suit your robot.
-    double desiredDistance = 0; //  this is how close the camera should get to the target (inches)
-    double strafeDif = 0;
 
     //  Set the GAIN constants to control the relationship between the measured position error, and how much power is
     //  applied to the drive motors to correct the error.
     //  Drive = Error * Gain    Make these values smaller for smoother control, or larger for a more aggressive response.
-    final double SPEED_GAIN = 0.05;   //  Forward Speed Control "Gain". eg: Ramp up to 50% power at a 25 inch error.   (0.50 / 25.0)            .07
-    final double STRAFE_GAIN = 0.045;   //  Strafe Speed Control "Gain".  eg: Ramp up to 25% power at a 25 degree Yaw error.   (0.25 / 25.0)     .07
-    final double TURN_GAIN = 0.035;   //  Turn Control "Gain".  eg: Ramp up to 25% power at a 25 degree error. (0.25 / 25.0)                     .06
+    final double SPEED_GAIN = 0.05;   //  Forward Speed Control "Gain". eg: Ramp up to 50% power at a 25 inch error.   (0.50 / 25.0)        .07
+    final double STRAFE_GAIN = 0.05;   //  Strafe Speed Control "Gain".  eg: Ramp up to 25% power at a 25 degree Yaw error.   (0.25 / 25.0)     .07
+    final double TURN_GAIN = 0.03;   //  Turn Control "Gain".  eg: Ramp up to 25% power at a 25 degree error. (0.25 / 25.0)                  .06
 
-    final double MAX_AUTO_SPEED = 0.5;   //  Clip the approach speed to this max value (adjust for your robot)   .8
-    final double MAX_AUTO_STRAFE = 0.5;   //  Clip the approach speed to this max value (adjust for your robot)  .9
-    final double MAX_AUTO_TURN = 0.4;   //  Clip the turn speed to this max value (adjust for your robot)        .7
+    //final double MAX_AUTO_SPEED = 0.4;   //  Clip the approach speed to this max value (adjust for your robot)   .8
+    //final double MAX_AUTO_STRAFE = 0.5;   //  Clip the approach speed to this max value (adjust for your robot)  .9
+    //final double MAX_AUTO_TURN = 0.4;   //  Clip the turn speed to this max value (adjust for your robot)        .7
+
+    final double MAX_AUTO_SPEED = 0.2;   //  Clip the approach speed to this max value (adjust for your robot)   .8
+    final double MAX_AUTO_STRAFE = 0.4;   //  Clip the approach speed to this max value (adjust for your robot)  .9
+    final double MAX_AUTO_TURN = 0.2;   //  Clip the turn speed to this max value (adjust for your robot)        .7
 
     private static final boolean USE_WEBCAM = true;  // Set true to use a webcam, or false for a phone camera
     private static int desiredTagID = -1;// Choose the tag you want to approach or set to -1 for ANY tag.
@@ -38,9 +40,9 @@ public class AprilTagMaster
     private AprilTagDetection desiredTag = null;     // Used to hold the data for a detected AprilTag
     private MecanumDriveBaseOldHippo mecanumDriveBaseOldHippo;
     //    WebcamName webcamName;
-    private double rangeError = 0;
-    private double headingError = 0;
+    private double xError = 0;
     private double yawError = 0;
+    private double yError = 0;
 
     public AprilTagMaster(MecanumDriveBaseOldHippo mecanumDriveBaseOldHippo, HardwareMap hardwareMap, AprilTagProcessor aprilTag)
     {
@@ -61,10 +63,41 @@ public class AprilTagMaster
         telemetry.update();
     }
 
-    public AprilTagDetection findTag(double range, double yaw, int target, Telemetry telemetry)
+
+    public AprilTagDetection findTag()
     {
-        desiredDistance = range;
-        strafeDif = yaw;
+        desiredTag = null;
+        boolean targetFound = false;
+
+        desiredTagID = 5;
+
+        // Step through the list of detected tags and look for a matching tag
+        List<AprilTagDetection> currentDetections = aprilTag.getDetections();
+        for (AprilTagDetection detection : currentDetections)
+        {
+            if ((detection.metadata != null) && ((desiredTagID < 0) || (detection.id == desiredTagID)))
+            {
+                targetFound = true;
+                desiredTag = detection;
+                break;  // don't look any further.
+            }
+            else
+            {
+                //telemetry.addData("Unknown Target", "Tag ID %d is not in TagLibrary\n", detection.id);
+            }
+        }
+
+        if (targetFound)
+        {
+            return desiredTag;
+        }
+        return null;
+
+    }
+
+    public AprilTagDetection findTag(double range, double alliggnment, int target, Telemetry telemetry)
+    {
+
         boolean targetFound = false;    // Set to true when an AprilTag target is detected
         double drive = 0;        // Desired forward power/speed (-1 to +1)
         double strafe = 0;        // Desired strafe power/speed (-1 to +1)
@@ -96,28 +129,31 @@ public class AprilTagMaster
         if (targetFound)
         {
             telemetry.addData("Target", "ID %d (%s)", desiredTag.id, desiredTag.metadata.name);
-            telemetry.addData("Range", "%5.1f inches", desiredTag.ftcPose.range);
-            telemetry.addData("Bearing", "%3.0f degrees", desiredTag.ftcPose.bearing);
-            telemetry.addData("Yaw", "%3.0f degrees", desiredTag.ftcPose.yaw);
+            telemetry.addData("x", "%5.1f inches", desiredTag.ftcPose.x);
+            telemetry.addData("Bearing", "%3.0f degrees", desiredTag.ftcPose.yaw);
+            telemetry.addData("y", "%3.0f degrees", desiredTag.ftcPose.y);
+
+            Logging.log("DiveToTag: x %5.2f, allignment %5.2f, y %5.2f", desiredTag.ftcPose.x, desiredTag.ftcPose.yaw, desiredTag.ftcPose.y);
         }
 
         // If Left Bumper is being pressed, AND we have found the desired target, Drive to target Automatically .
         if (targetFound)
         {
             // Determine heading, range and Yaw (tag image rotation) error so we can use them to control the robot automatically.
-            rangeError = (desiredTag.ftcPose.x - desiredDistance);
-            headingError = desiredTag.ftcPose.bearing;
-            yawError = (desiredTag.ftcPose.yaw - strafeDif);
+            xError = (desiredTag.ftcPose.x - alliggnment);
+            yawError = desiredTag.ftcPose.yaw;
+            yError = (desiredTag.ftcPose.y - range);
 
             // Use the speed and turn "gains" to calculate how we want the robot to move.
-            drive = Range.clip(rangeError * SPEED_GAIN, -MAX_AUTO_SPEED, MAX_AUTO_SPEED);
-            turn = Range.clip(headingError * TURN_GAIN, -MAX_AUTO_TURN, MAX_AUTO_TURN);
-            strafe = Range.clip(yawError * STRAFE_GAIN, -MAX_AUTO_STRAFE, MAX_AUTO_STRAFE);
+            strafe = Range.clip(xError * SPEED_GAIN, -MAX_AUTO_SPEED, MAX_AUTO_SPEED);
+            drive = Range.clip(yError * STRAFE_GAIN, -MAX_AUTO_STRAFE, MAX_AUTO_STRAFE);
+            turn = Range.clip(yawError * TURN_GAIN, -MAX_AUTO_TURN, MAX_AUTO_TURN);
+
 
             telemetry.addData("Auto", "Drive %5.2f, Strafe %5.2f, Turn %5.2f ", drive, strafe, turn);
 
-            Logging.log("DiveToTag: range %5.2f, heading %5.2f, yawError %5.2f", rangeError, headingError, yawError);
-            Logging.log("DiveToTag: Drive %5.2f, Strafe %5.2f, Turn %5.2f", drive, strafe, turn);
+            //Logging.log("DiveToTag: range %5.2f, heading %5.2f, yawError %5.2f", rangeError, headingError, yawError);
+            //Logging.log("DiveToTag: Drive %5.2f, Strafe %5.2f, Turn %5.2f", drive, strafe, turn);
         }
         else
         {
@@ -127,14 +163,31 @@ public class AprilTagMaster
             mecanumDriveBaseOldHippo.brake();
         }
 
-        Logging.log("DiveToTag: range %5.2f, heading %5.2f, yawError %5.2f", rangeError, headingError, yawError);
-        Logging.log("DiveToTag: Drive %5.2f, Strafe %5.2f, Turn %5.2f", drive, strafe, turn);
+//        if (!(xError <= alignment + 1 && xError >= alignment - 1))
+//        {
+//            mechanicalDriveBase.driveMotors(0, -turn, strafe, 1);
+//            telemetry.addData("xError", " Is driving");
+//        }
+//        else if (!(yError <= range + 1))
+//        {
+//            mechanicalDriveBase.driveMotors(drive, -turn, 0, 1);
+//            telemetry.addData("yError", " Is driving");
+//        }
+//        else
+//        {
+//            mechanicalDriveBase.driveMotors(drive,  -turn, strafe, 1);
+//        }
+
+        //Logging.log("DiveToTag: range %5.2f, heading %5.2f, yawError %5.2f", rangeError, headingError, yawError);
+        //Logging.log("DiveToTag: Drive %5.2f, Strafe %5.2f, Turn %5.2f", drive, strafe, turn);
 
 
 //        telemetry.update();
 
         // Apply desired axes motions to the drivetrain.
-        mecanumDriveBaseOldHippo.driveMotors(drive, -turn, strafe, 1);
+        mechanicalDriveBaseOldHippo.driveMotors(drive,  -turn, strafe, 1);
+
+
         if (targetFound)
         {
             return desiredTag;

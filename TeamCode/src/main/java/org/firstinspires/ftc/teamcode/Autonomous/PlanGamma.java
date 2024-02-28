@@ -50,13 +50,14 @@ public class PlanGamma extends AutonomousBase
 
         sleep(2000);
         //driveToTag.drive(7, zone.ordinal() + 1 + wallTarget, 11, 0);
-        driveToTag.drive(3, zone.ordinal() + 1 + wallTarget, 7, isBlue == 1 ? 1 : -1);
+        driveToTag.drive(5, zone.ordinal() + 1 + wallTarget, 3.9, aprilTagOffset);
 
         transferRight.autonomousControl(false);
         transferleft.autonomousControl(false);
 
 
         sleep(1000);
+        linerSlideChild.encoderControl(-10, .25);
         //Park robot
         try {
             parkRobot(zone, isBlue);
@@ -69,7 +70,8 @@ public class PlanGamma extends AutonomousBase
     /**
      * There is always a plan B.  ;)
      */
-    public void planGamma(SpikeLineEnum zone) throws IOException, InterruptedException {
+    public void planGamma(SpikeLineEnum zone) throws IOException, InterruptedException
+    {
 
         //If target is in the center...
         if(zone == SpikeLineEnum.CENTER_SPIKE)
@@ -230,7 +232,7 @@ public class PlanGamma extends AutonomousBase
 
         }
 
-        driver.forward(14, forward, defaultSpeed);
+        driver.forward(14, forward, defaultSpeed, 3);
     }
 
 }

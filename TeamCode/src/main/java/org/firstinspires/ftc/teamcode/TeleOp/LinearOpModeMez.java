@@ -5,10 +5,12 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.Autonomous.AutonomousBase;
 import org.firstinspires.ftc.teamcode.util.Logging;
+import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
+
 import java.io.IOException;
 
 @Autonomous(name = "Mez test", group = "Mez")
-@Disabled
+//@Disabled
 public class LinearOpModeMez extends AutonomousBase
 {
 
@@ -57,12 +59,29 @@ public class LinearOpModeMez extends AutonomousBase
 
         waitForStart();
 
-
+        try
+        {
+            driveToTag();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
 
 
 //        start();
-
-        driveToTagTest();
+//        while (opModeIsActive())
+//        {
+//            AprilTagDetection detection = driveToTag.findTag();
+////        Logging.log("DiveToTag: range %5.2f, heading %5.2f, yawError %5.2f", detection.ftcPose.range, detection.ftcPose.bearing, detection.ftcPose.yaw);
+//            telemetry.addData("d: ", "DiveToTag: range %5.2f, heading %5.2f, yawError %5.2f", detection.ftcPose.range, detection.ftcPose.bearing, detection.ftcPose.yaw);
+//
+//            telemetry.addData("d2: ", "x: %5.2f  y: %5.2f  z: %5.2f ", detection.ftcPose.x,detection.ftcPose.y,detection.ftcPose.z);
+//
+//
+//            telemetry.update();
+//        }
+        //driveToTagTest();
 
 
 
@@ -92,6 +111,19 @@ public class LinearOpModeMez extends AutonomousBase
 //        telemetry.addData("testDeadWheels", "lf = " + lfTicks + "\nrf = " +  rfTicks + "\nrb = " + rbTicks);
 //        telemetry.update();
 //    }
+
+
+    void driveToTag() throws IOException, InterruptedException
+    {
+        AprilTagDetection detection = driveToTag.findTag();
+        Logging.log("DiveToTag: range %5.2f, heading %5.2f, yawError %5.2f", detection.ftcPose.range, detection.ftcPose.bearing, detection.ftcPose.yaw);
+        sleep(3000);
+        driver.rotate2(-detection.ftcPose.yaw, imuControl);
+        sleep(3000);
+        driver.strafe(detection.ftcPose.x,isBlue,0.4, imuControl);
+        sleep(3000);
+        driver.forward(detection.ftcPose.y -6, 1, 0.3, 3);
+    }
 
     public void strafeTest()
     {

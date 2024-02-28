@@ -39,12 +39,12 @@ public class PlanAlpha extends AutonomousBase
         linerSlide.encoderControl(-500, 0.5);
 
 
-        driveToTag.drive(4, zone.ordinal() + 1 + wallTarget, 7, isBlue == 1 ? 0 : -1);
+        driveToTag.drive(4, zone.ordinal() + 1 + wallTarget, 7, aprilTagOffset);
 
 
         hippoHead.encoderControl(0, 0.7);
 
-        sleep(3000);
+        sleep(2000);
 
         transferRight.autonomousControl(false);
         transferleft.autonomousControl(false);
@@ -58,6 +58,7 @@ public class PlanAlpha extends AutonomousBase
      */
     public void planAlpha(SpikeLineEnum zone, int isBlue) throws IOException, InterruptedException
     {
+        sleep(3000);
         planPurple(zone, isBlue);
 
         if(zone == SpikeLineEnum.CENTER_SPIKE)
@@ -119,6 +120,8 @@ public class PlanAlpha extends AutonomousBase
 
 
         }
+
+
 
     }
 

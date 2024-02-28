@@ -42,7 +42,6 @@ public class HippoHead extends MotorControl
         {
             super.analogControl(1, gamepad2.left_stick_y, false, touch.isPressed(), lowerBound);
         }
-
     }
 
     private void resetDrive()
