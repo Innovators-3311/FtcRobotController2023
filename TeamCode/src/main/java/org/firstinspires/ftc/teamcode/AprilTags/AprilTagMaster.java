@@ -38,21 +38,15 @@ public class AprilTagMaster
     private VisionPortal visionPortal;               // Used to manage the video source.
     private AprilTagProcessor aprilTag;              // Used for managing the AprilTag detection process.
     private AprilTagDetection desiredTag = null;     // Used to hold the data for a detected AprilTag
-    private MecanumDriveBaseOldHippo mecanumDriveBaseOldHippo;
+    private MecanumDriveBase mecanumDriveBase;
     //    WebcamName webcamName;
     private double xError = 0;
     private double yawError = 0;
     private double yError = 0;
 
-    public AprilTagMaster(MecanumDriveBaseOldHippo mecanumDriveBaseOldHippo, HardwareMap hardwareMap, AprilTagProcessor aprilTag)
-    {
-        this.mecanumDriveBaseOldHippo = mecanumDriveBaseOldHippo;
-        this.aprilTag = aprilTag;
-    }
-
     public AprilTagMaster(MecanumDriveBase mecanumDriveBase, HardwareMap hardwareMap)
     {
-        this.mecanumDriveBaseOldHippo = mecanumDriveBaseOldHippo;
+        this.mecanumDriveBase = mecanumDriveBase;
         initAprilTag(hardwareMap);
     }
 
@@ -160,7 +154,7 @@ public class AprilTagMaster
             drive = 0;
             turn = 0;
             strafe = 0;
-            mecanumDriveBaseOldHippo.brake();
+            mecanumDriveBase.brake();
         }
 
 //        if (!(xError <= alignment + 1 && xError >= alignment - 1))
@@ -185,7 +179,7 @@ public class AprilTagMaster
 //        telemetry.update();
 
         // Apply desired axes motions to the drivetrain.
-        mechanicalDriveBaseOldHippo.driveMotors(drive,  -turn, strafe, 1);
+        mecanumDriveBase.driveMotors(drive,  -turn, strafe, 1);
 
 
         if (targetFound)

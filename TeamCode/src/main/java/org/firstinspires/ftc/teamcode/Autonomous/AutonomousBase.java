@@ -74,7 +74,7 @@ public class AutonomousBase extends LinearOpMode
 
             webcamDouble = new WebCamDoubleVision(this, colorSwitch.getTeam());
 
-            driveToTag = new DriveToTag(hardwareMap, telemetry, new ElapsedTime(), new ElapsedTime(), new AprilTagMaster(new MecanumDriveBaseOldHippo(hardwareMap), hardwareMap, webcamDouble.getAprilTag()));
+            driveToTag = new DriveToTag(hardwareMap, telemetry, new ElapsedTime(), new ElapsedTime(), new AprilTagMaster(new MecanumDriveBaseOldHippo(hardwareMap), hardwareMap));
 
 
             //Following are all intake or outtake items, mostly on the expansion hub.
@@ -86,7 +86,7 @@ public class AutonomousBase extends LinearOpMode
             sleep(DELAY);
             hippoHead = new HippoHead(this, true, linerSlide.getTouchSensor());
             sleep(DELAY);
-            intake = new Intake(this, false);
+            intake = new Intake(this, false, new ElapsedTime());
             sleep(DELAY);
         }
         catch (IOException e)

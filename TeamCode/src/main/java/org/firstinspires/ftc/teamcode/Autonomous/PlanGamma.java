@@ -57,7 +57,7 @@ public class PlanGamma extends AutonomousBase
 
 
         sleep(1000);
-        linerSlideChild.encoderControl(-10, .25);
+        linerSlide.encoderControl(-10, .25);
         //Park robot
         try {
             parkRobot(zone, isBlue);

@@ -42,7 +42,7 @@ public class TeleOpLordFlyingHippo extends OpMode
     public void init()
     {
         time = new ElapsedTime();
-        mecanumDriveBaseFlyingHippo = new MecanumDriveBaseFlyingHippo(hardwareMap, true, false, true, false);
+        mecanumDriveBaseFlyingHippo = new MecanumDriveBaseFlyingHippo(hardwareMap);
 //        driveToTag = new DriveToTag(hardwareMap, telemetry, new ElapsedTime(), new ElapsedTime(), new AprilTagMaster(mecanumDriveBaseFlyingHippo, hardwareMap));
 
         linerSlide = new LinerSlide(this, false, time);

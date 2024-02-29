@@ -21,7 +21,7 @@ public class TeleOpResetFlyingHippo extends OpMode
     public void init()
     {
         time = new ElapsedTime();
-        mecanumDriveBaseFlyingHippo = new MecanumDriveBaseFlyingHippo(hardwareMap, true, false, true, false);
+        mecanumDriveBaseFlyingHippo = new MecanumDriveBaseFlyingHippo(hardwareMap);
 
         linerSlide = new LinerSlide(this, false, time);
         hippoHead = new HippoHead(this, false, linerSlide.getTouchSensor());

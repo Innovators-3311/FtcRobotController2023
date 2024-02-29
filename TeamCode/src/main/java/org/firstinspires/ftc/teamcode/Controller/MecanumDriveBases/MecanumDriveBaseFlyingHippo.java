@@ -4,8 +4,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class MecanumDriveBaseFlyingHippo extends MecanumDriveBase
 {
-    public MecanumDriveBaseFlyingHippo(HardwareMap hardwareMap, boolean lfForward, boolean rfForward, boolean lbForward, boolean rbForward)
+    public MecanumDriveBaseFlyingHippo(HardwareMap hardwareMap)
     {
-        super(hardwareMap, lfForward, rfForward, lbForward, rbForward);
+        super(hardwareMap, true, false, true, false);
     }
 }

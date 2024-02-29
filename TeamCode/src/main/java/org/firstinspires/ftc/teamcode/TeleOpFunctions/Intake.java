@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.TeleOpFunctions;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.TouchSensor;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Controller.MotorControl;
 
@@ -13,6 +14,12 @@ public class Intake extends MotorControl
     {
         super("intake", direction, false, opmode, null);
     }
+
+    public Intake(OpMode opmode, boolean direction, ElapsedTime time)
+    {
+        super("intake", direction, false, opmode, time);
+    }
+
 
     //Calls all methods and then is called itself in the OpMode loop
     public void IntakeDrive(TouchSensor touchSensor)

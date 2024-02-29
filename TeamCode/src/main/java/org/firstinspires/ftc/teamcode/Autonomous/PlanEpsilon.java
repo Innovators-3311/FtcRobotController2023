@@ -41,9 +41,9 @@ public class PlanEpsilon extends AutonomousBase{
 
         sleep(1000);
 
-        linerSlideChild.encoderControl(-500, 0.5);
+        linerSlide.encoderControl(-500, 0.5);
 
-        heightChild.encoderControl(0,0.7);
+        hippoHead.encoderControl(0,0.7);
 
         driveToTag.drive(5, zone.ordinal() + 1 + wallTarget, 0, aprilTagOffset);
 
@@ -56,7 +56,7 @@ public class PlanEpsilon extends AutonomousBase{
 //            e.printStackTrace();
 //        }
 
-        linerSlideChild.encoderControl(0, 0.5);
+        linerSlide.encoderControl(0, 0.5);
 
         transferRight.autonomousControl(false);
         transferleft.autonomousControl(false);
@@ -208,7 +208,7 @@ public class PlanEpsilon extends AutonomousBase{
          //      driver.strafe(5, 1, 0.4, imuControl, 2);
 
 
-                this.heightChild.encoderControl(2000, 0.8);
+                this.hippoHead.encoderControl(2000, 0.8);
                 sleep(2000);
 
                 //Go backward and intake
@@ -223,7 +223,7 @@ public class PlanEpsilon extends AutonomousBase{
 
 
 
-                this.heightChild.encoderControl(2000, 0.8);
+                this.hippoHead.encoderControl(2000, 0.8);
                 sleep(2000);
 
                 //Intake pixel
@@ -237,7 +237,7 @@ public class PlanEpsilon extends AutonomousBase{
             {
                 //Red center instance
 
-                this.heightChild.encoderControl(2000, 0.8);
+                this.hippoHead.encoderControl(2000, 0.8);
                 sleep(2000);
 
                 //Intake pixel
@@ -248,15 +248,15 @@ public class PlanEpsilon extends AutonomousBase{
             }
 
                 //Shared instance among red
-                this.intakeChild.driveTime(1);
+                this.intake.driveTime(1);
 
 
             //this.heightChild.encoderControl(2200, 0.3);
-                this.heightChild.encoderControl(2200, 0.05);
+                this.hippoHead.encoderControl(2200, 0.05);
 
                 sleep(4000);
                 //Stop intake
-                this.intakeChild.driveTime(0);
+                this.hippoHead.driveTime(0);
 
                 //Raise intake
                 // this.heightChild.encoderControl(2000, 0.8);
@@ -274,11 +274,11 @@ public class PlanEpsilon extends AutonomousBase{
             driver.rotate2(-90 * isBlue, imuControl);
 
 
-            this.heightChild.encoderControl(2000, 0.8);
+            this.hippoHead.encoderControl(2000, 0.8);
 
             //sleep(2000);
 
-            this.intakeChild.driveTime(1);
+            this.intake.driveTime(1);
 
 
             if (route.equals("left"))
@@ -301,11 +301,11 @@ public class PlanEpsilon extends AutonomousBase{
             //driver.forward(18, -1, 0.3, 4);
 
             //this.heightChild.encoderControl(2200, 0.3);
-            this.heightChild.encoderControl(2200, 0.05);
+            this.hippoHead.encoderControl(2200, 0.05);
 
 
             sleep(4000);
-            this.intakeChild.driveTime(0);
+            this.intake.driveTime(0);
             //Raise intake
             // this.heightChild.encoderControl(2000, 0.8);
         }
@@ -369,7 +369,7 @@ public class PlanEpsilon extends AutonomousBase{
         }
             
         //Lower head
-        this.heightChild.encoderControl(2230, 0.4);
+        this.hippoHead.encoderControl(2230, 0.4);
 
     }
     }
