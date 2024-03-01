@@ -197,9 +197,13 @@ public class PlanEpsilon extends AutonomousBase{
 
     public void pickUpStack(int isBlue, String route) throws InterruptedException, IOException
     {
+
+        //RED: left strafe is negative
+
+
         if(isBlue == -1)
         {
-            //Turn right
+            //Turn right (back faces stack) to pick up
             driver.rotate2(-90 * isBlue, imuControl);
             if (route.equals("left"))
             {
@@ -222,6 +226,8 @@ public class PlanEpsilon extends AutonomousBase{
                 //Right red instance
 
 
+//Code not pushed as of end of 2/29 meeting
+
 
                 this.heightChild.encoderControl(2000, 0.8);
                 sleep(2000);
@@ -237,13 +243,15 @@ public class PlanEpsilon extends AutonomousBase{
             {
                 //Red center instance
 
-                this.heightChild.encoderControl(2000, 0.8);
+                //Lower head
+                this.heightChild.encoderControl(2100, 0.8);
                 sleep(2000);
 
-                //Intake pixel
-
-                //Go backward
+                //Go backward (approach stack)
                 driver.forward(6, -1, 0.3, 2);
+
+                //Strafe a bit to position
+                driver.strafe(2, isBlue, 0.3, imuControl);
 
             }
 
