@@ -23,6 +23,8 @@ public class MotorControl
     private Telemetry telemetry;
     protected Gamepad gamepad1;
     protected Gamepad gamepad2;
+    protected Gamepad currentGamepad1;
+    protected Gamepad currentGamepad2;
     protected Gamepad lastGamepad1;
     protected Gamepad lastGamepad2;
 
@@ -36,6 +38,8 @@ public class MotorControl
         this.gamepad2 = opMode.gamepad2;
         this.lastGamepad1 = opMode.gamepad1;
         this.lastGamepad2 = opMode.gamepad2;
+        this.currentGamepad1 = opMode.gamepad1;
+        this.currentGamepad2 = opMode.gamepad2;
     }
 
     /**

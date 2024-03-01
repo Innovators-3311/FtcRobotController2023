@@ -40,6 +40,7 @@ public class TransferRight extends ServoControl
     protected void toggleDrive()
     {
         gamepad2.copy(lastGamepad2);
+        currentGamepad2.copy(gamepad2);
         super.toggleDrive(lastGamepad2.left_bumper, lastGamepad2.left_bumper, 1, 0);
     }
 
