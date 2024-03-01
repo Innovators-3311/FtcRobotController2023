@@ -32,10 +32,10 @@ public class ServoControl
         this.telemetry = opMode.telemetry;
         this.gamepad1 = opMode.gamepad1;
         this.gamepad2 = opMode.gamepad2;
-        this.lastGamepad1 = opMode.gamepad1;
-        this.lastGamepad2 = opMode.gamepad2;
-        this.currentGamepad1 = opMode.gamepad1;
-        this.currentGamepad2 = opMode.gamepad2;
+        this.lastGamepad1 = new Gamepad();
+        this.lastGamepad2 = new Gamepad();
+        this.currentGamepad1 = new Gamepad();
+        this.currentGamepad2 = new Gamepad();
     }
 
     protected ServoControl(String servoName, double minPosition, double maxPosition, OpMode opMode)
