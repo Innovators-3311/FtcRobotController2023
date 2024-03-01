@@ -56,7 +56,7 @@ public class LinerSlideChild extends MotorControl
 
     protected void toggleDrive()
     {
-        gamepad2.copy(lastGamepad2);
+        lastGamepad2.copy(currentGamepad2);
         currentGamepad2.copy(gamepad2);
         super.toggleDrive(currentGamepad2.left_bumper, lastGamepad2.left_bumper,0,-1000);
     }
