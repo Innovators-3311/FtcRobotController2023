@@ -46,18 +46,18 @@ public class PlanGamma extends AutonomousBase
         transferRight.autonomousControl(true);
         transferleft.autonomousControl(true);
 
-        linerSlideChild.encoderControl(-200, 0.5);
+        linerSlideChild.encoderControl(this.armHeight, 0.5);
 
         sleep(2000);
         //driveToTag.drive(7, zone.ordinal() + 1 + wallTarget, 11, 0);
-        driveToTag.drive(5, zone.ordinal() + 1 + wallTarget, 5, aprilTagOffset);
+        driveToTag.drive(5, zone.ordinal() + 1 + wallTarget, 6, aprilTagOffset);
 
         transferRight.autonomousControl(false);
         transferleft.autonomousControl(false);
 
 
         sleep(1000);
-        linerSlideChild.encoderControl(-10, .25);
+        linerSlideChild.encoderControl(0, 0.5);
         //Park robot
         try {
             parkRobot(zone, isBlue);

@@ -155,8 +155,16 @@ public class MotorControl
 
         if (Math.abs(motorPower) > 0)
         {
-            if (limit1 && motorPower > 0) {telemetry.addData("Upper bound break", "");motorBreak();}
-            else if (100 + Math.abs(motor.getCurrentPosition()) < 100 + Math.abs(limit2) && motorPower < 0) {telemetry.addData("Lower bound break", "");motorBreak();}
+            if (limit1 && motorPower > 0)
+            {
+                telemetry.addData("Upper bound break", "");
+                motorBreak();
+            }
+            else if (100 + Math.abs(motor.getCurrentPosition()) < 100 + Math.abs(limit2) && motorPower < 0)
+            {
+                telemetry.addData("Lower bound break", "");
+                motorBreak();
+            }
             else
             {
                 motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -170,8 +178,14 @@ public class MotorControl
             motor.setPower(0.3);
             motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
-        else if (motor.getMode() == DcMotor.RunMode.RUN_TO_POSITION) {}
-        else {motorBreak();}
+        else if (motor.getMode() == DcMotor.RunMode.RUN_TO_POSITION)
+        {
+
+        }
+        else
+        {
+            motorBreak();
+        }
 
     }
 

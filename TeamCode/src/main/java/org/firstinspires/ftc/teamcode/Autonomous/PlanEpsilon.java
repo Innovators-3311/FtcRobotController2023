@@ -236,7 +236,7 @@ public class PlanEpsilon extends AutonomousBase{
                 //this.intakeChild.driveTime(1);
 
                 //Go backward and intake
-                driver.forward(12, -1, 0.5, 2);
+                driver.forward(13, -1, 0.5, 2);
 
             }
             else
@@ -251,7 +251,7 @@ public class PlanEpsilon extends AutonomousBase{
                 driver.forward(6, -1, 0.3, 2);
 
                 //Strafe a bit to position
-                driver.strafe(2, isBlue, 0.3, imuControl);
+//                driver.strafe(2, isBlue, 0.3, imuControl);
 
             }
 

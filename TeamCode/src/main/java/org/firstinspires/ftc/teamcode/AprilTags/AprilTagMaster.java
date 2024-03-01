@@ -23,10 +23,6 @@ public class AprilTagMaster
     final double STRAFE_GAIN = 0.1;   //  Strafe Speed Control "Gain".  eg: Ramp up to 25% power at a 25 degree Yaw error.   (0.25 / 25.0)     .07
     final double TURN_GAIN = 0.03;   //  Turn Control "Gain".  eg: Ramp up to 25% power at a 25 degree error. (0.25 / 25.0)                  .06
 
-    //final double MAX_AUTO_SPEED = 0.4;   //  Clip the approach speed to this max value (adjust for your robot)   .8
-    //final double MAX_AUTO_STRAFE = 0.5;   //  Clip the approach speed to this max value (adjust for your robot)  .9
-    //final double MAX_AUTO_TURN = 0.4;   //  Clip the turn speed to this max value (adjust for your robot)        .7
-
     final double MAX_AUTO_SPEED = 0.2;   //  Clip the approach speed to this max value (adjust for your robot)   .8
     final double MAX_AUTO_STRAFE = 0.4;   //  Clip the approach speed to this max value (adjust for your robot)  .9
     final double MAX_AUTO_TURN = 0.2;   //  Clip the turn speed to this max value (adjust for your robot)        .7

@@ -59,7 +59,7 @@ public class AutonomousBase extends LinearOpMode
 
     protected double aprilTagOffset = 0;
 
-    protected double armHeight = 0;
+    protected int armHeight = 0;
 
     SpikeLineEnum zone = SpikeLineEnum.UNKNOWN;
 
@@ -233,7 +233,7 @@ public class AutonomousBase extends LinearOpMode
             } // right
             else if ((!currentGamepad1.b && previousGamepad1.b) )
             {
-                return -0.2;
+                return 0;
             } // default
             else if ((!currentGamepad1.y && previousGamepad1.y) )
             {
@@ -242,7 +242,7 @@ public class AutonomousBase extends LinearOpMode
         }
     }
 
-    protected double setArmHeight()
+    protected int setArmHeight()
     {
         while (true)
         {

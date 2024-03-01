@@ -25,8 +25,8 @@ public class LinerSlideChild extends MotorControl
     public void linerSlideDrive()
     {
         touchSensorOverride();
-//        this.encoderDrive();
-        this.toggleDrive();
+        this.encoderDrive();
+//        this.toggleDrive();
         this.analogControl();
         this.telemetry();
     }

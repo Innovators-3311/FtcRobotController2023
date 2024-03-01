@@ -63,7 +63,9 @@ public class LinearOpModeMez extends AutonomousBase
 
         try
         {
-            driveToTag();
+            rotateTest();
+
+            //driveToTag();
         }
         catch (IOException e)
         {
@@ -171,15 +173,18 @@ public class LinearOpModeMez extends AutonomousBase
     public void rotateTest() throws InterruptedException, IOException
     {
         double rotateSpeed = 0.4;
-//        sleep(3000);
-//        driver.turn(30, 1, rotateSpeed);
-//        sleep(3000);
-//        driver.turn(30, 1, rotateSpeed);
-//        sleep(3000);
-//        driver.turn(30, 1, rotateSpeed);
+        sleep(3000);
+        driver.rotate2(90,imuControl,4);
 
-//        sleep(2000);
-//        driver.rotateOd(360, 1);
+        sleep(3000);
+        driver.rotate2(90,imuControl,4);
+
+        sleep(3000);
+        driver.rotate2(90,imuControl,4);
+
+        sleep(3000);
+        driver.rotate2(90,imuControl,4);
+
 
 //        int startPos = driver.rb.getCurrentPosition();
 //        Logging.setup();
@@ -199,51 +204,7 @@ public class LinearOpModeMez extends AutonomousBase
 //        telemetry.update();
 
 
-//        sleep(2000);
-//        driver.rotateOd(180, 0.5);
-//        sleep(2000);
-//        driver.rotateOd(180, .5);
-//        sleep(2000);
-//        driver.rotateOd(180, .5);
-//        sleep(2000);
-//        driver.rotateOd(180, .5);
-//        sleep(2000);
-//        driver.rotateOd(180, .5);
-//        sleep(2000);
-//        driver.rotateOd(180, .5);
 
-        sleep(2000);
-        driver.rotateOd(45, 0.5);
-        sleep(2000);
-        driver.rotateOd(45, .5);
-        sleep(2000);
-        driver.rotateOd(90, .5);
-        sleep(2000);
-        driver.rotateOd(180, .5);
-        sleep(2000);
-        //driver.rotateOd(180, .5);
-        sleep(2000);
-        //driver.rotateOd(-180, .5);
-
-
-
-//        sleep(2000);
-//        driver.turn(90, -1, rotateSpeed);
-//        sleep(2000);
-//        driver.turn(90, -1, rotateSpeed);
-//        sleep(2000);
-//        driver.turn(90, -1, rotateSpeed);
-//        sleep(2000);
-//        driver.turn(90, -1, rotateSpeed);
-
-        sleep(3000);
-//        driver.turn(90, -1, rotateSpeed);
-
-        sleep(3000);
-//        driver.turn(180, -1, rotateSpeed);
-
-        sleep(3000);
-//        driver.turn(360, 1, rotateSpeed);
     }
 
     public void aroundyTest()

@@ -15,7 +15,8 @@ public class TransferRight extends ServoControl
 
     public void transferDrive()
     {
-        this.toggleDrive();
+        this.managePosition();
+//        this.toggleDrive();
         this.telemetry();
     }
 

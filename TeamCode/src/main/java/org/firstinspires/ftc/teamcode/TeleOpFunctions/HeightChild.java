@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.TeleOpFunctions;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.Controller.MotorControl;
@@ -38,9 +39,23 @@ public class HeightChild extends MotorControl
     {
         if (!gamepad2.back)
         {
-            super.analogControl(1, gamepad2.left_stick_y, false, touch.isPressed(), lowerBound);
-            telemetry.addData("Touch sensor", touch.isPressed());
-            telemetry.addData("Touch sensor", touch.getValue());
+            if (!touch.isPressed())
+            {
+                super.analogControl(1, gamepad2.left_stick_y, false, touch.isPressed(), lowerBound);
+                telemetry.addData("Touch sensor", touch.isPressed());
+                telemetry.addData("Touch sensor", touch.getValue());
+            }
+            else
+            {
+                motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+                motor.setTargetPosition(motor.getCurrentPosition()-80);
+                motor.setPower(0.5);
+                motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+                telemetry.addData("Touch sensor", touch.isPressed());
+                telemetry.addData("Touch sensor", touch.getValue());
+
+            }
         }
     }
 
