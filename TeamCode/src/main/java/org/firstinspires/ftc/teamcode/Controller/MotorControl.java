@@ -17,12 +17,14 @@ public class MotorControl
     private boolean hasEncoder;
 
     ElapsedTime time;
-    private int numberOfPosition = 1;
+    boolean toggleDrive = false;
 
     private HardwareMap hardwareMap;
     private Telemetry telemetry;
     protected Gamepad gamepad1;
     protected Gamepad gamepad2;
+    protected Gamepad lastGamepad1;
+    protected Gamepad lastGamepad2;
 
     //Will be used to get the parameters below from the masterclass
     private MotorControl(OpMode opMode, ElapsedTime time)
@@ -202,26 +204,15 @@ public class MotorControl
 
     }
 
-    protected void toggleDrive(boolean argument, int upperPosition, int lowerPosition)
+    protected void toggleDrive(boolean argument, boolean flagCheck, int target1, int target2)
     {
-        time.startTime();
-        double lastChanged = 0;
-
-        if (argument && numberOfPosition == 1 && (lastChanged + 0.25) < time.seconds())
+        if (toggleDrive && argument && !flagCheck)
         {
-            lastChanged = time.seconds();
-            numberOfPosition = 2;
-            encoderControl(upperPosition, 1);
+            encoderControl(1, target1);
         }
-        else if (argument && numberOfPosition == 2 && (lastChanged + 0.25) < time.seconds())
+        else if (!toggleDrive && argument && !flagCheck)
         {
-            lastChanged = time.seconds();
-            numberOfPosition = 1;
-            encoderControl(lowerPosition, 1);
-        }
-        else
-        {
-            telemetry.addData("ToggleDrive", "Something went wrong in toggleDrive");
+            encoderControl(1, target2);
         }
     }
 

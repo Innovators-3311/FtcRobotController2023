@@ -14,7 +14,7 @@ public class Hanging extends MotorControl
     public void hangingDrive()
     {
         analogControl();
-        toggleDrive();
+//        toggleDrive();
         telemetry();
     }
 
@@ -25,7 +25,8 @@ public class Hanging extends MotorControl
 
     protected void toggleDrive()
     {
-        super.toggleDrive(gamepad2.left_bumper, upperPosition, lowerPosition);
+
+        super.toggleDrive(gamepad2.left_bumper,false, upperPosition, lowerPosition);
     }
 
     @Override

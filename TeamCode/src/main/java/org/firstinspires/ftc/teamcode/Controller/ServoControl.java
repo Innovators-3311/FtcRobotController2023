@@ -14,11 +14,15 @@ public class ServoControl
     private Servo servo;
     private String servoName;
     double minPosition, maxPosition;
+    private boolean toggleDrive;
 
     private HardwareMap hardwareMap;
     private Telemetry telemetry;
     protected Gamepad gamepad1;
     protected Gamepad gamepad2;
+    protected Gamepad lastGamepad1;
+    protected Gamepad lastGamepad2;
+
 
     private ServoControl(OpMode opMode)
     {
@@ -67,7 +71,18 @@ public class ServoControl
             driveServo(target);
         }
 
+    }
 
+    protected void toggleDrive(boolean argument, boolean flagCheck, int target1, int target2)
+    {
+        if (toggleDrive && argument && !flagCheck)
+        {
+            driveServo(target1);
+        }
+        else if (!toggleDrive && argument && !flagCheck)
+        {
+            driveServo(target2);
+        }
     }
 
 
