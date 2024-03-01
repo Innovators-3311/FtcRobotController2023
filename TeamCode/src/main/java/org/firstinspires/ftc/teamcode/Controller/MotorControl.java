@@ -212,18 +212,13 @@ public class MotorControl
 
     protected void toggleDrive(boolean argument, boolean flagCheck, int target1, int target2)
     {
-        if (argument && !flagCheck)
+        if (toggleDrive && argument && !flagCheck)
         {
-            toggleDrive = !toggleDrive;
+            encoderControl(1, target1);
         }
-
-        if (toggleDrive)
+        else if (!toggleDrive && argument && !flagCheck)
         {
-            encoderControl(target1, 1);
-        }
-        else
-        {
-            encoderControl(target2, 1);
+            encoderControl(1, target2);
         }
     }
 

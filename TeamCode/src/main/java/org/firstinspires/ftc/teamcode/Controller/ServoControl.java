@@ -81,16 +81,11 @@ public class ServoControl
 
     protected void toggleDrive(boolean argument, boolean flagCheck, int target1, int target2)
     {
-        if (argument && !flagCheck)
-        {
-            toggleDrive = !toggleDrive;
-        }
-
-        if (toggleDrive)
+        if (toggleDrive && argument && !flagCheck)
         {
             driveServo(target1);
         }
-        else
+        else if (!toggleDrive && argument && !flagCheck)
         {
             driveServo(target2);
         }
