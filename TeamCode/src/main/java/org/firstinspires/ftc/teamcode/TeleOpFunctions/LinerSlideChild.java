@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.TeleOpFunctions;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.TouchSensor;
@@ -24,7 +25,8 @@ public class LinerSlideChild extends MotorControl
     public void linerSlideDrive()
     {
         touchSensorOverride();
-        this.encoderDrive();
+//        this.encoderDrive();
+        this.toggleDrive();
         this.analogControl();
         this.telemetry();
     }
@@ -50,6 +52,12 @@ public class LinerSlideChild extends MotorControl
     {
         this.analogControlSimple();
         this.telemetry();
+    }
+
+    protected void toggleDrive()
+    {
+        gamepad2.copy(lastGamepad2);
+        super.toggleDrive(gamepad2.left_bumper, lastGamepad2.left_bumper,-1000,-50);
     }
 
     private void analogControlSimple()
