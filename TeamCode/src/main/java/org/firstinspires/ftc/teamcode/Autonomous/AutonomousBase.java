@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 import static org.firstinspires.ftc.teamcode.Autonomous.AutonomousBase.SpikeLineEnum.LEFT_SPIKE;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
@@ -49,7 +50,16 @@ public class AutonomousBase extends LinearOpMode
     protected IntakeChild intakeChild;
     protected ColorSwitch colorSwitch;
 
+
+    Gamepad currentGamepad1;
+    Gamepad currentGamepad2;
+
+    Gamepad previousGamepad1;
+    Gamepad previousGamepad2;
+
     protected double aprilTagOffset = 0;
+
+    protected double armHeight = 0;
 
     SpikeLineEnum zone = SpikeLineEnum.UNKNOWN;
 
@@ -97,6 +107,11 @@ public class AutonomousBase extends LinearOpMode
     @Override
     public void runOpMode() throws InterruptedException
     {
+        currentGamepad1 = new Gamepad();
+        currentGamepad2 = new Gamepad();
+
+        previousGamepad1 = new Gamepad();
+        previousGamepad2 = new Gamepad();
 
         initMembers();
 
@@ -110,8 +125,12 @@ public class AutonomousBase extends LinearOpMode
         aprilTagOffset = aprilTagOffset();
         telemetry.addData("AprilTag offset", aprilTagOffset);
 
+        armHeight = setArmHeight();
+        telemetry.addData("Arm Height", armHeight);
+
         telemetry.addLine("Press Drive2 A to continue");
-        while ((this.gamepad2.a == false) && (this.gamepad1.a == false))
+        //while ((this.gamepad2.a == false) && (this.gamepad1.a == false))
+        do
         {
             rec = webcamDouble.findObject();
             if (rec != null)
@@ -128,7 +147,7 @@ public class AutonomousBase extends LinearOpMode
 
             telemetry.addLine("\nPress A to continue");
             telemetry.update();
-        }
+        } while ((!currentGamepad1.a && previousGamepad1.a) || (!currentGamepad2.a && previousGamepad2.a));
 
         telemetry.addLine("Waiting for START Do not touch the controller!!!! OR ELSE!!!!\n The racoon will come for you!");
         telemetry.update();
@@ -194,6 +213,13 @@ public class AutonomousBase extends LinearOpMode
     {
         while (true)
         {
+
+            previousGamepad1.copy(currentGamepad1);
+            previousGamepad2.copy(currentGamepad2);
+            currentGamepad1.copy(gamepad1);
+            currentGamepad2.copy(gamepad2);
+
+
             telemetry.addLine("Set April Tag Offset");
             telemetry.addLine("X = left");
             telemetry.addLine("B = right");
@@ -201,15 +227,48 @@ public class AutonomousBase extends LinearOpMode
             telemetry.update();
 
             // left
-            if (this.gamepad1.x)
+            if ((!currentGamepad1.x && previousGamepad1.x) )
             {
                 return 6;
             } // right
-            else if (gamepad1.b)
+            else if ((!currentGamepad1.b && previousGamepad1.b) )
             {
                 return -0.2;
             } // default
-            else if (gamepad1.y)
+            else if ((!currentGamepad1.y && previousGamepad1.y) )
+            {
+                return 3;
+            }
+        }
+    }
+
+    protected double setArmHeight()
+    {
+        while (true)
+        {
+
+            previousGamepad1.copy(currentGamepad1);
+            previousGamepad2.copy(currentGamepad2);
+            currentGamepad1.copy(gamepad1);
+            currentGamepad2.copy(gamepad2);
+
+
+            telemetry.addLine("Set April Tag Offset");
+            telemetry.addLine("X = low");
+            telemetry.addLine("b = high");
+            telemetry.addLine("y = center");
+            telemetry.update();
+
+            // left
+            if ((!currentGamepad1.x && previousGamepad1.x) )
+            {
+                return -10;
+            } // right
+            else if ((!currentGamepad1.b && previousGamepad1.b) )
+            {
+                return -500;
+            } // default
+            else if ((!currentGamepad1.y && previousGamepad1.y) )
             {
                 return 3;
             }
