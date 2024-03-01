@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.TeleOp.FlyingHippo;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -15,6 +16,8 @@ import org.firstinspires.ftc.teamcode.TeleOpFunctions.TransferLeft;
 import org.firstinspires.ftc.teamcode.TeleOpFunctions.TransferRight;
 
 @TeleOp(name = "Simple TeleOp \nFLY HIPPO", group = "robot")
+@Disabled
+
 public class TeleOpSimpleFlyingHippo extends OpMode
 {
     MecanumDriveBaseOldHippo mecanumDriveBaseOldHippo;

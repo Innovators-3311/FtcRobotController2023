@@ -1,10 +1,12 @@
 package org.firstinspires.ftc.teamcode.TeleOp.OldRobot;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import org.firstinspires.ftc.teamcode.Controller.MecanumDriveBases.MecanumDriveBaseOldHippo;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "Basic drive\nOLD HIPPO", group = "old robot")
+@Disabled
 public class BasicDriveOldHippo extends OpMode
 {
     MecanumDriveBaseOldHippo mecanumDriveBaseOldHippo;

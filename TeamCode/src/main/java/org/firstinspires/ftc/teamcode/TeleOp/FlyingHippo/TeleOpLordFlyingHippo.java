@@ -68,7 +68,9 @@ public class TeleOpLordFlyingHippo extends OpMode
     public void loop()
     {
         mecanumDriveBaseFlyingHippo.gamepadController(gamepad1);
+//        mecanumDriveBaseFlyingHippo.gamepadController(gamepad2);
 //        driveToTag.targetLocator(gamepad1);
+
 
         linerSlide.linerSlideDrive();
         hippoHead.heightDrive();
@@ -78,8 +80,8 @@ public class TeleOpLordFlyingHippo extends OpMode
         transferRight.transferDrive();
         transferLeft.transferDrive();
 
-        droneLauncher.launcherControl();
-        dronePosition.PositionControl();
+//        droneLauncher.launcherControl();
+//        dronePosition.PositionControl();
 
         hangingServoLeft.hangingLeftDrive();
         hangingServoRight.hangingRightDrive();

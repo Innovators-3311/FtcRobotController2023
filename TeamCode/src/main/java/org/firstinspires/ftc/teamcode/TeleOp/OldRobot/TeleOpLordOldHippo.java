@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.TeleOp.OldRobot;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -16,6 +17,8 @@ import org.firstinspires.ftc.teamcode.TeleOpFunctions.TransferLeft;
 import org.firstinspires.ftc.teamcode.TeleOpFunctions.TransferRight;
 
 @TeleOp(name = "TeleOp Lord\nOLD HIPPO", group = "old robot")
+@Disabled
+
 public class TeleOpLordOldHippo extends OpMode
 {
     MecanumDriveBaseOldHippo mecanumDriveBaseOldHippo;
