@@ -692,7 +692,10 @@ public class MecanumSynchronousDriver<imuControl> extends MechanicalDriveBase
 //      }
 //      else
       {
-         pidRotateImu = new PIDController(.035, .0002, .067);   // ?? degrees
+          //good for when battery is below 13
+         //pidRotateImu = new PIDController(.035, .0002, .067);   // ?? degrees
+
+          pidRotateImu = new PIDController(.030, .0002, .067);   // ?? degrees
       }
 
       pidRotateImu.reset();

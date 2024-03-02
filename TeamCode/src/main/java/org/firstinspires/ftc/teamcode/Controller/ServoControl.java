@@ -20,6 +20,8 @@ public class ServoControl
     private Telemetry telemetry;
     protected Gamepad gamepad1;
     protected Gamepad gamepad2;
+    protected Gamepad currentGamepad1;
+    protected Gamepad currentGamepad2;
     protected Gamepad lastGamepad1;
     protected Gamepad lastGamepad2;
 
@@ -30,6 +32,10 @@ public class ServoControl
         this.telemetry = opMode.telemetry;
         this.gamepad1 = opMode.gamepad1;
         this.gamepad2 = opMode.gamepad2;
+        this.lastGamepad1 = new Gamepad();
+        this.lastGamepad2 = new Gamepad();
+        this.currentGamepad1 = new Gamepad();
+        this.currentGamepad2 = new Gamepad();
     }
 
     protected ServoControl(String servoName, double minPosition, double maxPosition, OpMode opMode)

@@ -15,7 +15,8 @@ public class TransferRight extends ServoControl
 
     public void transferDrive()
     {
-        this.toggleDrive();
+        this.managePosition();
+//        this.toggleDrive();
         this.telemetry();
     }
 
@@ -39,8 +40,9 @@ public class TransferRight extends ServoControl
 
     protected void toggleDrive()
     {
-        gamepad2.copy(lastGamepad2);
-        super.toggleDrive(lastGamepad2.left_bumper, lastGamepad2.left_bumper, 1, 0);
+        lastGamepad2.copy(currentGamepad2);
+        currentGamepad2.copy(gamepad2);
+        super.toggleDrive(currentGamepad2.left_bumper, lastGamepad2.left_bumper, 1, 0);
     }
 
     @Override

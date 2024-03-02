@@ -23,6 +23,8 @@ public class MotorControl
     private Telemetry telemetry;
     protected Gamepad gamepad1;
     protected Gamepad gamepad2;
+    protected Gamepad currentGamepad1;
+    protected Gamepad currentGamepad2;
     protected Gamepad lastGamepad1;
     protected Gamepad lastGamepad2;
 
@@ -34,6 +36,10 @@ public class MotorControl
         this.telemetry = opMode.telemetry;
         this.gamepad1 = opMode.gamepad1;
         this.gamepad2 = opMode.gamepad2;
+        this.lastGamepad1 = new Gamepad();
+        this.lastGamepad2 = new Gamepad();
+        this.currentGamepad1 = new Gamepad();
+        this.currentGamepad2 = new Gamepad();
     }
 
     /**
@@ -149,8 +155,16 @@ public class MotorControl
 
         if (Math.abs(motorPower) > 0)
         {
-            if (limit1 && motorPower > 0) {telemetry.addData("Upper bound break", "");motorBreak();}
-            else if (100 + Math.abs(motor.getCurrentPosition()) < 100 + Math.abs(limit2) && motorPower < 0) {telemetry.addData("Lower bound break", "");motorBreak();}
+            if (limit1 && motorPower > 0)
+            {
+                telemetry.addData("Upper bound break", "");
+                motorBreak();
+            }
+            else if (100 + Math.abs(motor.getCurrentPosition()) < 100 + Math.abs(limit2) && motorPower < 0)
+            {
+                telemetry.addData("Lower bound break", "");
+                motorBreak();
+            }
             else
             {
                 motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -164,8 +178,14 @@ public class MotorControl
             motor.setPower(0.3);
             motor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         }
-        else if (motor.getMode() == DcMotor.RunMode.RUN_TO_POSITION) {}
-        else {motorBreak();}
+        else if (motor.getMode() == DcMotor.RunMode.RUN_TO_POSITION)
+        {
+
+        }
+        else
+        {
+            motorBreak();
+        }
 
     }
 
