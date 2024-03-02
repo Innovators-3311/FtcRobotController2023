@@ -144,10 +144,16 @@ public class AutonomousBase extends LinearOpMode
             telemetry.addData("AprilTag offset", aprilTagOffset);
             telemetry.addData("detected: ", zone);
             telemetry.addData("isBlue: ", "%d ", isBlue);
+            telemetry.addData("armHeight: ", "%d ", armHeight);
 
             telemetry.addLine("\nPress A to continue");
             telemetry.update();
-        } while ((!currentGamepad1.a && previousGamepad1.a) || (!currentGamepad2.a && previousGamepad2.a));
+
+            if (!currentGamepad1.a && previousGamepad1.a)
+            {
+                break;
+            }
+        } while (true);
 
         telemetry.addLine("Waiting for START Do not touch the controller!!!! OR ELSE!!!!\n The racoon will come for you!");
         telemetry.update();
@@ -256,7 +262,7 @@ public class AutonomousBase extends LinearOpMode
             telemetry.addLine("Set April Tag Offset");
             telemetry.addLine("X = low");
             telemetry.addLine("b = high");
-            telemetry.addLine("y = center");
+            //telemetry.addLine("y = center");
             telemetry.update();
 
             // left
@@ -274,6 +280,5 @@ public class AutonomousBase extends LinearOpMode
             }
         }
     }
-
 }
 
