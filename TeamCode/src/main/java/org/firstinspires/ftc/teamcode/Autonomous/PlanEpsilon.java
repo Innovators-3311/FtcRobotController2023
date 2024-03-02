@@ -270,7 +270,7 @@ public class PlanEpsilon extends AutonomousBase{
                 // this.heightChild.encoderControl(2000, 0.8);
 
 
-              //  driver.strafe(5, -1, 0.5, imuControl);
+                driver.strafe(1, -1, 0.5, imuControl);
 
         }
         else

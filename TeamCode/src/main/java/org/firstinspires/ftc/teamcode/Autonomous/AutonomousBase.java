@@ -129,8 +129,8 @@ public class AutonomousBase extends LinearOpMode
         telemetry.addData("Arm Height", armHeight);
 
         telemetry.addLine("Press Drive2 A to continue");
-        //while ((this.gamepad2.a == false) && (this.gamepad1.a == false))
-        do
+
+        while (this.gamepad1.a == false)
         {
             rec = webcamDouble.findObject();
             if (rec != null)
@@ -149,11 +149,11 @@ public class AutonomousBase extends LinearOpMode
             telemetry.addLine("\nPress A to continue");
             telemetry.update();
 
-            if (!currentGamepad1.a && previousGamepad1.a)
-            {
-                break;
-            }
-        } while (true);
+//            if (!currentGamepad1.a && previousGamepad1.a)
+//            {
+//                break;
+//            }
+        }
 
         telemetry.addLine("Waiting for START Do not touch the controller!!!! OR ELSE!!!!\n The racoon will come for you!");
         telemetry.update();
