@@ -228,8 +228,8 @@ public class PlanEpsilon extends AutonomousBase{
 
 //Code not pushed as of end of 2/29 meeting
 
-
-                this.heightChild.encoderControl(2000, 0.8);
+                //lower head
+                this.heightChild.encoderControl(2200, 0.8);
                 sleep(2000);
 
                 //Intake pixel
