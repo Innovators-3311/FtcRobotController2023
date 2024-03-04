@@ -92,6 +92,8 @@ public class LinearOpModeMez extends AutonomousBase
 
         while (opModeIsActive())
         {
+
+            this.driveToTag.legacyDrive(5, 2, 0, 0);
 //            heightChild.encoderControl(10,.3);
 //            sleep(3000);
 //            heightChild.encoderControl(-10,.3);

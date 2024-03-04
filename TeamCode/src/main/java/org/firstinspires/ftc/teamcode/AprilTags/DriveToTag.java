@@ -74,6 +74,46 @@ public class DriveToTag
 
     }
 
+    public void legacyDrive(int time, int target, double range, double allignment)
+    {
+        elapsedTime.reset();
+        elapsedTime.startTime();
+
+        boolean isFound = false;
+
+        while (!aprilTagMaster.aprilTagDetected() && elapsedTime.seconds() < time)
+        {
+            //telemetry.addData("AprilTag", aprilTagMaster.aprilTagDetected());
+            //telemetry.update();
+        }
+
+        if (aprilTagMaster.aprilTagDetected())
+        {
+            telemetry.addData("AprilTag detected", "AprilTag");
+            while (elapsedTime.seconds() < time)
+            {
+
+                telemetry.addData("Time = ",elapsedTime.seconds() + " seconds");
+                //AprilTagDetection detection = aprilTagMaster.findTag(range, allignment, target, telemetry);
+                isFound = aprilTagMaster.legacyFindTag(target, range, telemetry);
+                if (isFound)
+                {
+
+                        Logging.log("exiting drive to tag");
+                        break;
+
+                }
+                else
+                {
+                    Logging.log("Tag lost!!");
+                }
+                telemetry.update();
+            }
+        }
+
+        Logging.log("Exiting DriveToTag");
+    }
+
     public AprilTagDetection findTag()
     {
         AprilTagDetection detection = aprilTagMaster.findTag();
