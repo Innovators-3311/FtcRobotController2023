@@ -61,16 +61,16 @@ public class LinearOpModeMez extends AutonomousBase
 
         waitForStart();
 
-        try
-        {
-            rotateTest();
-
-            //driveToTag();
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-        }
+//        try
+//        {
+//            //rotateTest();
+//
+//            //driveToTag();
+//        }
+//        catch (IOException e)
+//        {
+//            e.printStackTrace();
+//        }
 
 
 //        start();

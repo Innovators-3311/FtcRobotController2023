@@ -35,17 +35,17 @@ public class PlanEpsilon extends AutonomousBase{
         transferRight.autonomousControl(true);
         transferleft.autonomousControl(true);
 
-        sleep(DELAY);
+        //sleep(DELAY);
 
         //heightChild.encoderControl(0,0.7);
 
-        sleep(1000);
+        sleep(2000);
 
-        linerSlideChild.encoderControl(-500, 0.5);
+        linerSlideChild.encoderControl(this.armHeight, 0.5);
 
         heightChild.encoderControl(0,0.7);
 
-        driveToTag.drive(5, zone.ordinal() + 1 + wallTarget, 0, aprilTagOffset);
+        driveToTag.drive(5, zone.ordinal() + 1 + wallTarget, 7, aprilTagOffset);
 
 //        try
 //        {
@@ -284,7 +284,7 @@ public class PlanEpsilon extends AutonomousBase{
 
             this.heightChild.encoderControl(2000, 0.8);
 
-            //sleep(2000);
+            sleep(2000);
 
             this.intakeChild.driveTime(1);
 
@@ -297,12 +297,12 @@ public class PlanEpsilon extends AutonomousBase{
             else if (route.equals("right"))
             {
                 //Go backward
-                driver.forward(12, -1, 0.3, 2);
+                driver.forward(18, -1, 0.3, 2);
             }
             else
             {
                 //Go backward
-                driver.forward(7, -1, 0.3, 2);
+                driver.forward(9, -1, 0.3, 2);
             }
 
             //Go backward
@@ -331,7 +331,7 @@ public class PlanEpsilon extends AutonomousBase{
          */
 
         //Strafe to avoid target and truss
-        driver.strafe(2, isBlue, 0.4, imuControl, 5);
+        driver.strafe(1, isBlue, 0.4, imuControl, 5);
         //Drive to other side
         driver.forward(90, 1, 0.7, 8);
 
@@ -363,7 +363,7 @@ public class PlanEpsilon extends AutonomousBase{
           if(isBlue == 1)
           { //Right blue instance (AprilTag 003)
             //Strafe to AprilTag
-            driver.strafe(12, -isBlue, 0.5, imuControl);
+            driver.strafe(18, -isBlue, 0.5, imuControl);
           }
           else
           { //Right red instance (AprilTag 006)

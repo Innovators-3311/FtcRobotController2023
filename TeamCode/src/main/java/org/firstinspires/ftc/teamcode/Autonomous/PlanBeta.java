@@ -33,7 +33,7 @@ public class PlanBeta extends AutonomousBase
         transferRight.autonomousControl(true);
         transferleft.autonomousControl(true);
 
-        sleep(DELAY);
+        sleep(1000);
 
         heightChild.encoderControl(0,0.7);
 

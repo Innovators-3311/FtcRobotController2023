@@ -115,7 +115,8 @@ public class WebCamHardware
       // Disable or re-enable the TFOD processor at any time.
       //visionPortal.setProcessorEnabled(tfod, true);
 
-      tfod.setClippingMargins(0, 100, 0, 100);
+      //tfod.setClippingMargins(0, 100, 0, 100);
+      tfod.setClippingMargins(0, 0, 0, 100);
 
       //tfod.setZoom(1.2);
       //tfod.setZoom(100);

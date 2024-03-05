@@ -43,6 +43,7 @@ public class PlanAlpha extends AutonomousBase
 
 
         heightChild.encoderControl(0, 0.7);
+        linerSlideChild.encoderControl(0,  0.5);
 
         sleep(2000);
 
@@ -75,7 +76,7 @@ public class PlanAlpha extends AutonomousBase
             driver.forward(70, 1, 0.8);
 
             //Strafe to let AprilTag take over
-            driver.strafe(20, isBlue, 0.5, imuControl);
+            driver.strafe(20, isBlue, 0.5, imuControl);     //was short on blue
             
         }
         else if (zone == SpikeLineEnum.LEFT_SPIKE)
@@ -115,8 +116,14 @@ public class PlanAlpha extends AutonomousBase
             driver.forward(70, 1, 0.8);
 
             //Strafe to let AprilTag take over
-            if(isBlue == 1) driver.strafe(33, isBlue, 0.5,  imuControl);
-            else if(isBlue == -1) driver.strafe(18, isBlue, 0.5, imuControl);
+            if(isBlue == 1)
+            {
+                driver.strafe(33, isBlue, 0.5,  imuControl);  //a bit far
+            }
+            else if(isBlue == -1)
+            {
+                driver.strafe(18, isBlue, 0.5, imuControl);
+            }
 
 
         }
