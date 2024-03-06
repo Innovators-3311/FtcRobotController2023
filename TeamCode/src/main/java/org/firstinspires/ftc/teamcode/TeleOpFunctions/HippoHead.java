@@ -38,17 +38,17 @@ public class HippoHead extends MotorControl
 
     private void analogControl()
     {
-        if (!gamepad1.back)
+        if (!gamepad2.back)
         {
-            super.analogControl(1, gamepad1.right_stick_y, false, touch.isPressed(), lowerBound);
+            super.analogControl(1, gamepad2.left_stick_y, false);
         }
     }
 
     private void resetDrive()
     {
-        if (Math.abs(gamepad1.right_stick_y) == 0)
+        if (Math.abs(gamepad2.right_stick_y) == 0)
         {
-            super.simpleDrive(-1, gamepad1.back, false);
+            super.simpleDrive(-1, gamepad2.back, false);
         }
     }
 

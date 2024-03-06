@@ -3,11 +3,8 @@ package org.firstinspires.ftc.teamcode.TeleOp.FlyingHippo;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import org.firstinspires.ftc.teamcode.AprilTags.AprilTagMaster;
-import org.firstinspires.ftc.teamcode.AprilTags.DriveToTag;
-import org.firstinspires.ftc.teamcode.Controller.MecanumDriveBases.MecanumDriveBase;
+
 import org.firstinspires.ftc.teamcode.Controller.MecanumDriveBases.MecanumDriveBaseFlyingHippo;
-import org.firstinspires.ftc.teamcode.Controller.MecanumDriveBases.MecanumDriveBaseOldHippo;
 import org.firstinspires.ftc.teamcode.TeleOpFunctions.DroneLauncher;
 import org.firstinspires.ftc.teamcode.TeleOpFunctions.DronePosition;
 import org.firstinspires.ftc.teamcode.TeleOpFunctions.Hanging;
@@ -19,8 +16,8 @@ import org.firstinspires.ftc.teamcode.TeleOpFunctions.LinerSlide;
 import org.firstinspires.ftc.teamcode.TeleOpFunctions.TransferLeft;
 import org.firstinspires.ftc.teamcode.TeleOpFunctions.TransferRight;
 
-@TeleOp(name = "TeleOp Lord \nFLY HIPPO", group = "robot")
-public class TeleOpLordFlyingHippo extends OpMode
+@TeleOp(name = "TeleOp Lord Solo\nFLY HIPPO", group = "robot")
+public class TeleOpLordFlyingHippoSolo extends OpMode
 {
     MecanumDriveBaseFlyingHippo mecanumDriveBaseFlyingHippo;
 //    DriveToTag driveToTag;
@@ -72,7 +69,7 @@ public class TeleOpLordFlyingHippo extends OpMode
 //        driveToTag.targetLocator(gamepad1);
 
 
-        linerSlide.linerSlideDrive();
+        linerSlide.linerSlideDriveSolo();
         hippoHead.heightDrive();
         hanging.hangingDrive();
         intake.IntakeDrive(linerSlide.getTouchSensor());

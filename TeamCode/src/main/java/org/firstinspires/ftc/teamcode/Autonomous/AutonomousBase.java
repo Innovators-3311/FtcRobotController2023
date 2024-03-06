@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
+import static org.firstinspires.ftc.teamcode.Autonomous.AutonomousBase.SpikeLineEnum.CENTER_SPIKE;
 import static org.firstinspires.ftc.teamcode.Autonomous.AutonomousBase.SpikeLineEnum.LEFT_SPIKE;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -72,7 +73,7 @@ public class AutonomousBase extends LinearOpMode
 
             colorSwitch = new ColorSwitch(hardwareMap);
 
-            webcamDouble = new WebCamDoubleVision(this, colorSwitch.getTeam());
+//            webcamDouble = new WebCamDoubleVision(this, colorSwitch.getTeam());
 
             driveToTag = new DriveToTag(hardwareMap, telemetry, new ElapsedTime(), new ElapsedTime(), new AprilTagMaster(new MecanumDriveBaseOldHippo(hardwareMap), hardwareMap));
 
@@ -112,24 +113,26 @@ public class AutonomousBase extends LinearOpMode
         telemetry.addData("AprilTag offset", aprilTagOffset);
 
         telemetry.addLine("Press Drive2 A to continue");
-        while ((this.gamepad2.a == false) && (this.gamepad1.a == false))
-        {
-            rec = webcamDouble.findObject();
-            if (rec != null)
-            {
-                double x = (rec.getLeft() + rec.getRight()) / 2;
-                zone = webcamDouble.findTarget(x);
+//        while ((this.gamepad2.a == false) && (this.gamepad1.a == false))
+//        {
+//            rec = webcamDouble.findObject();
+//            if (rec != null)
+//            {
+//                double x = (rec.getLeft() + rec.getRight()) / 2;
+//                zone = webcamDouble.findTarget(x);
+//
+//                //this.telemetry.addData("detected: %d", zone);
+//                //this.telemetry.addLine("detected:");
+//            }
+//            telemetry.addData("AprilTag offset", aprilTagOffset);
+//            telemetry.addData("detected: ", zone);
+//            telemetry.addData("isBlue: ", "%d ", isBlue);
+//
+//            telemetry.addLine("\nPress A to continue");
+//            telemetry.update();
+//        }
 
-                //this.telemetry.addData("detected: %d", zone);
-                //this.telemetry.addLine("detected:");
-            }
-            telemetry.addData("AprilTag offset", aprilTagOffset);
-            telemetry.addData("detected: ", zone);
-            telemetry.addData("isBlue: ", "%d ", isBlue);
-
-            telemetry.addLine("\nPress A to continue");
-            telemetry.update();
-        }
+        zone = CENTER_SPIKE;
 
         telemetry.addLine("Waiting for START Do not touch the controller!!!! OR ELSE!!!!\n The racoon will come for you!");
         telemetry.update();
@@ -144,7 +147,7 @@ public class AutonomousBase extends LinearOpMode
         }
 
         //once we start, we should no longer need Tfod.  Should have IDed target by now.
-        webcamDouble.disableTfod();
+//        webcamDouble.disableTfod();
 
     }
 

@@ -20,7 +20,7 @@ public class LinerSlide extends MotorControl
         touchSensor = opMode.hardwareMap.get(TouchSensor.class, "touchLiner");
     }
     //Calls all methods and then is called in the OpMode loop
-    public void linerSlideDrive()
+    public void linerSlideDriveSolo()
     {
         touchSensorOverride();
         if (!gamepad1.b && !gamepad1.x)
@@ -29,6 +29,15 @@ public class LinerSlide extends MotorControl
             super.encoderControl(-2000, 1, gamepad1.left_bumper);
         }
 //        this.analogControl();
+        this.telemetry();
+    }
+
+    public void linerSlideDrive()
+    {
+        touchSensorOverride();
+        super.encoderControl(0, 1, gamepad2.left_trigger);
+        super.encoderControl(-2000, 1, gamepad2.left_bumper);
+        this.analogControl();
         this.telemetry();
     }
 

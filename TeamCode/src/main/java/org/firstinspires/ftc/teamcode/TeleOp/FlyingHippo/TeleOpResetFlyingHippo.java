@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.TeleOpFunctions.HippoHead;
 import org.firstinspires.ftc.teamcode.TeleOpFunctions.LinerSlide;
 
 @TeleOp(name = "reset \nFLY HIPPO", group = "robot")
-@Disabled
+//@Disabled
 public class TeleOpResetFlyingHippo extends OpMode
 {
     MecanumDriveBaseFlyingHippo mecanumDriveBaseFlyingHippo;

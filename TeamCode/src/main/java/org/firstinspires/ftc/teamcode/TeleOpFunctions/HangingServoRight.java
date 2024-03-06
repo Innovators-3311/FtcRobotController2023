@@ -21,6 +21,6 @@ public class HangingServoRight extends CRServoControl
 
     protected void CRServoDrive()
     {
-        super.CRServoDrive(gamepad2.dpad_up || gamepad2.y, gamepad2.dpad_down || gamepad2.a);
+        super.CRServoDrive(gamepad2.dpad_up || gamepad1.y, gamepad2.dpad_down || gamepad1.a);
     }
 }
