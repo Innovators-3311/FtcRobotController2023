@@ -39,7 +39,7 @@ public class PlanBeta extends AutonomousBase
 
         sleep(1000);
 
-        linerSlideChild.encoderControl(-500, 0.5);
+        linerSlideChild.encoderControl(armHeight, 0.5);
 
         driveToTag.drive(5, zone.ordinal() + 1 + wallTarget, 7, aprilTagOffset);
 
@@ -216,7 +216,7 @@ public class PlanBeta extends AutonomousBase
         {
             if (zone == SpikeLineEnum.LEFT_SPIKE)
             {
-                driver.strafe(22, -isBlue, 0.5, imuControl);
+                driver.strafe(20, -isBlue, 0.5, imuControl);  // was 22
             }
             else if (zone == SpikeLineEnum.CENTER_SPIKE)
             {
@@ -224,7 +224,7 @@ public class PlanBeta extends AutonomousBase
             }
             else if (zone == SpikeLineEnum.RIGHT_SPIKE)
             {
-                driver.strafe(26, -isBlue, 0.5, imuControl);  //was 24
+                driver.strafe(29, -isBlue, 0.5, imuControl);  //was 24
             }
         }
 

@@ -35,17 +35,20 @@ public class PlanAlpha extends AutonomousBase
         transferRight.autonomousControl(true);
         transferleft.autonomousControl(true);
 
-        sleep(1000);
-        linerSlideChild.encoderControl(-500, 0.5);
+        //sleep(500);    //need to figure out the timing issues here!!!!!!  TODO
 
+        linerSlideChild.encoderControl(armHeight, 0.5);
+
+        sleep(2000);
 
         driveToTag.drive(4, zone.ordinal() + 1 + wallTarget, 7, aprilTagOffset);
 
 
         heightChild.encoderControl(0, 0.7);
-        linerSlideChild.encoderControl(0,  0.5);
 
         sleep(2000);
+
+        linerSlideChild.encoderControl(0,  0.5);
 
         transferRight.autonomousControl(false);
         transferleft.autonomousControl(false);
@@ -122,7 +125,7 @@ public class PlanAlpha extends AutonomousBase
             }
             else if(isBlue == -1)
             {
-                driver.strafe(18, isBlue, 0.5, imuControl);
+                driver.strafe(16, isBlue, 0.5, imuControl);
             }
 
 

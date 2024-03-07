@@ -50,7 +50,7 @@ public class PlanGamma extends AutonomousBase
 
         sleep(2000);
         //driveToTag.drive(7, zone.ordinal() + 1 + wallTarget, 11, 0);
-        driveToTag.drive(5, zone.ordinal() + 1 + wallTarget, 7, aprilTagOffset);
+        driveToTag.drive(4, zone.ordinal() + 1 + wallTarget, 7, aprilTagOffset);
 
         transferRight.autonomousControl(false);
         transferleft.autonomousControl(false);

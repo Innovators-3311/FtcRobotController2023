@@ -122,7 +122,7 @@ public class AutonomousBase extends LinearOpMode
         sleep(2000);
         Logging.log("isBlue: " + isBlue);
 
-        aprilTagOffset = aprilTagOffset();
+        aprilTagOffset = 3; //aprilTagOffset();
         telemetry.addData("AprilTag offset", aprilTagOffset);
 
         armHeight = setArmHeight();
@@ -276,7 +276,7 @@ public class AutonomousBase extends LinearOpMode
             } // default
             else if ((!currentGamepad1.y && previousGamepad1.y) )
             {
-                return 3;
+                return -10;
             }
         }
     }
