@@ -7,7 +7,6 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.Controller.MecanumDriveBases.MecanumDriveBaseOD;
 
 @TeleOp(name = "OD drive", group = "drive")
-@Disabled
 public class ODDrive extends OpMode
 {
     MecanumDriveBaseOD mecanumDriveBaseOD;

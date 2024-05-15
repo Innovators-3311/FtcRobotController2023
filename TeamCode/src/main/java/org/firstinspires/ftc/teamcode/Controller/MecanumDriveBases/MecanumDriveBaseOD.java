@@ -16,7 +16,7 @@ public class MecanumDriveBaseOD extends MecanumDriveBase
      */
     public MecanumDriveBaseOD(HardwareMap hardwareMap)
     {
-        super(hardwareMap, false, true, true, false);
+        super(hardwareMap, false, true, true, true);
     }
 
 }
